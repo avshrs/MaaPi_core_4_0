@@ -34,7 +34,8 @@ class Selector(object):
         else:
             _seconds = value
         return _seconds
-    #main method - get list of sensors compare datetime.now() - last_update > sensor_interval 
+
+    #main method - get list of sensors compare datetime.now() - last_update > sensor_interval
     @classmethod
     def get_data_and_validate(self):
         start  = datetime.now()
