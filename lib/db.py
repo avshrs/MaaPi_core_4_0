@@ -8,7 +8,7 @@
 ##############################################################
 import psycopg2
 from datetime import datetime, timedelta
-from MaaPi_Settings import *
+from conf.MaaPi_Settings import *
 
 class db(object):
         conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))

@@ -8,7 +8,7 @@
 ##############################################################
 import psycopg2
 from datetime import datetime, timedelta
-from MaaPi_Settings import *
+from conf.MaaPi_Settings import *
 
 
 class MaaPiDBConnection(object):
