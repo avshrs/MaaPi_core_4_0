@@ -16,6 +16,7 @@ get class name from devices conf. and get/put data from/to sensor/gpio
 class Selector(object):
     debug=1
     start = datetime.now()
+
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
