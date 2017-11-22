@@ -1,13 +1,19 @@
 #!/usr/bin/python
-
 from lib.db import MaaPiDBConnection
-#from lib.db import MaaPiDBConnection
 from datetime import datetime
 from conf.MaaPi_Settings import *
 import threading
 import sched
 import time
 import sys
+
+
+
+"""
+Class selector - check sensor which is reading is older then NOW() - interval
+get class name from devices conf. and get/put data from/to sensor/gpio
+"""
+
 
 class Selector(object):
     debug=1

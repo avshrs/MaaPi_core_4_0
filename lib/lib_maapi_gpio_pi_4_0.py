@@ -7,8 +7,6 @@ import RPi.GPIO as GPIO
 from MaaPi_Settings import *
 import sys
 
-
-
 def qa(message):
     try:
         if sys.argv[1]=="-v":
