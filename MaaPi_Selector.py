@@ -17,12 +17,13 @@ class Selector(object):
     debug=1
     start = datetime.now()
 
-
+    # debug method
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
             print("DEBUG Selector    {0} {1}, {2}".format(level, datetime.now(), msg))
 
+    # convert value from sensors interval from hours minutes to seconds
     @classmethod
     def to_sec(self,value,unit):
         _seconds=0
@@ -33,7 +34,7 @@ class Selector(object):
         else:
             _seconds = value
         return _seconds
-
+    #main method - get list of sensors compare datetime.now() - last_update > sensor_interval 
     @classmethod
     def get_data_and_validate(self):
         start  = datetime.now()
