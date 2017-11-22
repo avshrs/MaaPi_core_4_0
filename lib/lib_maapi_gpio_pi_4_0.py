@@ -7,12 +7,15 @@ import RPi.GPIO as GPIO
 from MaaPi_Settings import *
 import sys
 
+# deprecated
+
 def qa(message):
     try:
         if sys.argv[1]=="-v":
             print message
     except:
         pass
+
 
 def run():
     """ set mode of gpio """

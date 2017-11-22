@@ -17,6 +17,7 @@ class Selector(object):
     debug=1
     start = datetime.now()
 
+
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
