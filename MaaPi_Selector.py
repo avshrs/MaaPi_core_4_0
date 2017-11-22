@@ -13,8 +13,6 @@ import sys
 Class selector - check sensor which is reading is older then NOW() - interval
 get class name from devices conf. and get/put data from/to sensor/gpio
 """
-
-
 class Selector(object):
     debug=1
     start = datetime.now()
