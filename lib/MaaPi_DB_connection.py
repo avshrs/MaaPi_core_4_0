@@ -114,11 +114,12 @@ class MaaPiDBConnection(object):
                         values_history_temp=x.fetchall()
                     except:
                         values_history_error=True
+
                     for i in range(range_nr):
                         date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
                         date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
 
-                        if values_history_temp[i][1]>=date_now_b and values_history_temp[i][1]<=date_now_a:
+                        if values_history_temp[i][1] >= date_now_b and values_history_temp[i][1] <= date_now_a:
                             values_history.append(values_history_temp[i][0])
                         else:
                             values_history[i]=None
@@ -273,9 +274,10 @@ class MaaPiDBConnection(object):
                     for row_s in range(len(table_data)):
                         sensor_rows = {}
                         i = 0
-                        if table_names[i][0]:
+                        if isinstance(table_names[i], tuple):
                             for r_s in table_data[row_s]:
                                 sensor_rows[table_names[i][0]] = r_s
+
                                 i += 1
                         else:
                             for r_s in table_data[row_s]:
