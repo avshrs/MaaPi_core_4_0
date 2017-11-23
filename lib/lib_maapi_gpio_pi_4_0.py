@@ -11,7 +11,7 @@ import lib.MaaPi_DB_connection as maapidb
 
 
 
-class class_get_values(object):
+class class_set_values(object):
     debug = 0
 
     @classmethod
@@ -20,8 +20,7 @@ class class_get_values(object):
             print("DEBUG OneWire_PI0 {0} {1}, {2}".format(level, datetime.now(), msg))
     @staticmethod
     def set_gpio_state(mp_table,slonv):
-        print (mp_table)
-        print (slonv)
+
 
     @classmethod
     def __init__(self,*args):
@@ -29,10 +28,16 @@ class class_get_values(object):
     #    GPIO.setmode(GPIO.BCM)
     #    GPIO.setwarnings(False)
         for arg in args:
+
             mp = maapidb.MaaPiDBConnection().table("maapi_switch").columns('switch_update_rom_id',"*").filters_eq(switch_enabled=True,switch_update_rom_id=arg[0],).get()
+            device_last_value = maapidb.MaaPiDBConnection().table("devices").columns('dev_id','dev_value').filters_eq(dev_id=mp[arg[0]]['switch_reference_sensor_id']).get()
             if mp[arg[0]]['switch_range_acc']:  # if switch_range_acc is not None
-                slnov = maapidb.MaaPiDBConnection().select_last_nr_of_values( mp[arg[0]]['switch_reference_sensor_id'],mp[arg[0]]['switch_range_acc']) #1 arg DEV ID, 2 arg RANGE IN MINUTES
+                slonv = maapidb.MaaPiDBConnection().select_last_nr_of_values( mp[arg[0]]['switch_reference_sensor_id'],mp[arg[0]]['switch_range_acc']) #1 arg DEV ID, 2 arg RANGE IN MINUTES
             self.set_gpio_state(mp,slonv)
 
+
+
+
+
 if __name__ == "__main__":
-    class_get_values()
+    class_set_values()
