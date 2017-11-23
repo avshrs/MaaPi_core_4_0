@@ -19,7 +19,7 @@ import lib.MaaPi_DB_connection as maapidb
 
 
 class class_set_values(object):
-    debug = 1
+    debug = 2
 
     @classmethod
     def _debug(self, level, msg):
@@ -42,24 +42,88 @@ class class_set_values(object):
 
             if mp_table[arg[0]]["switch_data_from_sens_id"] and mp_table[arg[0]]["switch_update_rom_id"]:
                 self._debug(1,"switch_data_from_sens_id and switch_update_rom_id  is TRUE")
-
+                val_max=1
+                val_min=1
                 device_range_value = maapidb.MaaPiDBConnection().select_last_nr_of_values(mp_table[arg[0]]["switch_data_from_sens_id"],mp_table[arg[0]]["switch_range_acc"])
                 self._debug(1,"get switch_range_acc = {0}".format(device_range_value))
+                if mp_table[arg[0]]["switch_value_min_e"]:
+                    if mp_table[arg[0]]["switch_reference_sensor_min_e"] and mp_table[arg[0]]["switch_reference_sensor_min_id"]:
 
-                if mp_table[arg[0]]["switch_reference_sensor_min_e"] and mp_table[arg[0]]["switch_reference_sensor_min_id"]:
-                    self._debug(1,"switch_reference_sensor_min_e and switch_reference_sensor_min_id is True".format(device_range_value))
-                    device_range_value_ref_min = maapidb.MaaPiDBConnection().select_last_nr_of_values(mp_table[arg[0]]["switch_reference_sensor_min_id"],mp_table[arg[0]]["switch_range_acc"])
-                    self._debug(1,"get device_range_value_ref_min = {0}".format(device_range_value_ref_min))
-                    for i in range(mp_table[arg[0]]["switch_range_acc"]):
-                        self._debug(1," ref ={0} < source {1} = {2}".format(device_range_value_ref_min[i] , device_range_value[i],device_range_value_ref_min[i] < device_range_value[i]))
-                        if device_range_value_ref_min[i] < device_range_value[i]:
-                            self._debug(1," device_range_value_ref_min[i] < device_range_value[i] = True".format())
-                else:
-                    pass
-                if mp_table[arg[0]]["switch_reference_sensor_max_e"] and mp_table[arg[0]]["switch_reference_sensor_max_id"]:
-                    pass
-                else:
-                    pass
+                        self._debug(1,"switch_reference_sensor_min_e and switch_reference_sensor_min_id is True".format())
+                        device_range_value_ref_min = maapidb.MaaPiDBConnection().select_last_nr_of_values(mp_table[arg[0]]["switch_reference_sensor_min_id"],mp_table[arg[0]]["switch_range_acc"])
+
+                        self._debug(1,"get device_range_value_ref_min = {0}".format(device_range_value_ref_min))
+                        for i in range(mp_table[arg[0]]["switch_range_acc"]):
+
+                            self._debug(2,"source {0} < ref {1} - val {2} = {3}".format(device_range_value[i] , device_range_value_ref_min[i] , mp_table[arg[0]]["switch_value_min"] ,device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] ))
+                            if  device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] :
+                                self._debug(2,"val_min  = 1")
+                            else:
+                                val_min=0
+                                self._debug(2,"val_min  = 0 ")
+                        self._debug(1,"finally val_min  = {0} ".format(val_min))
+                    else:
+                        self._debug(1,"switch_reference_sensor_min_e and switch_reference_sensor_min_id is False".format())
+                        for i in range(mp_table[arg[0]]["switch_range_acc"]):
+
+                            self._debug(2,"source {0} <  val {1} = {2}".format(device_range_value[i] ,  mp_table[arg[0]]["switch_value_min"] ,device_range_value[i] <  mp_table[arg[0]]["switch_value_min"] ))
+                            if  device_range_value[i] < mp_table[arg[0]]["switch_value_min"] :
+                                self._debug(2,"val_min  = 1")
+                            else:
+                                val_min=0
+                                self._debug(2,"val_min  = 0 ")
+                        self._debug(1,"finally val_min  = {0} ".format(val_min))
+
+
+                if mp_table[arg[0]]["switch_value_max_e"]:
+                    if mp_table[arg[0]]["switch_reference_sensor_max_e"] and mp_table[arg[0]]["switch_reference_sensor_max_id"]:
+
+                        self._debug(1,"switch_reference_sensor_max_e and switch_reference_sensor_max_id is True".format())
+                        device_range_value_ref_max = maapidb.MaaPiDBConnection().select_last_nr_of_values(mp_table[arg[0]]["switch_reference_sensor_max_id"],mp_table[arg[0]]["switch_range_acc"])
+
+                        self._debug(1,"get device_range_value_ref_max = {0}".format(device_range_value_ref_max))
+                        for i in range(mp_table[arg[0]]["switch_range_acc"]):
+
+                            self._debug(2,"source {0} > ref {1} + val {2} = {3}".format(device_range_value[i] , device_range_value_ref_max[i] , mp_table[arg[0]]["switch_value_max"] ,device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] ))
+                            if  device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] :
+                                self._debug(2,"val_max  = 1")
+                            else:
+                                val_max=0
+                                self._debug(2,"val_max  = 0 ")
+                        self._debug(1,"finally val_max  = {0} ".format(val_max))
+                    else:
+                        self._debug(1,"switch_reference_sensor_max_e and switch_reference_sensor_max_id is False".format())
+                        for i in range(mp_table[arg[0]]["switch_range_acc"]):
+
+                            self._debug(2,"source {0} >  val {1} = {2}".format(device_range_value[i] ,  mp_table[arg[0]]["switch_value_max"] ,device_range_value[i] >  mp_table[arg[0]]["switch_value_max"] ))
+                            if  device_range_value[i] > mp_table[arg[0]]["switch_value_max"] :
+                                self._debug(2,"val_max  = 1")
+                            else:
+                                val_max=0
+                                self._debug(2,"val_max  = 0 ")
+                        self._debug(1,"finally val_max  = {0} ".format(val_max))
+
+
+                if mp_table[arg[0]]["switch_invert"]:
+                    self._debug(1,"invert is true".format(val_max))
+                    v_min = val_min
+                    v_max = val_max
+                    if val_min == 1:  val_min = 0
+                    else:             val_min = 1
+                    if val_max == 1:  val_max = 0
+                    else:             val_max = 1
+                    self._debug(1,"was inverted min = {0} from {1} and max = {2} from {3} ".format(val_min, v_min,val_max,v_max))
+
+                if mp_table[arg[0]]["switch_turn_on_at_sensor_e" ] and mp_table[arg[0]]["switch_turn_on_at_sensor_id" ]:
+                    self._debug(1,"Table switch_turn_on_at_sensor_e and switch_turn_on_at_sensor_id is True".format())
+                    if mp_table[arg[0]]["switch_turn_on_at_sensor_value_min_e" ] and mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ]:
+                        self._debug(1,"Table switch_turn_on_at_sensor_e and switch_turn_on_at_sensor_id is True".format())
+                        if device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id" ]]["dev_value"] < mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ]:
+                            self._debug(1,"switch_turn_on_at_sensor_e condition on min is True put normal val_min".format())
+                        else:
+                            self._debug(1,"switch_turn_on_at_sensor_e condition on min is False force data val_min to {0}".format(mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ] ))
+                    if mp_table[arg[0]]["switch_turn_on_at_sensor_value_max_e" ] and mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ]:
+
 
 if __name__ == "__main__":
     class_set_values()
