@@ -7,15 +7,6 @@ import RPi.GPIO as GPIO
 import sys
 import lib.MaaPi_DB_connection as maapidb
 
-# deprecated
-
-"""
-1. recive dev_id
-2. get data from maapi_switch table
-3. validate
-
-
-"""
 
 
 class class_set_values(object):
@@ -53,13 +44,13 @@ class class_set_values(object):
 
                         self._debug(1,"get device_range_value_ref_min = {0}".format(device_range_value_ref_min))
                         for i in range(mp_table[arg[0]]["switch_range_acc"]):
-
-                            self._debug(2,"source {0} < ref {1} - val {2} = {3}".format(device_range_value[i] , device_range_value_ref_min[i] , mp_table[arg[0]]["switch_value_min"] ,device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] ))
-                            if  device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] :
-                                self._debug(2,"val_min  = 1")
-                            else:
-                                val_min=0
-                                self._debug(2,"val_min  = 0 ")
+                            if device_range_value_ref_min[i] is not None and  device_range_value[i] is not None:
+                                self._debug(2,"source {0} < ref {1} - val {2} = {3}".format(device_range_value[i] , device_range_value_ref_min[i] , mp_table[arg[0]]["switch_value_min"] ,device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] ))
+                                if  device_range_value[i] < device_range_value_ref_min[i] - mp_table[arg[0]]["switch_value_min"] :
+                                    self._debug(2,"val_min  = 1")
+                                else:
+                                    val_min=0
+                                    self._debug(2,"val_min  = 0 ")
                         self._debug(1,"finally val_min  = {0} ".format(val_min))
                     else:
                         self._debug(1,"switch_reference_sensor_min_e and switch_reference_sensor_min_id is False".format())
@@ -82,13 +73,13 @@ class class_set_values(object):
 
                         self._debug(1,"get device_range_value_ref_max = {0}".format(device_range_value_ref_max))
                         for i in range(mp_table[arg[0]]["switch_range_acc"]):
-
-                            self._debug(2,"source {0} > ref {1} + val {2} = {3}".format(device_range_value[i] , device_range_value_ref_max[i] , mp_table[arg[0]]["switch_value_max"] ,device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] ))
-                            if  device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] :
-                                self._debug(2,"val_max  = 1")
-                            else:
-                                val_max=0
-                                self._debug(2,"val_max  = 0 ")
+                            if device_range_value_ref_max[i] is not None and  device_range_value[i] is not None:
+                                self._debug(2,"source {0} > ref {1} + val {2} = {3}".format(device_range_value[i] , device_range_value_ref_max[i] , mp_table[arg[0]]["switch_value_max"] ,device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] ))
+                                if  device_range_value[i] > device_range_value_ref_max[i] + mp_table[arg[0]]["switch_value_max"] :
+                                    self._debug(2,"val_max  = 1")
+                                else:
+                                    val_max=0
+                                    self._debug(2,"val_max  = 0 ")
                         self._debug(1,"finally val_max  = {0} ".format(val_max))
                     else:
                         self._debug(1,"switch_reference_sensor_max_e and switch_reference_sensor_max_id is False".format())
@@ -102,20 +93,8 @@ class class_set_values(object):
                                 self._debug(2,"val_max  = 0 ")
                         self._debug(1,"finally val_max  = {0} ".format(val_max))
 
-                gpio_val = lambda: 1 if val_min and val_max else 0
 
-                GPIO.setup(device_last_value[arg[0]]["dev_gpio_pin"], GPIO.OUT)
 
-                self._debug(1,"GPIO ACTUAL STATE IS {0} NEW STATE IS = {1} ".format(GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]),gpio_val()))
-
-                if mp_table[arg[0]]["switch_invert"]:
-                    self._debug(1,"invert is true".format(val_max))
-                    v_min = val_min
-                    v_max = val_max
-                    val_min = lambda: 1 if val_min == 0 else 0
-                    val_max = lambda: 1 if val_max == 0 else 0
-
-                    self._debug(1,"was inverted min = {0} from {1} and max = {2} from {3} ".format(val_min(), v_min,val_max(),v_max))
 
                 if mp_table[arg[0]]["switch_turn_on_at_sensor_e" ] and mp_table[arg[0]]["switch_turn_on_at_sensor_id" ]:
                     self._debug(1,"Table switch_turn_on_at_sensor_e and switch_turn_on_at_sensor_id is True".format())
@@ -127,7 +106,7 @@ class class_set_values(object):
                             self._debug(1,"switch_turn_on_at_sensor_e condition on min {0} < {1} is {2} put normal val_min {3}".format(device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"],mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ],device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"] < mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ],val_min()))
                         else:
                             self._debug(1,"switch_turn_on_at_sensor_e condition on min {0} < {1} is {2} put forced val_min to {3}".format(device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"],mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ],device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"] < mp_table[arg[0]]["switch_turn_on_at_sensor_value_min" ],mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]))
-                            val_min = lambda  s: 1 if mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]  else 0
+                            val_max = mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]
 
                     if mp_table[arg[0]]["switch_turn_on_at_sensor_value_max_e" ] and mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ]:
                         self._debug(1,"Table switch_turn_on_at_sensor_e and switch_turn_on_at_sensor_id is True".format())
@@ -136,31 +115,43 @@ class class_set_values(object):
                             self._debug(1,"switch_turn_on_at_sensor_e condition on max {0} > {1} is {2} put normal val_max {3}".format(device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"],mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ],device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"] > mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ],val_max()))
                         else:
                             self._debug(1,"switch_turn_on_at_sensor_e condition on max {0} > {1} is {2} put forced val_max to {3}".format(device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"],mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ],device_last_value[mp_table[arg[0]]["switch_turn_on_at_sensor_id"]]["dev_value"] > mp_table[arg[0]]["switch_turn_on_at_sensor_value_max" ],mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]))
-                            val_max = lambda  s: 1 if mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]  else 0
+                            val_max = mp_table[arg[0]]["switch_turn_on_at_cond_not_val" ]
 
-                    if val_min == 0 and val_max ==0:
-                        self._debug(1,"val_min and val_max is equal 0 ".format())
-                        if GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]):
-                            self._debug(1,"GPIO PIN IS {0}".format(device_last_value[arg[0]]["dev_gpio_pin"]))
-                        else:
-                            GPIO.output(device_last_value[arg[0]]["dev_gpio_pin"],0)
-                            if GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]) is not True:
-                                maapidb.MaaPiDBConnection.insert_data(arg[0],0,True)
-                                self._debug(1,"GPIO {0} STATE UPDATED TO: {1}".format(device_last_value[arg[0]]["dev_gpio_pin"], 0))
+                self._debug(1,"min = {0},  max ={1}".format(val_min,val_max))
 
-                    elif Value_min == 1 or Value_max ==1:
-                        GPIO.output(switch_gpio_nr,1)
-                        qa("{0} - dev {1}      - or exec gpio - min or max == 1".format(datetime.now(),i))
-                        if GPIO.input(switch_gpio_nr):
-                            qa("{1} - dev {2}      - exec gpio - gpio state 1".format(GPIO.input(switch_gpio_nr),datetime.now(),i))
-                            x.execute("SELECT dev_value FROM devices WHERE dev_id={0}".format(switch_update_id[i][0]))
-                            dev_value_old = x.fetchone()[0]
-                            x.execute("UPDATE devices SET dev_value={0}, dev_value_old={1}, dev_last_update=NOW(), dev_read_error='{2}'  WHERE dev_id='{3}'".format(1, dev_value_old,'ok' ,switch_update_id[i][0]))
-                            conn.commit()
-                            x.execute("SELECT dev_rom_id FROM devices WHERE dev_id='{0}' ".format(switch_update_id[i][0]))
-                            dev_rom_id = x.fetchone()[0]
-                            x.execute("""INSERT INTO maapi_dev_rom_{0}_values VALUES (default,{1},default,{2})""".format(dev_rom_id.replace("-", "_"), switch_update_id[i][0],1))
-                            conn.commit()
+                if val_min and val_max:
+                    gpio_val = 1
+                else: gpio_val = 0
+
+                if mp_table[arg[0]]["switch_invert"]:
+                    if gpio_val: gpio_finale=0
+                    else: gpio_finale=1
+                    self._debug(1,"was inverted forom {0} to {1}".format(gpio_val,gpio_finale))
+                else:
+                    self._debug(1,"none invert")
+                    gpio_finale = gpio_val
+
+                GPIO.setup(device_last_value[arg[0]]["dev_gpio_pin"], GPIO.OUT)
+
+                self._debug(1,"GPIO.setup({0}, GPIO.OUT)".format(device_last_value[arg[0]]['dev_gpio_pin']))
+
+                if GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]) and gpio_finale:
+                    self._debug(1,"GPIO ACTUAL STATE IS {0} NEW STATE IS = {1} DO NOT TOUCH GPIO PIN  ".format(GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]),gpio_finale))
+                else:
+                    self._debug(1,"GPIO ACTUAL STATE IS {0} NEW STATE IS = {1}   ".format(GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]),gpio_finale))
+                    gpio_nr = device_last_value[arg[0]]["dev_gpio_pin"]
+                    if gpio_finale:
+                        GPIO.output(gpio_nr,gpio_finale)
+                        self._debug(1,"GPIO state is {0}".format(GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"])))
+                        maapidb.MaaPiDBConnection.insert_data(arg[0],gpio_finale,"_",True)
+                        self._debug(1,"GPIO {0} STATE UPDATED TO: {1}".format(device_last_value[arg[0]]["dev_gpio_pin"], gpio_finale))
+                    else:
+
+                        GPIO.output(gpio_nr,gpio_finale)
+                        self._debug(1,"GPIO state is {0}".format(GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"])))
+                        maapidb.MaaPiDBConnection.insert_data(arg[0],gpio_finale,"_",True)
+                        self._debug(1,"GPIO {0} STATE UPDATED TO: {1}".format(device_last_value[arg[0]]["dev_gpio_pin"],gpio_finale))
+
 
 
 if __name__ == "__main__":
