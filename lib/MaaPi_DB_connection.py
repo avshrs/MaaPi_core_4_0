@@ -106,6 +106,7 @@ class MaaPiDBConnection(object):
                 except (Exception, psycopg2.DatabaseError) as error:
                     values_history_error=True
                 else:
+                    values_history=[]
                     date_now_a = datetime.now().replace(second=0,microsecond=0)
                     date_now_b = datetime.now().replace(second=0,microsecond=0) - timedelta(minutes=range_nr)
                     try:
@@ -114,16 +115,9 @@ class MaaPiDBConnection(object):
                     except:
                         values_history_error=True
 
-                    for i in range(range_nr):
-                        date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
-                        date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
-
-                        if values_history_temp[i][1]>=date_now_b and values_history_temp[i][1]<=date_now_a:
-                            values_history[i]=values_history_temp[i][0]
-                        else:
-                            values_history[i]=None
+                            
                 conn.close()
-            return  values_history,values_history_error
+            return  values_history_temp
 
     @classmethod
     def queue_all(self,status):
@@ -227,7 +221,7 @@ class MaaPiDBConnection(object):
         self.table_ = {}
 
     def exec_query_select(self, query, name):
-        print query
+        #print query
         try:
             conn = psycopg2.connect(
                 "dbname='{0}' user='{1}' host='{2}' password='{3}'".format(
@@ -242,13 +236,14 @@ class MaaPiDBConnection(object):
                 x.execute(query)
                 table_data = x.fetchall()
 
-                print table_data
+
                 if self.columns_var == '*':
                     x.execute(
                         "SELECT column_name FROM information_schema.columns WHERE table_name='{0}' ".
                         format(name))
                     table_names = x.fetchall()
-                    print type(table_names)
+
+                #print type(table_names)
                     for row_s in range(len(table_data)):
                         sensor_rows = {}
                         i = 0
@@ -256,16 +251,29 @@ class MaaPiDBConnection(object):
                             sensor_rows[table_names[i][0]] = r_s
                             i += 1
                         table_data_dict[table_data[row_s][0]] = sensor_rows
+
                 else:
-                    if self.columns_var[1]== "*":
-                        print "* on second arg"
-                    table_names = self.columns_
+                    if self.columns_[1]== "*":
+                        self.columns_=list(self.columns_)
+                        x.execute(
+                            "SELECT column_name FROM information_schema.columns WHERE table_name='{0}' ".
+                            format(name))
+                        table_names_tmp = x.fetchall()
+                        table_names = [(self.columns_[0],),]+table_names_tmp
+                    else:
+                        table_names = self.columns_
+
                     for row_s in range(len(table_data)):
                         sensor_rows = {}
                         i = 0
-                        for r_s in table_data[row_s]:
-                            sensor_rows[table_names[i]] = r_s
-                            i += 1
+                        if table_names[i][0]:
+                            for r_s in table_data[row_s]:
+                                sensor_rows[table_names[i][0]] = r_s
+                                i += 1
+                        else:
+                            for r_s in table_data[row_s]:
+                                sensor_rows[table_names[i]]= r_s
+                                i += 1
                         table_data_dict[table_data[row_s][0]] = sensor_rows
 
             except (Exception, psycopg2.DatabaseError) as error:
