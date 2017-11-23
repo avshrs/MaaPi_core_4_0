@@ -122,7 +122,7 @@ class MaaPiDBConnection(object):
                         if values_history_temp[i][1] >= date_now_b and values_history_temp[i][1] <= date_now_a:
                             values_history.append(values_history_temp[i][0])
                         else:
-                            values_history[i]=None
+                            values_history.append(None)
 
                 conn.close()
             return  values_history
@@ -277,7 +277,6 @@ class MaaPiDBConnection(object):
                         if isinstance(table_names[i], tuple):
                             for r_s in table_data[row_s]:
                                 sensor_rows[table_names[i][0]] = r_s
-
                                 i += 1
                         else:
                             for r_s in table_data[row_s]:
