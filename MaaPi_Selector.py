@@ -71,7 +71,7 @@ class Selector(object):
                         self._debug(3,"if dev type id is {0}".format( data_devices_list[types]["device_name"]))
 
                         if data_devices[devices]["dev_interval"] and data_devices[devices]["dev_interval_unit_id"]:
-
+                            
                             self._debug(3,"if dev interval is not None ".format( ))
                             time_delta = (datetime.now() - data_devices[devices]["dev_last_update"]).total_seconds()
                             self._debug(3,"time delta {0}".format( time_delta))

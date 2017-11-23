@@ -9,7 +9,7 @@ import lib.MaaPi_DB_connection as maapidb
 
 
 
-class class_set_values(object):
+class class_get_values(object):
     debug = 2
 
     @classmethod
@@ -155,4 +155,4 @@ class class_set_values(object):
 
 
 if __name__ == "__main__":
-    class_set_values()
+    class_get_values()
