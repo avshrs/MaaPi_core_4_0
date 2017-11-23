@@ -89,6 +89,42 @@ class MaaPiDBConnection(object):
                 conn.commit()
             conn.close()
 
+
+    @classmethod
+    def select_last_nr_of_values(self,dev_id,range_nr):
+            try:
+                conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+            except:
+                print "I am unable to connect to the database"
+            else:
+                x = conn.cursor()
+
+                try:
+                    x.execute("SELECT dev_rom_id FROM devices where dev_id={0}".format(dev_id))
+                    dev_rom_id = x.fetchone()[0]
+
+                except (Exception, psycopg2.DatabaseError) as error:
+                    values_history_error=True
+                else:
+                    date_now_a = datetime.now().replace(second=0,microsecond=0)
+                    date_now_b = datetime.now().replace(second=0,microsecond=0) - timedelta(minutes=range_nr)
+                    try:
+                        x.execute("""SELECT dev_value, dev_timestamp from maapi_dev_rom_{0}_values where dev_timestamp>='{1}' and dev_timestamp<='{2}' order by dev_timestamp desc""".format(dev_rom_id.replace("-", "_"),date_now_b,date_now_a))
+                        values_history_temp=x.fetchall()
+                    except:
+                        values_history_error=True
+
+                    for i in range(range_nr):
+                        date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
+                        date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
+
+                        if values_history_temp[i][1]>=date_now_b and values_history_temp[i][1]<=date_now_a:
+                            values_history[i]=values_history_temp[i][0]
+                        else:
+                            values_history[i]=None
+                conn.close()
+            return  values_history,values_history_error
+
     @classmethod
     def queue_all(self,status):
         try:
@@ -191,6 +227,7 @@ class MaaPiDBConnection(object):
         self.table_ = {}
 
     def exec_query_select(self, query, name):
+        print query
         try:
             conn = psycopg2.connect(
                 "dbname='{0}' user='{1}' host='{2}' password='{3}'".format(
@@ -204,12 +241,14 @@ class MaaPiDBConnection(object):
             try:
                 x.execute(query)
                 table_data = x.fetchall()
+
+                print table_data
                 if self.columns_var == '*':
                     x.execute(
                         "SELECT column_name FROM information_schema.columns WHERE table_name='{0}' ".
                         format(name))
                     table_names = x.fetchall()
-
+                    print type(table_names)
                     for row_s in range(len(table_data)):
                         sensor_rows = {}
                         i = 0
@@ -217,8 +256,9 @@ class MaaPiDBConnection(object):
                             sensor_rows[table_names[i][0]] = r_s
                             i += 1
                         table_data_dict[table_data[row_s][0]] = sensor_rows
-
                 else:
+                    if self.columns_var[1]== "*":
+                        print "* on second arg"
                     table_names = self.columns_
                     for row_s in range(len(table_data)):
                         sensor_rows = {}
