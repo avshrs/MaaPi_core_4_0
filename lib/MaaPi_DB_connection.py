@@ -119,12 +119,15 @@ class MaaPiDBConnection(object):
                         date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
                         date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
                         try:
+
                             if values_history_temp[i][1] >= date_now_b and values_history_temp[i][1] <= date_now_a:
                                 values_history.append(values_history_temp[i][0])
+                                print "try {0}".format(values_history)
+                            else: values_history.append(99999)
                         except:
 
-                            values_history.append(None)
-
+                            values_history.append(99999)
+                            print "except {0}".format(values_history)
                 conn.close()
             return  values_history
 
