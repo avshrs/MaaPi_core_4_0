@@ -225,12 +225,7 @@ class MaaPiDBConnection(object):
 
         return data
 
-    def __init__(self):
-        self.filters_ = {}
-        self.orders_ = {}
-        self.columns_ = {}
-        self.columns_var = {}
-        self.table_ = {}
+
 
     def exec_query_select(self, query, name):
         #print query
@@ -294,18 +289,42 @@ class MaaPiDBConnection(object):
             conn.close()
         return table_data_dict
 
-        @classmethod
-        def update_cron(self,file_name,time):
-            try:
-                conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
-            except:
-                print ("I am unable to connect to the database")
-            else:
+    @classmethod
+    def update_cron(self,file_name,time):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
 
-                #print("time={0}\t file name={1}\t file_location={2}".format(time,file_name,Maapi_location))
-                x = conn.cursor()
-                x.execute("UPDATE maapi_cron SET cron_last_file_exec=NOW(), cron_time_of_exec={1} WHERE cron_file_path ='{2}' and cron_where_exec='{3}'".format(datetime.now(),time,file_name,Maapi_location))
+            #print("time={0}\t file name={1}\t file_location={2}".format(time,file_name,Maapi_location))
+            x = conn.cursor()
+            x.execute("UPDATE maapi_cron SET cron_last_file_exec=NOW(), cron_time_of_exec={1} WHERE cron_file_path ='{2}' and cron_where_exec='{3}'".format(datetime.now(),time,file_name,Maapi_location))
 
+            conn.commit()
+
+            conn.close()
+
+
+    @classmethod
+    def reindex(self,tables):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
+
+            x = conn.cursor()
+            for t in tables:
+                x.execute("REINDEX TABLE maapi_dev_rom_{0}_values".format(tables[t]['dev_rom_id'].replace("-", "_")))
+                #print ("REINDEX TABLE maapi_dev_rom_{0}_values".format(tables[t]['dev_rom_id'].replace("-", "_")))
                 conn.commit()
+            conn.close()
 
-                conn.close()
+
+    def __init__(self):
+        self.filters_ = {}
+        self.orders_ = {}
+        self.columns_ = {}
+        self.columns_var = {}
+        self.table_ = {}
