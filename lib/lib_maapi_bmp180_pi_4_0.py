@@ -27,7 +27,7 @@ class class_get_values(object):
                     maapidb.MaaPiDBConnection.insert_data(arg[0],temp,arg[2],True)
                 if arg[2] == "BMP180_Press_pi":
                     pressure = float(sensor.read_pressure())
-                    if pressure > 950 and pressure < 1100:
+                    if pressure >= 950.0 and pressure <= 1100.0:
                         maapidb.MaaPiDBConnection.insert_data(arg[0],pressure/100,arg[2],True)
             except:
                 self._debug(1,"\tERROR reading values from rom_id[1]: {0}".format(arg[1]))
