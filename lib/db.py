@@ -21,7 +21,7 @@ class MaaPiDBConnection(db):
         self.columns_ = {}
         self.columns_var = {}
         self.table_ = {}
-    debug = 1
+    debug = 0
 
 
     @classmethod

@@ -9,7 +9,7 @@ import lib.MaaPi_DB_connection as maapidb
 import logging
 
 class class_get_values(object):
-    debug = 2
+    debug = 1
 
     @classmethod
     def _debug(self, level, msg):
