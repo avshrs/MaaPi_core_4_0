@@ -102,28 +102,19 @@ class MaaPiDBConnection(object):
                 try:
                     x.execute("SELECT dev_rom_id FROM devices where dev_id={0}".format(dev_id))
                     dev_rom_id = x.fetchone()[0]
+                    x.execute("SELECT dev_read_error FROM devices where dev_id={0}".format(dev_id))
+                    error = x.fetchone()[0]
 
                 except (Exception, psycopg2.DatabaseError) as error:
                     values_history_error=True
                 else:
                     values_history=[]
-                    date_now = datetime.now()
-                    date_now_a = date_now.replace(microsecond=0)
-                    date_now_b = datetime.now().replace(microsecond=0) - timedelta(minutes=range_nr)
+                    if error == "ok":
+                        x.execute("""SELECT dev_value, dev_timestamp from maapi_dev_rom_{0}_values  order by dev_timestamp desc limit  {1}""".format(dev_rom_id.replace("-", "_"),range_nr))
+                        values_history_temp = x.fetchall()
+                        for i in range(range_nr):
+                            values_history.append(values_history_temp[i][0])
 
-                    x.execute("""SELECT dev_value, dev_timestamp from maapi_dev_rom_{0}_values where dev_timestamp >= '{1}' and dev_timestamp <= '{2}' order by dev_timestamp desc""".format(dev_rom_id.replace("-", "_"),date_now_b,date_now))
-                    values_history_temp=x.fetchall()
-
-                    for i in range(range_nr):
-                        date_now_c = date_now_a - timedelta(minutes=i)
-                        date_now_d = date_now_a - timedelta(minutes=i+1)
-
-                            print " {0} <= {2} \t {0} >= {1} \t now_d = {3}  \t now_c = {4}".format(date_now_c, date_now_d, values_history_temp[i][1].replace(microsecond=0),values_history_temp[i][1].replace(microsecond=0) >=date_now_d ,values_history_temp[i][1].replace(microsecond=0) <= date_now_c)
-                            if values_history_temp[i][1].replace(microsecond=0) >= date_now_d and values_history_temp[i][1].replace(microsecond=0) <= date_now_c:
-                                values_history.append(values_history_temp[i][0])
-                                #self._debug(1,"value_history{0} and value_history_temp={1}".format(values_history,values_history_temp[i][0]))
-                            else: values_history.append(99999)
-                    
 
                 self._debug(1,"value_history{0}".format(values_history))
 
