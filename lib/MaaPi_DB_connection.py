@@ -12,11 +12,11 @@ from conf.MaaPi_Settings import *
 
 
 class MaaPiDBConnection(object):
-    debug = 0
+    debug = 1
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG MaaPi Conn {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG MaaPi Connection DB Main {0} {1}, {2}".format(level, datetime.now(), msg))
 
     @classmethod
     def insert_data(self,senor_id,value,sensor_type,status):
@@ -115,19 +115,21 @@ class MaaPiDBConnection(object):
                     except:
                         values_history_error=True
                     for i in range(range_nr):
-                        print i
+                    #    print i
                         date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
                         date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
                         try:
 
                             if values_history_temp[i][1] >= date_now_b and values_history_temp[i][1] <= date_now_a:
                                 values_history.append(values_history_temp[i][0])
-                                print "try {0}".format(values_history)
+                            #    print "try {0}".format(values_history)
                             else: values_history.append(99999)
                         except:
 
                             values_history.append(99999)
-                            print "except {0}".format(values_history)
+
+                self._debug(1,"value_history{0}".format(values_history))
+
                 conn.close()
             return  values_history
 
