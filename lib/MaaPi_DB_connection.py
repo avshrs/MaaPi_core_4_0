@@ -115,14 +115,14 @@ class MaaPiDBConnection(object):
                     except:
                         values_history_error=True
                     for i in range(range_nr):
-                    #    print i
+                        #self._debug(1,"nr{0}".format(i))
                         date_now_a = datetime.now().replace(second=0) - timedelta(minutes=i)
                         date_now_b = datetime.now().replace(second=0) - timedelta(minutes=i+1)
                         try:
 
                             if values_history_temp[i][1] >= date_now_b and values_history_temp[i][1] <= date_now_a:
                                 values_history.append(values_history_temp[i][0])
-                            #    print "try {0}".format(values_history)
+                                #self._debug(1,"value_history{0} and value_history_temp={1}".format(values_history,values_history_temp[i][0]))
                             else: values_history.append(99999)
                         except:
 
