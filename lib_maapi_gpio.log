@@ -5854,3 +5854,90 @@ DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 09:29:32.205774, Check min value - va
 DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 09:29:32.206575, Finale Check - 0 from 25 is True for max value 
 DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 09:29:32.207340, Final Value for max is  = 0 
 DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 09:29:32.208084, Check max value - value is=0 	 if False max is not set
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xDF1E from register pair 0xAA, 0xAB
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x10FC from register pair 0xAC, 0xAD
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xC7C6 from register pair 0xAE, 0xAF
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xAD80 from register pair 0xB0, 0xB1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x9662 from register pair 0xB2, 0xB3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xDF1E from register pair 0xAA, 0xAB
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xD147 from register pair 0xB4, 0xB5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x10FC from register pair 0xAC, 0xAD
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x7319 from register pair 0xB6, 0xB7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xC7C6 from register pair 0xAE, 0xAF
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x2100 from register pair 0xB8, 0xB9
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xAD80 from register pair 0xB0, 0xB1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x0080 from register pair 0xBA, 0xBB
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x9662 from register pair 0xB2, 0xB3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xF6D1 from register pair 0xBC, 0xBD
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xD147 from register pair 0xB4, 0xB5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x730A from register pair 0xBE, 0xBF
+DEBUG:Adafruit_BMP.BMP085:AC1 =   7903
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x7319 from register pair 0xB6, 0xB7
+DEBUG:Adafruit_BMP.BMP085:AC2 =  -1008
+DEBUG:Adafruit_BMP.BMP085:AC3 = -14649
+DEBUG:Adafruit_BMP.BMP085:AC4 =  32941
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x2100 from register pair 0xB8, 0xB9
+DEBUG:Adafruit_BMP.BMP085:AC5 =  25238
+DEBUG:Adafruit_BMP.BMP085:AC6 =  18385
+DEBUG:Adafruit_BMP.BMP085:B1 =   6515
+DEBUG:Adafruit_BMP.BMP085:B2 =     33
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x0080 from register pair 0xBA, 0xBB
+DEBUG:Adafruit_BMP.BMP085:MB = -32768
+DEBUG:Adafruit_BMP.BMP085:MC = -11786
+DEBUG:Adafruit_BMP.BMP085:MD =   2675
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xF6D1 from register pair 0xBC, 0xBD
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Wrote 0x2E to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x730A from register pair 0xBE, 0xBF
+DEBUG:Adafruit_BMP.BMP085:AC1 =   7903
+DEBUG:Adafruit_BMP.BMP085:AC2 =  -1008
+DEBUG:Adafruit_BMP.BMP085:AC3 = -14649
+DEBUG:Adafruit_BMP.BMP085:AC4 =  32941
+DEBUG:Adafruit_BMP.BMP085:AC5 =  25238
+DEBUG:Adafruit_BMP.BMP085:AC6 =  18385
+DEBUG:Adafruit_BMP.BMP085:B1 =   6515
+DEBUG:Adafruit_BMP.BMP085:B2 =     33
+DEBUG:Adafruit_BMP.BMP085:MB = -32768
+DEBUG:Adafruit_BMP.BMP085:MC = -11786
+DEBUG:Adafruit_BMP.BMP085:MD =   2675
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x8958 from register pair 0xF6, 0xF7
+DEBUG:Adafruit_BMP.BMP085:Raw temp 0x5889 (22665)
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Wrote 0x2E to register 0xF4
+DEBUG:Adafruit_BMP.BMP085:Calibrated temperature -4.7 C
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x8658 from register pair 0xF6, 0xF7
+DEBUG:Adafruit_BMP.BMP085:Raw temp 0x5886 (22662)
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Wrote 0xB4 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0xAB from register 0xF6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x41 from register 0xF7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X77:Read 0x40 from register 0xF8
+DEBUG:Adafruit_BMP.BMP085:Raw pressure 0xAD05 (175365)
+DEBUG:Adafruit_BMP.BMP085:B5 = -750
+DEBUG:Adafruit_BMP.BMP085:B6 = -4750
+DEBUG:Adafruit_BMP.BMP085:B3 = 34037
+DEBUG:Adafruit_BMP.BMP085:B4 = 35212
+DEBUG:Adafruit_BMP.BMP085:B7 = 1766600000
+DEBUG:Adafruit_BMP.BMP085:Pressure 100315 Pa
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:12.718506, Get history from sensor - dev_id=24 	samples=10
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:12.719856, Finale Check - 0 from 10 is True for min value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:12.720639, Final Value for min is  = 0 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:12.721293, Check min value - value is=0 	 if False max is not set
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.866805, Get history from sensor - dev_id=24 	samples=10
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.868921, 0 from 10 	 Value max is True (9.875 > -2.437 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.870690, 1 from 10 	 Value max is True (9.875 > -2.187 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.872207, 2 from 10 	 Value max is True (9.875 > -2.187 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.873416, 3 from 10 	 Value max is True (9.875 > -2.187 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.875521, 4 from 10 	 Value max is True (9.875 > -2.187 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.877128, 5 from 10 	 Value max is True (9.875 > -2.0 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.878596, 6 from 10 	 Value max is True (9.875 > -1.937 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.880500, 7 from 10 	 Value max is True (9.875 > -1.875 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.887163, 8 from 10 	 Value max is True (9.875 > -1.937 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.889100, 9 from 10 	 Value max is True (9.875 > -1.937 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.890981, Finale Check - 10 from 10 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.893254, Final Value for max is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:13.895178, Check max value - value is=1 	 if False max is not set
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.783834, Get history from sensor - dev_id=19 	samples=25
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.785738, Finale Check - 0 from 25 is True for min value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.786812, Final Value for min is  = 0 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.787783, Check min value - value is=0 	 if False max is not set
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.789959, Finale Check - 0 from 25 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.791566, Final Value for max is  = 0 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-15 12:39:14.792453, Check max value - value is=0 	 if False max is not set
