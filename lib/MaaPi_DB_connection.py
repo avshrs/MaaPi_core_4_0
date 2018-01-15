@@ -12,7 +12,7 @@ from conf.MaaPi_Settings import *
 
 
 class MaaPiDBConnection(object):
-    debug = 1
+    debug = 0
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
