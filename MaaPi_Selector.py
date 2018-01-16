@@ -87,7 +87,7 @@ class Selector(object):
                                 """addding to queue"""
                                 MaaPiDBConnection.queue(data_devices[devices]["dev_id"],True)
                                 devices_list.append((data_devices[devices]["dev_id"],data_devices[devices]["dev_rom_id"], data_devices_list[types]["device_name"] ))
-                print    devices_list             
+                #print    devices_list             
                 if len(devices_list) != 0:
                     _temp = __import__('lib.{0}'.format(data_devices_list[types]["device_lib_name"]), globals(), locals(), ['get_value'], -1)
 

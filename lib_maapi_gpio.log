@@ -6027,3 +6027,35 @@ DEBUG:Adafruit_BMP.BMP085:B3 = 34078
 DEBUG:Adafruit_BMP.BMP085:B4 = 35252
 DEBUG:Adafruit_BMP.BMP085:B7 = 1723562500
 DEBUG:Adafruit_BMP.BMP085:Pressure 97756 Pa
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.227162, Get history from sensor - dev_id=19 	samples=25
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.228246, 0 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.229102, 1 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.229764, 2 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.230435, 3 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.231025, 4 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.231602, 5 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.232175, 6 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.232746, 7 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.233313, 8 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.233884, 9 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.234451, 10 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.235006, 11 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.235552, 12 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.236099, 13 from 25 	 Value min is True (21.437 < 21.75 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.236643, 14 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.237184, 15 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.237725, 16 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.238266, 17 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.238869, 18 from 25 	 Value min is True (21.437 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.239428, 19 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.239972, 20 from 25 	 Value min is True (21.375 < 21.75 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.240515, 21 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.241055, 22 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.241598, 23 from 25 	 Value min is True (21.375 < 21.812 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.242139, 24 from 25 	 Value min is True (21.375 < 21.75 - 0.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.242652, Finale Check - 25 from 25 is True for min value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.243154, Final Value for min is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.243665, Check min value - value is=1 	 if False max is not set
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.244184, Finale Check - 0 from 25 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.244688, Final Value for max is  = 0 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-16 11:50:11.245185, Check max value - value is=0 	 if False max is not set

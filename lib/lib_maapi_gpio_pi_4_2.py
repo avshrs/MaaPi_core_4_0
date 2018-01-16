@@ -9,7 +9,7 @@ import logging
 
 
 class class_get_values(object):
-    debug = 1
+    debug = 0
 
     @classmethod
     def _debug(self, level, msg):
