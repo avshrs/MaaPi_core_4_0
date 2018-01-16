@@ -293,9 +293,9 @@ def run():
 
 try:
     if sys.argv[1]=="--help":
-        print "MaaPi Senosrs module : Cron Managment\n -v       verbose"
+        print "MaaPi Senosrs module : Cron Managment\n -v\tverbose"
     else:
         run()
-        
+
 except:
     run()

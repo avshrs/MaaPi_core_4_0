@@ -108,11 +108,6 @@ class Selector(object):
         time_l = ((loop - ((datetime.now() - self.start).seconds + (float((datetime.now() - self.start).microseconds) / 1000000)) /1000) -0.150 ) / loop
         self._debug(1,"preparing time {0} s".format(time_l))
 
-    #    for x in range(loop*100):
-    #        #print x
-    #        time.sleep(0.01)
-    #        if x % 100 == 0:
-    #            lag = self.get_data_and_validate()
         for i in xrange(loop):
             lag = self.get_data_and_validate()
             if  lag > 0.9:
