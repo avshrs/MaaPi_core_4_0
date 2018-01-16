@@ -51,8 +51,6 @@ class class_get_values(object):
                 self._debug(1,"read_data_from_1w - Value is {0} for rom_id[1] {1}".format(temp,dev_id))
                 w1_file.close()
                 self._debug(2,"Close file")
-
-
             else:
                 w1_file.close()
                 self._debug(2,"CRC False")
@@ -123,13 +121,12 @@ class class_get_values(object):
                             self._debug(1,"collect values from sensor if condition - True \t readed sensor > {0} value = False - do nothing".format(min_max))
         return value
 
-
-
     @classmethod
     def __init__(self,*args):
+
         devices = maapidb.MaaPiDBConnection().table("devices").columns('dev_id', 'dev_rom_id','dev_value', 'dev_gpio_pin','dev_collect_values_if_cond_e','dev_collect_values_if_cond_force_value_e','dev_collect_values_if_cond_force_value','dev_collect_values_if_cond_min_e', 'dev_collect_values_if_cond_max_e', 'dev_collect_values_if_cond_max', 'dev_collect_values_if_cond_min', 'dev_collect_values_if_cond_from_dev_e', 'dev_collect_values_if_cond_from_dev_id', ).get()
         for rom_id in args:
-            print args
+            print "ROM ID = {0}".format(rom_id)
             if devices[rom_id[0]]['dev_collect_values_if_cond_e']:
                 value_min = self.condition_check(rom_id, devices, "min")
                 self._debug(1,"value_min = {0}".format(value_min))
@@ -144,5 +141,5 @@ class class_get_values(object):
 
             else:
                 value = self.read_data_from_1w(rom_id[1],rom_id[0])
-                self._debug(1,"collect values from sensor if condition - False")
+                print "ROM ID = {0} - values updated".format(rom_id)
                 maapidb.MaaPiDBConnection.insert_data(rom_id[0],value,' ',True)
