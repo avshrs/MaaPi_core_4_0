@@ -68,7 +68,7 @@ class class_get_values(object):
         if devices[rom_id[0]]['dev_collect_values_if_cond_{0}_e'.format(min_max)]:
             self._debug(1,"collect values from sensor if condition - True \t {0} values on ".format(min_max))
 
-            if devices[rom_id[0]]['dev_collect_values_if_cond_from_dev_e']:
+            if devices[rom_id[0]]['dev_collect_values_if_cond_from_dev_e'] and devices[rom_id[0]]['dev_collect_values_if_cond_from_dev_id']:
                 self._debug(1,"collect values from sensor if condition - True \t compare to other sensor")
 
                 if min_max=="min":
