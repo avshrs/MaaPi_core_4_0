@@ -20,6 +20,7 @@ class class_get_values(object):
             print("DEBUG OneWire_PI0 {0} {1}, {2}".format(level, datetime.now(), msg))
 
 
+
     @classmethod
     def get_values_and_count(self, math_id, maapi_math, maapi_devices):
         value = 0
@@ -41,11 +42,72 @@ class class_get_values(object):
         else: V4 = v4 = 'none'
 
         try:
-            value = eval(self.maapi_math[math_id]["math_math"])
+            value = eval(maapi_math[math_id]["math_math"])
         except:
             maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],0,' ',False)
         print value
         return value
+
+    @classmethod
+    def update_at_sensor(self, dev_id ,devices):
+        if devices[dev_id]['dev_collect_values_if_cond_{0}_e'.format(min_max)]:
+            self._debug(1,"collect values from sensor if condition - True \t {0} values on ".format(min_max))
+
+            if devices[dev_id]['dev_collect_values_if_cond_from_dev_e'] and devices[dev_id]['dev_collect_values_if_cond_from_dev_id']:
+                self._debug(1,"collect values from sensor if condition - True \t compare to other sensor")
+
+                if min_max=="min":
+                    if devices[devices[dev_id]['dev_collect_values_if_cond_from_dev_id']]['dev_value'] < devices[dev_id]['dev_collect_values_if_cond_{0}'.format(min_max)]:
+
+                        value = self.read_data_from_1w(rom_id[1],dev_id)
+
+                        self._debug(1,"collect values from sensor if condition - True \t compared sensor < {1} value = true - puting readed value = {0}".format(value,min_max))
+
+                    else:
+                        if devices[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                            value = devices[dev_id]['dev_collect_values_if_cond_force_value']
+                            self._debug(1,"collect values from sensor if condition - True \t compared sensor < {1} value = false - puting forced value = {0}".format(devices[dev_id]['dev_collect_values_if_cond_force_value'],min_max))
+                        else:
+                            self._debug(1,"collect values from sensor if condition - True \t compared sensor < {0} value = false - do nothing".format(min_max))
+
+                if min_max == "max":
+                    if devices[devices[dev_id]['dev_collect_values_if_cond_from_dev_id']]['dev_value'] > devices[dev_id]['dev_collect_values_if_cond_{0}'.format(min_max)]:
+
+                        value = self.read_data_from_1w(rom_id[1],dev_id)
+
+                        self._debug(1,"collect values from sensor if condition - True \t compared sensor > {1} value = true - puting readed value = {0}".format(value,min_max))
+
+                    else:
+                        if devices[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                            value = devices[dev_id]['dev_collect_values_if_cond_force_value']
+                            self._debug(1,"collect values from sensor if condition - True \t compared sensor > {1} value = false - puting forced value = {0}".format(devices[dev_id]['dev_collect_values_if_cond_force_value'],min_max))
+                        else:
+                            self._debug(1,"collect values from sensor if condition - True \t compared sensor > {0} value = false - do nothing".format(min_max))
+
+            else:
+                value = self.read_data_from_1w(rom_id[1],dev_id)
+                if min_max == "min":
+                    if value < devices[dev_id]['dev_collect_values_if_cond_{0}'.format(min_max)]:
+                        self._debug(1,"collect values from sensor if condition - True \t readed sensor < {1} value = true - puting readed value = {0}".format(value,min_max))
+                    else:
+                        if devices[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                            value = devices[dev_id]['dev_collect_values_if_cond_force_value']
+                            self._debug(1,"collect values from sensor if condition - True \t readed sensor < {1} value = False - puting forced value = {0}".format(devices[dev_id]['dev_collect_values_if_cond_force_value'],min_max))
+                        else:
+                            self._debug(1,"collect values from sensor if condition - True \t readed sensor < {0} value = False - do nothing".format(min_max))
+                if min_max == "max":
+                    if value > devices[dev_id]['dev_collect_values_if_cond_{0}'.format(min_max)]:
+                        self._debug(1,"collect values from sensor if condition - True \t readed sensor > {1} value = true - puting readed value = {0}".format(value,min_max))
+                    else:
+                        if devices[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                            value = devices[dev_id]['dev_collect_values_if_cond_force_value']
+                            self._debug(1,"collect values from sensor if condition - True \t readed sensor > {1} value = False - puting forced value = {0}".format(devices[dev_id]['dev_collect_values_if_cond_force_value'],min_max))
+                        else:
+                            self._debug(1,"collect values from sensor if condition - True \t readed sensor > {0} value = False - do nothing".format(min_max))
+        return value
+
+
+
 
     @classmethod
     def __init__(self,*args):
@@ -74,18 +136,11 @@ class class_get_values(object):
                                                                                'math_descript',
                                                                                'math_enabled',
                                                                                ).get()
-
         for dev_id in args:
-
             for math_id in maapi_math:
-
                 if int(dev_id[0]) == int(maapi_math[math_id]['math_update_rom_id']):
-                    value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
-                
-
-
-        #    if maapi_math[maapi_devices[dev_id[0]]['dev_id']]["mathdata_from_1_id"]:
-        #        V1 = v1 = self.device_table[self.mathtable[mathid][
-        #            "mathdata_from_1_id"]]["dev_value"]
-        #    else:
-        #        V1 = v1 = 'none'
+                    state_min = self.update_at_sensor( maapi_math[math_id]['math_update_rom_id'] , maapi_devices,"min")
+                    state_max = self.update_at_sensor( maapi_math[math_id]['math_update_rom_id'] , maapi_devices,"max")
+                    if state:
+                        value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
+                        maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],value,' ',True)
