@@ -5,7 +5,7 @@ import lib.MaaPi_DB_connection as maapidb
 
 
 class class_get_values(object):
-    debug = 1
+    debug = 0
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
@@ -126,7 +126,7 @@ class class_get_values(object):
 
         devices = maapidb.MaaPiDBConnection().table("devices").columns('dev_id', 'dev_rom_id','dev_value', 'dev_gpio_pin','dev_collect_values_if_cond_e','dev_collect_values_if_cond_force_value_e','dev_collect_values_if_cond_force_value','dev_collect_values_if_cond_min_e', 'dev_collect_values_if_cond_max_e', 'dev_collect_values_if_cond_max', 'dev_collect_values_if_cond_min', 'dev_collect_values_if_cond_from_dev_e', 'dev_collect_values_if_cond_from_dev_id', ).get()
         for rom_id in args:
-            print "ROM ID = {0}".format(rom_id)
+            #print "ROM ID = {0}".format(rom_id)
             if devices[rom_id[0]]['dev_collect_values_if_cond_e']:
                 value_min = self.condition_check(rom_id, devices, "min")
                 self._debug(1,"value_min = {0}".format(value_min))
@@ -141,5 +141,5 @@ class class_get_values(object):
 
             else:
                 value = self.read_data_from_1w(rom_id[1],rom_id[0])
-                print "ROM ID = {0} - values updated".format(rom_id)
+                #print "ROM ID = {0} - values updated".format(rom_id)
                 maapidb.MaaPiDBConnection.insert_data(rom_id[0],value,' ',True)

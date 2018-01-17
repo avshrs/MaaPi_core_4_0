@@ -18,7 +18,7 @@ class class_get_values(object):
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG MATH EXP {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG OneWire_PI0 {0} {1}, {2}".format(level, datetime.now(), msg))
 
 
 
@@ -46,7 +46,7 @@ class class_get_values(object):
             value = eval(maapi_math[math_id]["math_math"])
         except:
             maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],0,' ',False)
-        self._debug(1,"Value  = {0} ".format(value))
+        print value
         return value
 
     @classmethod
@@ -107,14 +107,10 @@ class class_get_values(object):
                     state_max = self.update_at_sensor( int(maapi_math[math_id]['math_update_rom_id']) , maapi_devices,"max")
 
                     if state_min == 1 or state_max == 1:
-                        self._debug(1,"state = 1 FOR {0}".format(dev_id[0]))
+                        self._debug(1,"state = 1")
                         value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
                         maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],value,' ',True)
 
                     elif state_min == 2 or state_max == 2:
-                        self._debug(1,"state = 2 FOR {0}".format(dev_id[0]))
+                        self._debug(1,"state = 2")
                         maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],maapi_devices[dev_id[0]]['dev_collect_values_if_cond_force_value'],' ',True)
-                    else:
-                        self._debug(1,"state = 0 FOR {0}".format(dev_id[0]))
-                        value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
-                        maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],value,' ',True)

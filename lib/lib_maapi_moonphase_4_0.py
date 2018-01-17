@@ -23,7 +23,7 @@ class class_get_values(object):
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG OneWire_PI0 {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG MoonPhase {0} {1}, {2}".format(level, datetime.now(), msg))
 
     #read data from sensor
     @classmethod
