@@ -21,6 +21,33 @@ class class_get_values(object):
 
 
     @classmethod
+    def get_values_and_count(self, math_id, maapi_math, maapi_devices):
+        value = 0
+        if maapi_math[math_id]['math_data_from_1_id']:
+            V1 = v1 = maapi_devices[int(maapi_math[math_id]['math_data_from_1_id'])]['dev_value']
+        else: V1 = v1 = 'none'
+
+        if maapi_math[math_id]['math_data_from_2_id']:
+            type( maapi_math[math_id]['math_data_from_2_id'])
+            V2 = v2 = maapi_devices[int(maapi_math[math_id]['math_data_from_2_id'])]['dev_value']
+        else: V2 = v2 = 'none'
+
+        if maapi_math[math_id]['math_data_from_3_id']:
+            V3 = v3 = maapi_devices[int(maapi_math[math_id]['math_data_from_3_id'])]['dev_value']
+        else: V3 = v3 = 'none'
+
+        if maapi_math[math_id]['math_data_from_4_id']:
+            V4 = v4 = maapi_devices[int(maapi_math[math_id]['math_data_from_4_id'])]['dev_value']
+        else: V4 = v4 = 'none'
+
+        try:
+            value = eval(self.maapi_math[math_id]["math_math"])
+        except:
+            maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],0,' ',False)
+        print value
+        return value
+
+    @classmethod
     def __init__(self,*args):
         maapi_devices = maapidb.MaaPiDBConnection().table("devices").columns('dev_id',
                                                                              'dev_rom_id',
@@ -47,18 +74,18 @@ class class_get_values(object):
                                                                                'math_descript',
                                                                                'math_enabled',
                                                                                ).get()
+
         for dev_id in args:
-            print args
-            for math in maapi_math:
-                print maapi_math[math]['math_update_rom_id']
-                if int(dev_id[0]) is int(maapi_math[math]['math_update_rom_id']):
-                    print ("dupa")
-                else:
-                    print("podwjna dupa")
+
+            for math_id in maapi_math:
+
+                if int(dev_id[0]) == int(maapi_math[math_id]['math_update_rom_id']):
+                    value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
+                
 
 
-        #    if maapi_math[maapi_devices[dev_id[0]]['dev_id']]["math_data_from_1_id"]:
-        #        V1 = v1 = self.device_table[self.math_table[math_id][
-        #            "math_data_from_1_id"]]["dev_value"]
+        #    if maapi_math[maapi_devices[dev_id[0]]['dev_id']]["mathdata_from_1_id"]:
+        #        V1 = v1 = self.device_table[self.mathtable[mathid][
+        #            "mathdata_from_1_id"]]["dev_value"]
         #    else:
         #        V1 = v1 = 'none'
