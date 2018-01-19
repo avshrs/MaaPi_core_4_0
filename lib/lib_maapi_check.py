@@ -10,7 +10,7 @@ class Check(object):
             print("DEBUG OneWire_PI0 {0} {1}, {2}".format(level, datetime.now(), msg))
 
 
-    def run(self, dev_id):
+    def condition(self, dev_id):
         devices_db = maapidb.MaaPiDBConnection().table("devices").columns(
                                                                           "dev_id",
                                                                           "dev_value",
@@ -25,48 +25,50 @@ class Check(object):
                                                                           "dev_collect_values_if_cond_force_value_e",
                                                                           "dev_collect_values_if_cond_force_value",
                                                                           ).get()
-        value_min=False
-        value_max=False
+        condition_min=False
+        condition_max=False
         if devices_db[dev_id]['dev_collect_values_if_cond_e']:
             if devices_db[dev_id]['dev_collect_values_if_cond_from_dev_e'] and devices_db[dev_id]['dev_collect_values_if_cond_from_dev_id']:
 
                 if devices_db[dev_id]['dev_collect_values_if_cond_min_e'] and devices_db[dev_id]['dev_collect_values_if_cond_min']:
                     if devices_db[devices_db[dev_id]['dev_collect_values_if_cond_from_dev_id']]['dev_value'] < devices_db[dev_id]['dev_collect_values_if_cond_min']:
-                        value_min = True
+                        condition_min = True
                     else:
-                        value_min = False
+                        condition_min = False
                 else:
-                    value_min = False
+                    condition_min = False
 
                 if devices_db[dev_id]['dev_collect_values_if_cond_max_e'] and devices_db[dev_id]['dev_collect_values_if_cond_max']:
                     if devices_db[devices_db[dev_id]['dev_collect_values_if_cond_from_dev_id']]['dev_value'] > devices_db[dev_id]['dev_collect_values_if_cond_max']:
-                        value_max = True
+                        condition_max = True
                     else:
-                        value_max = False
+                        condition_max = False
                 else:
-                    value_max = False
+                    condition_max = False
             else:
 
                 if devices_db[dev_id]['dev_collect_values_if_cond_min_e'] and devices_db[dev_id]['dev_collect_values_if_cond_min']:
                     if devices_db[dev_id]['dev_value'] <= devices_db[dev_id]['dev_collect_values_if_cond_min']:
-                        value_min = True
+                        condition_min = True
                     else:
-                        value_min = False
+                        condition_min = False
                 else:
-                    value_min = False
+                    condition_min = False
 
                 if devices_db[dev_id]['dev_collect_values_if_cond_max_e'] and devices_db[dev_id]['dev_collect_values_if_cond_max']:
                     if devices_db[dev_id]['dev_value'] >= devices_db[dev_id]['dev_collect_values_if_cond_max']:
-                        value_max = True
+                        condition_max = True
                     else:
-                        value_max = False
+                        condition_max = False
                 else:
-                    value_max = False
-        value = False
-        if value_max == False or value_min != False:
+                    condition_max = False
+        condition = False
+        force = False
+        if condition_max == False or condition_min != False:
             value = False
         else:
-            value = True
-        return value
-
-    
+            condition = True
+        if condition == False:
+            if devices_db[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                force = dev_collect_values_if_cond_force_value
+        return condition, force
