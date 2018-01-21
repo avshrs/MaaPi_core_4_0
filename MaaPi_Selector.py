@@ -89,7 +89,7 @@ class Selector(object):
                                 devices_list.append((data_devices[devices]["dev_id"],data_devices[devices]["dev_rom_id"], data_devices_list[types]["device_name"] ))
                 #print    devices_list
                 if len(devices_list) != 0:
-                    _temp = __import__('lib.{0}'.format(data_devices_list[types]["device_lib_name"]), globals(), locals(), ['get_value'], -1)
+                    _temp = __import__('lib.{0}'.format(data_devices_list[types]["device_lib_name"]), globals(), locals(), ['get_value'], 0)
 
                     self._debug(2,"runing method as thread ".format())
                     self._debug(1,"{1}\t\tsensors in queue {0} ".format(devices_list, data_devices_list[types]["device_name"]))
@@ -108,7 +108,7 @@ class Selector(object):
         time_l = ((loop - ((datetime.now() - self.start).seconds + (float((datetime.now() - self.start).microseconds) / 1000000)) /1000) -0.150 ) / loop
         self._debug(1,"preparing time {0} s".format(time_l))
 
-        for i in xrange(loop):
+        for i in range(loop):
             lag = self.get_data_and_validate()
             if  lag > 0.9:
                 time.sleep(0.01)

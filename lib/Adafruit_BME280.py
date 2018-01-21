@@ -27,7 +27,7 @@ import time
 
 
 # BME280 default address.
-BME280_I2CADDR = 0x77
+BME280_I2CADDR = 0x76
 
 # Operating Modes
 BME280_OSAMPLE_1 = 1
@@ -198,6 +198,9 @@ class BME280(object):
         """Returns the raw (uncompensated) pressure level from the sensor."""
         """Assumes that the temperature has already been read """
         """i.e. that BME280Data[] has been populated."""
+        while (self._device.readU8(BME280_REGISTER_STATUS) & 0x08):    # Wait for conversion to complete (TODO : add timeout)
+            time.sleep(0.002)
+        self.BME280Data = self._device.readList(BME280_REGISTER_DATA, 8)
         raw = ((self.BME280Data[0] << 16) | (self.BME280Data[1] << 8) | self.BME280Data[2]) >> 4
         return raw
 
@@ -205,6 +208,9 @@ class BME280(object):
         """Returns the raw (uncompensated) humidity value from the sensor."""
         """Assumes that the temperature has already been read """
         """i.e. that BME280Data[] has been populated."""
+        while (self._device.readU8(BME280_REGISTER_STATUS) & 0x08):    # Wait for conversion to complete (TODO : add timeout)
+            time.sleep(0.002)
+        self.BME280Data = self._device.readList(BME280_REGISTER_DATA, 8)
         raw = (self.BME280Data[6] << 8) | self.BME280Data[7]
         return raw
 
