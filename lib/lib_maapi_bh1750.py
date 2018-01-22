@@ -10,18 +10,20 @@ import time
 
 class class_get_values(object):
     debug = 0
+
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG BH1750 {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG BH1750 {0} {1}, {2}".format(level, datetime.now(),
+                                                     msg))
 
     #read data from sensor
     @classmethod
-    def __init__(self,*args):
-        DEVICE     = 0x23 # Default device I2C address
-        POWER_DOWN = 0x00 # No active state
-        POWER_ON   = 0x01 # Power on
-        RESET      = 0x07 # Reset data register value
+    def __init__(self, *args):
+        DEVICE = 0x23  # Default device I2C address
+        POWER_DOWN = 0x00  # No active state
+        POWER_ON = 0x01  # Power on
+        RESET = 0x07  # Reset data register value
 
         # Start measurement at 4lx resolution. Time typically 16ms.
         CONTINUOUS_LOW_RES_MODE = 0x13
@@ -43,17 +45,19 @@ class class_get_values(object):
         bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
 
         def convertToNumber(data):
-          # Simple function to convert 2 bytes of data
-          # into a decimal number
-          return ((data[1] + (256 * data[0])) / 1.2)
+            # Simple function to convert 2 bytes of data
+            # into a decimal number
+            return ((data[1] + (256 * data[0])) / 1.2)
 
         def readLight(addr=DEVICE):
-          data = bus.read_i2c_block_data(addr,ONE_TIME_HIGH_RES_MODE_2)
-          return convertToNumber(data)
+            data = bus.read_i2c_block_data(addr, ONE_TIME_HIGH_RES_MODE_2)
+            return convertToNumber(data)
 
         for arg in args:
             try:
-                maapidb.MaaPiDBConnection.insert_data(arg[0],readLight(),arg[2],True)
+                maapidb.MaaPiDBConnection.insert_data(arg[0], readLight(),
+                                                      arg[2], True)
             except:
-                self._debug(1,"\tERROR reading values from dev: {0}".format(arg[1]))
-                maapidb.MaaPiDBConnection.insert_data(arg[0],0,arg[2],False)
+                self._debug(1, "\tERROR reading values from dev: {0}".format(
+                    arg[1]))
+                maapidb.MaaPiDBConnection.insert_data(arg[0], 0, arg[2], False)
