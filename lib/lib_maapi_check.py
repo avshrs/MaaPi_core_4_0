@@ -1,7 +1,5 @@
 #!/usr/bin/python
-
 import lib.MaaPi_DB_connection as maapidb
-
 
 class Check(object):
     debug = 0
@@ -29,6 +27,7 @@ class Check(object):
         ).get()
         condition_min = False
         condition_max = False
+        #print (devices_db)
         if devices_db[dev_id]['dev_collect_values_if_cond_e']:
             if devices_db[dev_id]['dev_collect_values_if_cond_from_dev_e'] and devices_db[dev_id]['dev_collect_values_if_cond_from_dev_id']:
 
@@ -74,5 +73,5 @@ class Check(object):
             condition = True
         if condition == False:
             if devices_db[dev_id]['dev_collect_values_if_cond_force_value_e']:
-                force = dev_collect_values_if_cond_force_value
+                force = devices_db[dev_id]['dev_collect_values_if_cond_force_value']
         return condition, force
