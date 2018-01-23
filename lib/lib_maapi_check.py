@@ -27,8 +27,12 @@ class Check(object):
         ).get()
         condition_min = False
         condition_max = False
+        condition = False
+        condition_min_max = False
+        force = False
         #print (devices_db)
         if devices_db[dev_id]['dev_collect_values_if_cond_e']:
+            condition = devices_db[dev_id]['dev_collect_values_if_cond_e']
             if devices_db[dev_id]['dev_collect_values_if_cond_from_dev_e'] and devices_db[dev_id]['dev_collect_values_if_cond_from_dev_id']:
 
                 if devices_db[dev_id]['dev_collect_values_if_cond_min_e'] and devices_db[dev_id]['dev_collect_values_if_cond_min']:
@@ -65,13 +69,13 @@ class Check(object):
                         condition_max = False
                 else:
                     condition_max = False
-        condition = False
-        force = False
-        if condition_max == False or condition_min != False:
-            value = False
-        else:
-            condition = True
-        if condition == False:
-            if devices_db[dev_id]['dev_collect_values_if_cond_force_value_e']:
-                force = devices_db[dev_id]['dev_collect_values_if_cond_force_value']
-        return condition, force
+
+            if condition_max == False or condition_min != False:
+                condition_min_max = False
+            else:
+                condition_min_max = True
+            if condition_min_max == False:
+                if devices_db[dev_id]['dev_collect_values_if_cond_force_value_e']:
+                    force = devices_db[dev_id]['dev_collect_values_if_cond_force_value']
+                    
+        return condition,condition_min_max, force

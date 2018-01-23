@@ -1,7 +1,8 @@
 
 from lib.lib_maapi_check import Check
 
-cond, force  = Check().condition(135)
+condition, condition_min_max, force  = Check().condition(135)
 
-print ("condition \t= {0}".format(cond))
-print ("force \t\t= {0}".format(force))
+print ("condition \t\t= {0}".format(condition))
+print ("condition_min_max \t= {0}".format(condition_min_max))
+print ("force \t\t\t= {0}".format(force))
