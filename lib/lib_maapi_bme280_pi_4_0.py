@@ -35,8 +35,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(s_id, hum, name, True)
                 self._debug(1,"Humidity = {0}".format(hum))
         except:
-            self._debug(
-                1, "\tERROR reading values from: {0}".format(s_id))
+            self._debug(1, "\tERROR reading values from: {0}".format(s_id))
             maapidb.MaaPiDBConnection.insert_data(s_id, 0, name, False)
 
     #read data from sensor
