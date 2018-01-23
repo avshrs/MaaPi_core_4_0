@@ -18,7 +18,7 @@ class class_get_values(object):
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG MATH EXP {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG MATH EXP\t\t {0} {1}, {2}".format(level, datetime.now(), msg))
 
 
 

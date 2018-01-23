@@ -18,12 +18,12 @@ from astral import *
 
 class class_get_values(object):
 
-    debug = 1
+    debug = 0
 
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG MoonPhase {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG MoonPhase\t\t  {0} {1}, {2}".format(level, datetime.now(), msg))
 
     #read data from sensor
     @classmethod
