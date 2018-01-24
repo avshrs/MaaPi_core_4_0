@@ -5,42 +5,18 @@ import time
 import RPi.GPIO as GPIO
 import sys
 import lib.MaaPi_DB_connection as maapidb
+from lib.lib_maapi_check import Check
 import logging
 
 
 class class_get_values(object):
-    debug = 0
+    debug = 1
 
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
             logging.debug("DEBUG OneWire_GPI0 {0} {1}, {2}".format(level, datetime.now(), msg))
             print ("DEBUG OneWire_GPI0 {0} {1}, {2}".format(level, datetime.now(), msg))
-
-    @classmethod
-    def switch_on_at_sensor(self,mp_table, sensID, device_last_value):
-        state_return = 0
-        val = False
-
-        if mp_table[sensID]["switch_turn_on_at_sensor_e"] and mp_table[sensID]["switch_turn_on_at_sensor_id"]:
-
-            if mp_table[sensID]["switch_turn_on_at_sensor_value_min_e"]:
-                if device_last_value[mp_table[sensID]["switch_turn_on_at_sensor_id"]]["dev_value"] <= mp_table[sensID]["switch_turn_on_at_sensor_value_min"]:
-                    state_return = False
-                else:
-                    val = mp_table[sensID]["switch_turn_on_at_cond_not_val"]
-                    state_return = True
-
-            if mp_table[sensID]["switch_turn_on_at_sensor_value_max_e"] and mp_table[sensID]["switch_turn_on_at_sensor_value_max"]:
-
-                if device_last_value[mp_table[sensID]["switch_turn_on_at_sensor_id"]]["dev_value"] >= mp_table[sensID]["switch_turn_on_at_sensor_value_max"]:
-                    state_return = False
-                else:
-                    val = mp_table[sensID]["switch_turn_on_at_cond_not_val"]
-                    state_return = True
-
-        return state_return, val
-
 
     @classmethod
     def min_max_checker(self, mp_table, sensID, min_max):
@@ -127,9 +103,28 @@ class class_get_values(object):
                     value = 1
                 elif value_min == 2 or value_max == 2:
                     value = 2
-                update_val, value_forced = self.switch_on_at_sensor(mp_table, arg[0], device_last_value)
+                #update_val, value_forced = self.switch_on_at_sensor(mp_table, arg[0], device_last_value)
+                condition, condition_min_max, force_value  = Check().condition(arg[0])
 
-                if update_val and value > 0 and value != 2:
+                if condition:
+                    if condition_min_max:
+                        gpio_finale = value
+                        self._debug(1,"Condition min_max = {2}  \t Read value from sensor id = {0}, value is ={1}".format(rom_id[0],value, condition_min_max))
+                    else:
+                        maapidb.MaaPiDBConnection.insert_data(rom_id[0],force_value,' ',True)
+                        self._debug(1,"Forcing value for sensor id = {0} \tforced vslur is = {1} ".format(rom_id[0],force_value))
+                else:
+                    value = self.read_data_from_1w(rom_id[1],rom_id[0])
+
+                    maapidb.MaaPiDBConnection.insert_data(rom_id[0],value,' ',True)
+                    self._debug(1,"Read value for sensor id = {0}   is = {1} ".format(rom_id[0],value))
+
+
+
+
+
+
+                if  value > 0 and value != 2:
                     value = value_forced
                     gpio_finale = self.invert_state(arg[0], value, mp_table)
                 else:
@@ -138,6 +133,7 @@ class class_get_values(object):
                 GPIO.setup(device_last_value[arg[0]]["dev_gpio_pin"], GPIO.OUT)
 
                 gpio_finale = self.invert_state(arg[0], value, mp_table)
+
                 if gpio_finale != 2:
                     if GPIO.input(device_last_value[arg[0]]["dev_gpio_pin"]):
                         if gpio_finale:
