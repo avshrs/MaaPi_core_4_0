@@ -7582,3 +7582,617 @@ DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
 DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: FÑ†g˝ ÇK
 DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
 DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: FÑ†g˝ ÇK
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.167116, Finale Check - 0 from 10 is True for min value 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n∏ Ñç
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n∏ Ñç
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n∏ Ñç
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.534882, 0 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.536920, 1 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.539328, 2 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.541207, 3 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.542911, 4 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.544515, 5 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.546174, 6 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.547918, 7 from 10 	 Value max is True (9.687 > 3.625 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.549452, 8 from 10 	 Value max is True (9.687 > 3.625 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.551066, 9 from 10 	 Value max is True (9.687 > 3.625 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.552258, Finale Check - 10 from 10 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:08:46.553321, Final Value for max is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.261473, Finale Check - 0 from 10 is True for min value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.620121, 0 from 10 	 Value max is True (9.687 > 3.812 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.621038, 1 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.621618, 2 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.622156, 3 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.622691, 4 from 10 	 Value max is True (9.687 > 3.75 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.623481, 5 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.624065, 6 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.624606, 7 from 10 	 Value max is True (9.687 > 3.687 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.625138, 8 from 10 	 Value max is True (9.687 > 3.625 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.625670, 9 from 10 	 Value max is True (9.687 > 3.625 + 3.0) 	  
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.626173, Finale Check - 10 from 10 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.626670, Final Value for max is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:09:25.839238, Condition min_max = True  	 Read value from sensor id = 2164, value is =1
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:10:42.192911, Finale Check - 5 from 5 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:10:42.193979, Final Value for max is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:10:42.406358, Read value for sensor id = 767   is = 1 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J¿næ Ñ£
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J¿næ Ñ£
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J¿næ Ñ£
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:13:44.857075, Finale Check - 5 from 5 is True for max value 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:13:44.858071, Final Value for max is  = 1 
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:13:45.070339, Read value for sensor id = 767   is = 1 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J n≈ Ñç
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J n≈ Ñç
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J n≈ Ñç
+DEBUG:root:DEBUG OneWire_GPI0 1 2018-01-24 10:17:49.414580, Read value for sensor id = 767   is = 1 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n» ÑØ
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n» ÑØ
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J†n» ÑØ
+DEBUG:root:DEBUG GPIO On/Off 1 2018-01-24 10:18:38.317943, Condition min_max = True  	 Read value from sensor id = 2164, value is =1
+DEBUG:root:DEBUG GPIO On/Off 1 2018-01-24 10:18:50.444053, Read value for sensor id = 767   is = 1 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J nœ Ñü
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J nœ Ñü
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: J nœ Ñü
+DEBUG:root:DEBUG GPIO On/Off 1 2018-01-24 10:20:40.775870, Condition min_max = True  	 Read value from sensor id = 2164, value is =1
+DEBUG:root:DEBUG GPIO On/Off 1 2018-01-24 10:20:52.121301, Read value for sensor id = 767   is = 1 
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x6D6A from register pair 0x88, 0x89
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x66FC from register pair 0x8A, 0x8B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0032 from register pair 0x8C, 0x8D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x9409 from register pair 0x8E, 0x8F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD5CD from register pair 0x90, 0x91
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0BD0 from register pair 0x92, 0x93
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1C8F from register pair 0x94, 0x95
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0013 from register pair 0x96, 0x97
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xFFF9 from register pair 0x98, 0x99
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x300C from register pair 0x9A, 0x9B
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0xD120 from register pair 0x9C, 0x9D
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1388 from register pair 0x9E, 0x9F
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xA1
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0184 from register pair 0xE1, 0xE2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x00 from register 0xE3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x1E from register 0xE7
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x10 from register 0xE4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x03 from register 0xE6
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x24 from register 0xE5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x24 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x60 to register 0xF5
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x01 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x04 to register 0xF2
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x33 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Wrote 0x27 to register 0xF4
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x0C from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: JÄnÕ Ñû
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: JÄnÕ Ñû
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read 0x04 from register 0xF3
+DEBUG:Adafruit_I2C.Device.Bus.1.Address.0X76:Read the following from register 0xF7: JÄnÕ Ñû
