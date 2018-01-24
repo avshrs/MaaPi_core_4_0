@@ -29,7 +29,6 @@ class class_get_values(object):
         else: V1 = v1 = 'none'
 
         if maapi_math[math_id]['math_data_from_2_id']:
-            type( maapi_math[math_id]['math_data_from_2_id'])
             V2 = v2 = maapi_devices[int(maapi_math[math_id]['math_data_from_2_id'])]['dev_value']
         else: V2 = v2 = 'none'
 
