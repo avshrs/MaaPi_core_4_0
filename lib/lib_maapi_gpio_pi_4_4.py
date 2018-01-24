@@ -107,7 +107,7 @@ class class_get_values(object):
                         gpio_finale = self.invert_state(arg[0], value, mp_table)
                         self._debug(1,"Condition min_max = {2}  \t Read value from sensor id = {0}, value is ={1}".format(arg[0],value, condition_min_max))
                     else:
-                        gpio_finale = force_value
+                        gpio_finale = int(force_value)
                         self._debug(1,"Forcing value for sensor id = {0} \tforced vslur is = {1} ".format(arg[0],force_value))
                 else:
                     value = self.gpio_condytion_checker(mp_table, arg[0])
