@@ -76,7 +76,7 @@ class class_get_values(object):
                             maapidb.MaaPiDBConnection.insert_data(maapi_math[math_id]['math_update_rom_id'],value,' ',True)
                             self._debug(1,"Condition min_max = {2}  \t Read value from sensor id = {0}, value is ={1}".format(dev_id[0],value, condition_min_max))
                         else:
-                            maapidb.MaaPiDBConnection.insert_data(rom_id[0],force_value,' ',True)
+                            maapidb.MaaPiDBConnection.insert_data(dev_id[0],force_value,' ',True)
                             self._debug(1,"Forcing value for sensor id = {0} \t forced vslur is = {1} ".format(dev_id[0],force_value))
                     else:
                         value = self.get_values_and_count(math_id, maapi_math, maapi_devices)
