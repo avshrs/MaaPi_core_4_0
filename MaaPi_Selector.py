@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from lib.db import MaaPiDBConnection
+from lib.MaaPi_DB_connection import MaaPiDBConnection
 from datetime import datetime
 from conf.MaaPi_Settings import *
 import threading
