@@ -25,7 +25,7 @@ class class_get_values(object):
         param = 0
         min_max_check = ("min","max")
         value_min = 0
-        value_min = 0
+        value_max = 0
         for min_max in min_max_check:
             if mp_table[sensID]["switch_value_{0}_e".format(min_max)]:
                 device_range_value = maapidb.MaaPiDBConnection().select_last_nr_of_values(mp_table[sensID]["switch_data_from_sens_id"], mp_table[sensID]["switch_range_acc"])
