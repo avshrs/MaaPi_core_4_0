@@ -46,16 +46,18 @@ class class_get_values(object):
 
                 else:
                     for i in range(mp_table[sensID]["switch_range_acc"]):
-                        if device_range_value[i] != 99999:
-                            if min_max == "min":
-                                if device_range_value[i] < mp_table[sensID]["switch_value_{0}".format(min_max)]:
+			try:
+                            if device_range_value[i] != 99999:
+                                if min_max == "min":
+                                    if device_range_value[i] < mp_table[sensID]["switch_value_{0}".format(min_max)]:
 
-                                    counter+=1
+                                       counter+=1
 
-                            if min_max == "max":
-                                if device_range_value[i] > mp_table[sensID]["switch_value_{0}".format(min_max)]:
-                                    counter+=1
-
+                                if min_max == "max":
+                                    if device_range_value[i] > mp_table[sensID]["switch_value_{0}".format(min_max)]:
+                                       counter+=1
+			except:
+			   pass
                 self._debug(2, "Finale Check - {0} from {1} is True for {2} value ".format(counter, mp_table[sensID]["switch_range_acc"], min_max, val))
                 if min_max == "min":
                     if mp_table[sensID]["switch_range_acc"] == counter:
