@@ -18,7 +18,7 @@ get class name from devices conf. and get/put data from/to sensor/gpio
 class Selector(object):
     debug = 1
     start = datetime.now()
-
+    board_id = 0
     # debug method
     @classmethod
     def _debug(self, level, msg):
@@ -43,17 +43,11 @@ class Selector(object):
     def get_data_and_validate(self):
         start = datetime.now()
         self._debug(2, "Get data from table {0}".format("maapi_device_list"))
-        board_id = 0
-
-        board_location = MaaPiDBConnection().table("maapi_machine_locations").filters_eq(ml_enabled=True).get()
-        for i in board_location:
-            if board_location[i]["ml_location"] == Maapi_location:
-                board_id = board_location[i]["id"]
 
 
         data_devices_list = MaaPiDBConnection().table(
             "maapi_device_list").filters_eq(
-                device_enabled=True, device_location_id=board_id).get()
+                device_enabled=True, device_location_id=self.board_id).get()
         self._debug(2, "Get data from table {0}".format("devices"))
         data_devices = MaaPiDBConnection().table("devices").columns(
             "dev_id",
@@ -66,7 +60,7 @@ class Selector(object):
             "dev_interval_queue",
             "dev_machine_location_id",
         ).order_by('dev_id').filters_eq(
-            dev_status=True, ).get()
+            dev_status=True,dev_machine_location_id=self.board_id ).get()
         self._debug(2, "ittering {0}".format("data_devices_list"))
         #itter all types in data_devices_list
         for types in data_devices_list:
@@ -136,6 +130,14 @@ class Selector(object):
 
     @classmethod
     def run(self):
+       
+
+        board_location = MaaPiDBConnection().table("maapi_machine_locations").filters_eq(ml_enabled=True).get()
+        for i in board_location:
+            if board_location[i]["ml_location"] == Maapi_location:
+                self.board_id = board_location[i]["id"]
+
+
         MaaPiDBConnection.queue('*', False)
         loop = 60
         time_l = ((loop - ((datetime.now() - self.start).seconds + (float(
