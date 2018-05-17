@@ -103,7 +103,7 @@ class Selector(object):
                                         time_delta))
                                 """addding to queue"""
                                 MaaPiDBConnection.queue(
-                                    data_devices[devices]["dev_id"], True)
+                                    data_devices[devices]["dev_id"], True,self.board_id)
                                 devices_list.append(
                                     (data_devices[devices]["dev_id"],
                                      data_devices[devices]["dev_rom_id"],
@@ -138,7 +138,7 @@ class Selector(object):
                 self.board_id = board_location[i]["id"]
 
 
-        MaaPiDBConnection.queue('*', False)
+        MaaPiDBConnection.queue('*', False,self.board_id)
         loop = 60
         time_l = ((loop - ((datetime.now() - self.start).seconds + (float(
             (datetime.now() - self.start).microseconds) / 1000000)) / 1000) -

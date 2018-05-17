@@ -72,7 +72,7 @@ class MaaPiDBConnection(object):
 
 
     @classmethod
-    def queue(self,dev_id,status):
+    def queue(self,dev_id,status,board_id):
         try:
             conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
         except:
@@ -82,10 +82,10 @@ class MaaPiDBConnection(object):
 
             x = conn.cursor()
             if dev_id == '*':
-                x.execute("UPDATE devices SET dev_interval_queue={0} where dev_status=TRUE".format(status))
+                x.execute("UPDATE devices SET dev_interval_queue={0} where dev_status=TRUE  and dev_machine_location_id = {1}".format(status,board_id))
                 conn.commit()
             else:
-                x.execute("UPDATE devices SET dev_interval_queue={0} where dev_id={1}".format(status,dev_id))
+                x.execute("UPDATE devices SET dev_interval_queue={0} where dev_id={1} and dev_machine_location_id = {2}".format(status,dev_id,board_id))
                 conn.commit()
             conn.close()
 
