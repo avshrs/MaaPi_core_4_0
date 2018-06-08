@@ -6,8 +6,6 @@ import threading
 import sched
 import time
 import sys
-import logging
-
 """
 add max count of sensor sended to lib 10 / becouse one wire on read time is ~750ms prer dev.
 """
@@ -15,18 +13,18 @@ add max count of sensor sended to lib 10 / becouse one wire on read time is ~750
 Class selector - check sensor which is reading is older then NOW() - interval
 get class name from devices conf. and get/put data from/to sensor/gpio
 """
-logging.basicConfig(filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+
 
 class Selector(object):
     debug = 1
     start = datetime.now()
-    bord_id = 0
+    board_id = 0
     # debug method
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            logging.debug( "{0}".format(msg))
-            #print("DEBUG Selector    {0} {1}, {2}".format(level, datetime.now(), msg))
+            print("DEBUG Selector    {0} {1}, {2}".format(
+                level, datetime.now(), msg))
 
     # convert value from sensors interval from hours minutes to seconds
     @classmethod
@@ -47,13 +45,9 @@ class Selector(object):
         self._debug(2, "Get data from table {0}".format("maapi_device_list"))
 
 
-
         data_devices_list = MaaPiDBConnection().table(
             "maapi_device_list").filters_eq(
                 device_enabled=True, device_location_id=self.board_id).get()
-
-
-
         self._debug(2, "Get data from table {0}".format("devices"))
         data_devices = MaaPiDBConnection().table("devices").columns(
             "dev_id",
@@ -67,9 +61,6 @@ class Selector(object):
             "dev_machine_location_id",
         ).order_by('dev_id').filters_eq(
             dev_status=True,dev_machine_location_id=self.board_id ).get()
-
-
-
         self._debug(2, "ittering {0}".format("data_devices_list"))
         #itter all types in data_devices_list
         for types in data_devices_list:
@@ -83,8 +74,7 @@ class Selector(object):
                 self._debug(3, "ittering {0}".format("data_devices"))
 
                 for devices in data_devices:
-                    self._debug(3, "in data_devices".format())
-                    self._debug(3, "if {0} == {1} and {2} is not True:".format(data_devices[devices]["dev_type_id"],data_devices_list[types]["id"],data_devices[devices]["dev_interval_queue"]))
+
                     if data_devices[devices]["dev_type_id"] == data_devices_list[types]["id"] and data_devices[devices]["dev_interval_queue"] is not True:
 
                         self._debug(3, "if dev type id is {0}".format(
@@ -119,9 +109,7 @@ class Selector(object):
                                      data_devices[devices]["dev_rom_id"],
                                      data_devices_list[types]["device_name"]))
                 #print    devices_list
-
                 if len(devices_list) != 0:
-
                     _temp = __import__('lib.{0}'.format(
                         data_devices_list[types]["device_lib_name"]),
                                        globals(), locals(), ['get_value'], 0)
@@ -142,13 +130,15 @@ class Selector(object):
 
     @classmethod
     def run(self):
-        self.board_id = 0
+       
+
         board_location = MaaPiDBConnection().table("maapi_machine_locations").filters_eq(ml_enabled=True).get()
         for i in board_location:
             if board_location[i]["ml_location"] == Maapi_location:
                 self.board_id = board_location[i]["id"]
 
-        MaaPiDBConnection.queue('*', False, self.board_id)
+
+        MaaPiDBConnection.queue('*', False,self.board_id)
         loop = 60
         time_l = ((loop - ((datetime.now() - self.start).seconds + (float(
             (datetime.now() - self.start).microseconds) / 1000000)) / 1000) -

@@ -15,7 +15,7 @@ add max count of sensor sended to lib 10 / becouse one wire on read time is ~750
 Class selector - check sensor which is reading is older then NOW() - interval
 get class name from devices conf. and get/put data from/to sensor/gpio
 """
-logging.basicConfig(filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(filename='/home/apache/maapi_www/maapi/py_script/bin/logs/MaaPi_Selector.log',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 
 class Selector(object):
     debug = 1

@@ -1,0 +1,582 @@
+06/08/2018 06:58:01 - DEBUG - preparing time 0.997499424083 s
+06/08/2018 06:58:02 - DEBUG - DS18S20_pi		sensors in queue [(1, '10-000802d070f4', 'DS18S20_pi'), (3, '10-0008025e5e9d', 'DS18S20_pi'), (2179, '28-0316543c57ff', 'DS18S20_pi'), (2187, '28-04168575f9ff', 'DS18S20_pi')] 
+06/08/2018 06:58:02 - DEBUG - DS18B20_pi		sensors in queue [(2, '10-0008025e7c6c', 'DS18B20_pi'), (4, '28-0000071f5f30', 'DS18B20_pi'), (5, '28-0000071ff788', 'DS18B20_pi'), (6, '28-0000071f466c', 'DS18B20_pi'), (7, '28-0000071f0826', 'DS18B20_pi'), (8, '28-000007201856', 'DS18B20_pi'), (9, '28-0000071ea24e', 'DS18B20_pi'), (10, '28-0000071f9b51', 'DS18B20_pi'), (11, '28-000007200fbd', 'DS18B20_pi'), (12, '28-0000071f84eb', 'DS18B20_pi'), (13, '28-0416574fb8ff', 'DS18B20_pi'), (14, '28-04165666f8ff', 'DS18B20_pi'), (15, '28-0316545144ff', 'DS18B20_pi'), (16, '28-0316540da4ff', 'DS18B20_pi'), (17, '28-0316532c2cff', 'DS18B20_pi'), (18, '28-0316545c22ff', 'DS18B20_pi'), (19, '28-0316545522ff', 'DS18B20_pi'), (20, '28-041656623aff', 'DS18B20_pi'), (21, '28-0316546a7aff', 'DS18B20_pi'), (22, '28-03165459beff', 'DS18B20_pi'), (23, '28-03165343b9ff', 'DS18B20_pi'), (24, '28-04165754adff', 'DS18B20_pi'), (25, '28-04165666f3ff', 'DS18B20_pi'), (26, '28-031653cccbff', 'DS18B20_pi'), (27, '28-03165343cbff', 'DS18B20_pi'), (29, '28-031653ccefff', 'DS18B20_pi'), (2178, '28-0416858a11ff', 'DS18B20_pi'), (1052, '28-0316543a89ff', 'DS18B20_pi'), (135, '28-031653b386ff', 'DS18B20_pi'), (715, '28-031685530cff', 'DS18B20_pi'), (719, '28-04165666aaff', 'DS18B20_pi'), (2186, '28-031684ee9fff', 'DS18B20_pi'), (2141, '28-04168584c6ff', 'DS18B20_pi')] 
+06/08/2018 06:58:02 - DEBUG - BH1750_pi		sensors in queue [(766, 'I2C-28-BH1750', 'BH1750_pi')] 
+06/08/2018 06:58:02 - DEBUG - GpioSwitch_pi		sensors in queue [(2164, 'GWC-GPIO-POMP-SWICHT', 'GpioSwitch_pi'), (767, 'PI-GPIO-4', 'GpioSwitch_pi')] 
+06/08/2018 06:58:03 - DEBUG - MathExpr		sensors in queue [(924, 'SUN_ACCURACY_01', 'MathExpr'), (2181, 'REKU_SPRAWNOSC2', 'MathExpr'), (33, 'accuracy_01', 'MathExpr'), (2171, 'WYDAJ_REKU_M3_NA_H', 'MathExpr'), (2172, 'PIEC_DISABLE_POMPS', 'MathExpr'), (2170, 'REKU_ODZYSK_ENERGI', 'MathExpr'), (2173, 'ODZYSK_ENERGII_SUMA', 'MathExpr'), (2162, 'GWC-ZYSK-ENERGII', 'MathExpr'), (2174, 'EENERGIA_C_O', 'MathExpr'), (2166, 'test', 'MathExpr'), (765, 'I2C-77-BMP180-sea-press', 'MathExpr')] 
+06/08/2018 06:58:03 - DEBUG - MoonPhse		sensors in queue [(2180, 'MOONPHASE', 'MoonPhse')] 
+06/08/2018 06:58:03 - DEBUG - linuxCommand_pi		sensors in queue [(956, 'PI-SYS-CPU-LOAD', 'linuxCommand_pi'), (957, 'PI-SYS-MEM-LOAD', 'linuxCommand_pi'), (958, 'PI-SYS-DRIVE-LOAD', 'linuxCommand_pi'), (764, 'PI-SYS-CPU-TEMP', 'linuxCommand_pi')] 
+06/08/2018 06:58:03 - DEBUG - BME280_Temperature_pi		sensors in queue [(762, 'I2C-76-BME280-temp', 'BME280_Temperature_pi')] 
+06/08/2018 06:58:03 - DEBUG - BME280_Pressure_pi		sensors in queue [(763, 'I2C-76-BME280-press', 'BME280_Pressure_pi')] 
+06/08/2018 06:58:03 - DEBUG - BME280_Humidity_pi		sensors in queue [(2182, 'I2C-77-BME280-humidity', 'BME280_Humidity_pi')] 
+06/08/2018 06:58:03 - DEBUG - get_data_and_validate run 1.819223 s
+06/08/2018 06:58:04 - DEBUG - get_data_and_validate run 0.274914 s
+06/08/2018 06:58:04 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:58:04 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:58:04 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:58:04 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:58:04 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:58:04 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:58:04 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:58:04 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:58:04 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:58:04 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:58:04 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:58:04 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:58:04 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:58:04 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:58:04 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:58:04 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:58:04 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:58:04 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:58:04 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:58:04 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:58:04 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:58:04 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:58:04 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:58:04 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:58:04 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:58:04 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:58:04 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:58:04 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:58:04 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:58:04 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:58:04 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:58:04 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:58:04 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:58:04 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:58:04 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:58:04 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:58:04 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:58:04 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:58:04 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:58:04 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:58:04 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:58:04 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:58:04 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:58:04 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:58:04 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:58:04 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:58:04 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:58:04 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:58:04 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:58:04 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:58:04 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:58:04 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 06:58:04 - DEBUG - Wrote 0x04 to register 0xF2
+06/08/2018 06:58:04 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Wrote 0x27 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read the following from register 0xF7: Oª`Åä Zb
+06/08/2018 06:58:04 - DEBUG - Read the following from register 0xF7: Oª`Åä Zb
+06/08/2018 06:58:04 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:58:04 - DEBUG - Read the following from register 0xF7: Oª`Åä Zb
+06/08/2018 06:58:04 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 06:58:04.533757, Condition min_max = True  	 Read value from sensor id = 2164, value is =2
+06/08/2018 06:58:04 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 06:58:04.963446, Read value for sensor id = 767   is = 0 
+06/08/2018 06:58:05 - DEBUG - get_data_and_validate run 0.25978 s
+06/08/2018 06:58:06 - DEBUG - get_data_and_validate run 0.263351 s
+06/08/2018 06:58:07 - DEBUG - get_data_and_validate run 0.263986 s
+06/08/2018 06:58:08 - DEBUG - get_data_and_validate run 0.262547 s
+06/08/2018 06:58:09 - DEBUG - get_data_and_validate run 0.262198 s
+06/08/2018 06:58:10 - DEBUG - get_data_and_validate run 0.262295 s
+06/08/2018 06:58:11 - DEBUG - get_data_and_validate run 0.262086 s
+06/08/2018 06:58:12 - DEBUG - get_data_and_validate run 0.262001 s
+06/08/2018 06:58:13 - DEBUG - get_data_and_validate run 0.263959 s
+06/08/2018 06:58:14 - DEBUG - get_data_and_validate run 0.262677 s
+06/08/2018 06:58:15 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:58:15 - DEBUG - get_data_and_validate run 0.285376 s
+06/08/2018 06:58:16 - DEBUG - get_data_and_validate run 0.260212 s
+06/08/2018 06:58:17 - DEBUG - get_data_and_validate run 0.263311 s
+06/08/2018 06:58:18 - DEBUG - get_data_and_validate run 0.262935 s
+06/08/2018 06:58:19 - DEBUG - get_data_and_validate run 0.262752 s
+06/08/2018 06:58:20 - DEBUG - get_data_and_validate run 0.262674 s
+06/08/2018 06:58:21 - DEBUG - get_data_and_validate run 0.262543 s
+06/08/2018 06:58:22 - DEBUG - get_data_and_validate run 0.263435 s
+06/08/2018 06:58:23 - DEBUG - get_data_and_validate run 0.263403 s
+06/08/2018 06:58:24 - DEBUG - get_data_and_validate run 0.263364 s
+06/08/2018 06:58:25 - DEBUG - get_data_and_validate run 0.263196 s
+06/08/2018 06:58:26 - DEBUG - get_data_and_validate run 0.263004 s
+06/08/2018 06:58:27 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:58:27 - DEBUG - get_data_and_validate run 0.288975 s
+06/08/2018 06:58:28 - DEBUG - get_data_and_validate run 0.264418 s
+06/08/2018 06:58:29 - DEBUG - get_data_and_validate run 0.263631 s
+06/08/2018 06:58:30 - DEBUG - get_data_and_validate run 0.260219 s
+06/08/2018 06:58:31 - DEBUG - get_data_and_validate run 0.265198 s
+06/08/2018 06:58:32 - DEBUG - get_data_and_validate run 0.263971 s
+06/08/2018 06:58:33 - DEBUG - get_data_and_validate run 0.263931 s
+06/08/2018 06:58:34 - DEBUG - get_data_and_validate run 0.263698 s
+06/08/2018 06:58:35 - DEBUG - get_data_and_validate run 0.263701 s
+06/08/2018 06:58:36 - DEBUG - get_data_and_validate run 0.263537 s
+06/08/2018 06:58:37 - DEBUG - get_data_and_validate run 0.260499 s
+06/08/2018 06:58:38 - DEBUG - get_data_and_validate run 0.264291 s
+06/08/2018 06:58:39 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:58:39 - DEBUG - get_data_and_validate run 0.28192 s
+06/08/2018 06:58:40 - DEBUG - get_data_and_validate run 0.26372 s
+06/08/2018 06:58:41 - DEBUG - get_data_and_validate run 0.264588 s
+06/08/2018 06:58:42 - DEBUG - get_data_and_validate run 0.264282 s
+06/08/2018 06:58:43 - DEBUG - get_data_and_validate run 0.264142 s
+06/08/2018 06:58:44 - DEBUG - get_data_and_validate run 0.26389 s
+06/08/2018 06:58:45 - DEBUG - get_data_and_validate run 0.263791 s
+06/08/2018 06:58:46 - DEBUG - get_data_and_validate run 0.264589 s
+06/08/2018 06:58:47 - DEBUG - get_data_and_validate run 0.264422 s
+06/08/2018 06:58:48 - DEBUG - get_data_and_validate run 0.261355 s
+06/08/2018 06:58:49 - DEBUG - get_data_and_validate run 0.264157 s
+06/08/2018 06:58:50 - DEBUG - get_data_and_validate run 0.263985 s
+06/08/2018 06:58:51 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:58:51 - DEBUG - get_data_and_validate run 0.279885 s
+06/08/2018 06:58:52 - DEBUG - get_data_and_validate run 0.260263 s
+06/08/2018 06:58:53 - DEBUG - get_data_and_validate run 0.264044 s
+06/08/2018 06:58:54 - DEBUG - get_data_and_validate run 0.260732 s
+06/08/2018 06:58:55 - DEBUG - get_data_and_validate run 0.264651 s
+06/08/2018 06:58:56 - DEBUG - get_data_and_validate run 0.264427 s
+06/08/2018 06:58:57 - DEBUG - get_data_and_validate run 0.264251 s
+06/08/2018 06:58:58 - DEBUG - get_data_and_validate run 0.264208 s
+06/08/2018 06:58:59 - DEBUG - get_data_and_validate run 0.263871 s
+06/08/2018 06:59:00 - DEBUG - get_data_and_validate run 0.261919 s
+06/08/2018 06:59:01 - DEBUG - get_data_and_validate run 0.264266 s
+06/08/2018 06:59:01 - DEBUG - preparing time 0.9974992131 s
+06/08/2018 06:59:02 - DEBUG - get_data_and_validate run 0.260003 s
+06/08/2018 06:59:02 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:59:02 - DEBUG - get_data_and_validate run 0.290424 s
+06/08/2018 06:59:02 - DEBUG - overal time of exec 60.828046 s
+06/08/2018 06:59:03 - DEBUG - BH1750_pi		sensors in queue [(766, 'I2C-28-BH1750', 'BH1750_pi')] 
+06/08/2018 06:59:03 - DEBUG - get_data_and_validate run 0.286485 s
+06/08/2018 06:59:04 - DEBUG - DS18S20_pi		sensors in queue [(1, '10-000802d070f4', 'DS18S20_pi')] 
+06/08/2018 06:59:04 - DEBUG - DS18B20_pi		sensors in queue [(2, '10-0008025e7c6c', 'DS18B20_pi')] 
+06/08/2018 06:59:04 - DEBUG - MathExpr		sensors in queue [(924, 'SUN_ACCURACY_01', 'MathExpr'), (2181, 'REKU_SPRAWNOSC2', 'MathExpr')] 
+06/08/2018 06:59:04 - DEBUG - MoonPhse		sensors in queue [(2180, 'MOONPHASE', 'MoonPhse')] 
+06/08/2018 06:59:04 - DEBUG - linuxCommand_pi		sensors in queue [(956, 'PI-SYS-CPU-LOAD', 'linuxCommand_pi'), (957, 'PI-SYS-MEM-LOAD', 'linuxCommand_pi'), (958, 'PI-SYS-DRIVE-LOAD', 'linuxCommand_pi')] 
+06/08/2018 06:59:04 - DEBUG - BME280_Temperature_pi		sensors in queue [(762, 'I2C-76-BME280-temp', 'BME280_Temperature_pi')] 
+06/08/2018 06:59:04 - DEBUG - BME280_Pressure_pi		sensors in queue [(763, 'I2C-76-BME280-press', 'BME280_Pressure_pi')] 
+06/08/2018 06:59:04 - DEBUG - BME280_Humidity_pi		sensors in queue [(2182, 'I2C-77-BME280-humidity', 'BME280_Humidity_pi')] 
+06/08/2018 06:59:04 - DEBUG - get_data_and_validate run 0.889852 s
+06/08/2018 06:59:05 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:59:05 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:59:05 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 06:59:05 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:59:05 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:59:05 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 06:59:05 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:59:05 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:59:05 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 06:59:05 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:59:05 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:59:05 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 06:59:05 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:59:05 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:59:05 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 06:59:05 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:59:05 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:59:05 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 06:59:05 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:59:05 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:59:05 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 06:59:05 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:59:05 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:59:05 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 06:59:05 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:59:05 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:59:05 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 06:59:05 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:59:05 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:59:05 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 06:59:05 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:59:05 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:59:05 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 06:59:05 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:59:05 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:59:05 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 06:59:05 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:59:05 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:59:05 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:59:05 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 06:59:05 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:59:05 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:59:05 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 06:59:05 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:59:05 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:59:05 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:59:05 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:59:05 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 06:59:05 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:59:05 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:59:05 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 06:59:05 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 06:59:05 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 06:59:05 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Wrote 0x04 to register 0xF2
+06/08/2018 06:59:05 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Wrote 0x27 to register 0xF4
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:59:05 - DEBUG - Read the following from register 0xF7: O∂†Åw Z
+06/08/2018 06:59:05 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 06:59:05 - DEBUG - DS18S20_pi		sensors in queue [(3, '10-0008025e5e9d', 'DS18S20_pi')] 
+06/08/2018 06:59:05 - DEBUG - Read the following from register 0xF7: O∂†Åw Z
+06/08/2018 06:59:05 - DEBUG - Read the following from register 0xF7: O∂†Åw Z
+06/08/2018 06:59:05 - DEBUG - GpioSwitch_pi		sensors in queue [(2164, 'GWC-GPIO-POMP-SWICHT', 'GpioSwitch_pi'), (767, 'PI-GPIO-4', 'GpioSwitch_pi')] 
+06/08/2018 06:59:05 - DEBUG - MathExpr		sensors in queue [(33, 'accuracy_01', 'MathExpr'), (2171, 'WYDAJ_REKU_M3_NA_H', 'MathExpr'), (2172, 'PIEC_DISABLE_POMPS', 'MathExpr'), (2170, 'REKU_ODZYSK_ENERGI', 'MathExpr'), (2173, 'ODZYSK_ENERGII_SUMA', 'MathExpr')] 
+06/08/2018 06:59:05 - DEBUG - linuxCommand_pi		sensors in queue [(764, 'PI-SYS-CPU-TEMP', 'linuxCommand_pi')] 
+06/08/2018 06:59:05 - DEBUG - get_data_and_validate run 0.545258 s
+06/08/2018 06:59:06 - DEBUG - DS18S20_pi		sensors in queue [(2179, '28-0316543c57ff', 'DS18S20_pi')] 
+06/08/2018 06:59:06 - DEBUG - DS18B20_pi		sensors in queue [(5, '28-0000071ff788', 'DS18B20_pi')] 
+06/08/2018 06:59:06 - DEBUG - MathExpr		sensors in queue [(2162, 'GWC-ZYSK-ENERGII', 'MathExpr'), (2174, 'EENERGIA_C_O', 'MathExpr'), (2166, 'test', 'MathExpr')] 
+06/08/2018 06:59:06 - DEBUG - get_data_and_validate run 0.35853 s
+06/08/2018 06:59:06 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 06:59:06.550166, Condition min_max = True  	 Read value from sensor id = 2164, value is =2
+06/08/2018 06:59:06 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 06:59:06.937193, Read value for sensor id = 767   is = 0 
+06/08/2018 06:59:07 - DEBUG - DS18S20_pi		sensors in queue [(2187, '28-04168575f9ff', 'DS18S20_pi')] 
+06/08/2018 06:59:07 - DEBUG - DS18B20_pi		sensors in queue [(6, '28-0000071f466c', 'DS18B20_pi')] 
+06/08/2018 06:59:07 - DEBUG - MathExpr		sensors in queue [(765, 'I2C-77-BMP180-sea-press', 'MathExpr')] 
+06/08/2018 06:59:07 - DEBUG - get_data_and_validate run 0.329325 s
+06/08/2018 06:59:08 - DEBUG - get_data_and_validate run 0.264652 s
+06/08/2018 06:59:09 - DEBUG - DS18B20_pi		sensors in queue [(7, '28-0000071f0826', 'DS18B20_pi')] 
+06/08/2018 06:59:09 - DEBUG - get_data_and_validate run 0.281558 s
+06/08/2018 06:59:10 - DEBUG - DS18B20_pi		sensors in queue [(8, '28-000007201856', 'DS18B20_pi')] 
+06/08/2018 06:59:10 - DEBUG - get_data_and_validate run 0.28246 s
+06/08/2018 06:59:11 - DEBUG - DS18B20_pi		sensors in queue [(9, '28-0000071ea24e', 'DS18B20_pi')] 
+06/08/2018 06:59:11 - DEBUG - get_data_and_validate run 0.299251 s
+06/08/2018 06:59:12 - DEBUG - DS18B20_pi		sensors in queue [(10, '28-0000071f9b51', 'DS18B20_pi')] 
+06/08/2018 06:59:12 - DEBUG - get_data_and_validate run 0.285201 s
+06/08/2018 06:59:13 - DEBUG - DS18B20_pi		sensors in queue [(11, '28-000007200fbd', 'DS18B20_pi')] 
+06/08/2018 06:59:13 - DEBUG - get_data_and_validate run 0.284118 s
+06/08/2018 06:59:14 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (12, '28-0000071f84eb', 'DS18B20_pi')] 
+06/08/2018 06:59:14 - DEBUG - get_data_and_validate run 0.301198 s
+06/08/2018 06:59:15 - DEBUG - DS18B20_pi		sensors in queue [(13, '28-0416574fb8ff', 'DS18B20_pi')] 
+06/08/2018 06:59:15 - DEBUG - get_data_and_validate run 0.286078 s
+06/08/2018 06:59:16 - DEBUG - DS18B20_pi		sensors in queue [(14, '28-04165666f8ff', 'DS18B20_pi')] 
+06/08/2018 06:59:16 - DEBUG - get_data_and_validate run 0.286659 s
+06/08/2018 06:59:17 - DEBUG - DS18B20_pi		sensors in queue [(15, '28-0316545144ff', 'DS18B20_pi')] 
+06/08/2018 06:59:17 - DEBUG - get_data_and_validate run 0.287558 s
+06/08/2018 06:59:18 - DEBUG - DS18B20_pi		sensors in queue [(16, '28-0316540da4ff', 'DS18B20_pi')] 
+06/08/2018 06:59:18 - DEBUG - get_data_and_validate run 0.288174 s
+06/08/2018 06:59:19 - DEBUG - DS18B20_pi		sensors in queue [(17, '28-0316532c2cff', 'DS18B20_pi')] 
+06/08/2018 06:59:19 - DEBUG - get_data_and_validate run 0.289129 s
+06/08/2018 06:59:20 - DEBUG - get_data_and_validate run 0.264712 s
+06/08/2018 06:59:21 - DEBUG - DS18B20_pi		sensors in queue [(18, '28-0316545c22ff', 'DS18B20_pi')] 
+06/08/2018 06:59:21 - DEBUG - get_data_and_validate run 0.283046 s
+06/08/2018 06:59:22 - DEBUG - DS18B20_pi		sensors in queue [(19, '28-0316545522ff', 'DS18B20_pi')] 
+06/08/2018 06:59:22 - DEBUG - get_data_and_validate run 0.283802 s
+06/08/2018 06:59:23 - DEBUG - DS18B20_pi		sensors in queue [(20, '28-041656623aff', 'DS18B20_pi')] 
+06/08/2018 06:59:23 - DEBUG - get_data_and_validate run 0.284892 s
+06/08/2018 06:59:24 - DEBUG - DS18B20_pi		sensors in queue [(21, '28-0316546a7aff', 'DS18B20_pi')] 
+06/08/2018 06:59:24 - DEBUG - get_data_and_validate run 0.285968 s
+06/08/2018 06:59:25 - DEBUG - DS18B20_pi		sensors in queue [(22, '28-03165459beff', 'DS18B20_pi')] 
+06/08/2018 06:59:25 - DEBUG - get_data_and_validate run 0.286732 s
+06/08/2018 06:59:26 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (23, '28-03165343b9ff', 'DS18B20_pi')] 
+06/08/2018 06:59:26 - DEBUG - get_data_and_validate run 0.30427 s
+06/08/2018 06:59:27 - DEBUG - DS18B20_pi		sensors in queue [(24, '28-04165754adff', 'DS18B20_pi')] 
+06/08/2018 06:59:27 - DEBUG - get_data_and_validate run 0.29658 s
+06/08/2018 06:59:28 - DEBUG - DS18B20_pi		sensors in queue [(25, '28-04165666f3ff', 'DS18B20_pi')] 
+06/08/2018 06:59:28 - DEBUG - get_data_and_validate run 0.281082 s
+06/08/2018 06:59:29 - DEBUG - DS18B20_pi		sensors in queue [(26, '28-031653cccbff', 'DS18B20_pi')] 
+06/08/2018 06:59:29 - DEBUG - get_data_and_validate run 0.281936 s
+06/08/2018 06:59:30 - DEBUG - DS18B20_pi		sensors in queue [(27, '28-03165343cbff', 'DS18B20_pi')] 
+06/08/2018 06:59:30 - DEBUG - get_data_and_validate run 0.28278 s
+06/08/2018 06:59:31 - DEBUG - DS18B20_pi		sensors in queue [(29, '28-031653ccefff', 'DS18B20_pi')] 
+06/08/2018 06:59:31 - DEBUG - get_data_and_validate run 0.28361 s
+06/08/2018 06:59:32 - DEBUG - DS18B20_pi		sensors in queue [(2178, '28-0416858a11ff', 'DS18B20_pi')] 
+06/08/2018 06:59:32 - DEBUG - get_data_and_validate run 0.285158 s
+06/08/2018 06:59:33 - DEBUG - DS18B20_pi		sensors in queue [(1052, '28-0316543a89ff', 'DS18B20_pi')] 
+06/08/2018 06:59:33 - DEBUG - get_data_and_validate run 0.285438 s
+06/08/2018 06:59:34 - DEBUG - get_data_and_validate run 0.264444 s
+06/08/2018 06:59:35 - DEBUG - DS18B20_pi		sensors in queue [(135, '28-031653b386ff', 'DS18B20_pi')] 
+06/08/2018 06:59:35 - DEBUG - get_data_and_validate run 0.287636 s
+06/08/2018 06:59:36 - DEBUG - DS18B20_pi		sensors in queue [(715, '28-031685530cff', 'DS18B20_pi')] 
+06/08/2018 06:59:36 - DEBUG - get_data_and_validate run 0.288329 s
+06/08/2018 06:59:37 - DEBUG - DS18B20_pi		sensors in queue [(719, '28-04165666aaff', 'DS18B20_pi')] 
+06/08/2018 06:59:37 - DEBUG - get_data_and_validate run 0.289613 s
+06/08/2018 06:59:38 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (2186, '28-031684ee9fff', 'DS18B20_pi')] 
+06/08/2018 06:59:38 - DEBUG - get_data_and_validate run 0.311311 s
+06/08/2018 06:59:39 - DEBUG - DS18B20_pi		sensors in queue [(2141, '28-04168584c6ff', 'DS18B20_pi')] 
+06/08/2018 06:59:39 - DEBUG - get_data_and_validate run 0.285277 s
+06/08/2018 06:59:40 - DEBUG - get_data_and_validate run 0.264849 s
+06/08/2018 06:59:41 - DEBUG - get_data_and_validate run 0.26488 s
+06/08/2018 06:59:42 - DEBUG - get_data_and_validate run 0.264806 s
+06/08/2018 06:59:43 - DEBUG - get_data_and_validate run 0.264478 s
+06/08/2018 06:59:44 - DEBUG - get_data_and_validate run 0.265124 s
+06/08/2018 06:59:45 - DEBUG - get_data_and_validate run 0.264838 s
+06/08/2018 06:59:46 - DEBUG - get_data_and_validate run 0.264654 s
+06/08/2018 06:59:47 - DEBUG - get_data_and_validate run 0.264415 s
+06/08/2018 06:59:48 - DEBUG - get_data_and_validate run 0.264318 s
+06/08/2018 06:59:49 - DEBUG - get_data_and_validate run 0.265191 s
+06/08/2018 06:59:50 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 06:59:50 - DEBUG - get_data_and_validate run 0.290316 s
+06/08/2018 06:59:51 - DEBUG - get_data_and_validate run 0.259554 s
+06/08/2018 06:59:52 - DEBUG - get_data_and_validate run 0.256449 s
+06/08/2018 06:59:53 - DEBUG - get_data_and_validate run 0.265175 s
+06/08/2018 06:59:54 - DEBUG - get_data_and_validate run 0.265036 s
+06/08/2018 06:59:55 - DEBUG - get_data_and_validate run 0.264878 s
+06/08/2018 06:59:56 - DEBUG - get_data_and_validate run 0.264722 s
+06/08/2018 06:59:57 - DEBUG - get_data_and_validate run 0.264325 s
+06/08/2018 06:59:58 - DEBUG - get_data_and_validate run 0.265156 s
+06/08/2018 06:59:59 - DEBUG - get_data_and_validate run 0.264919 s
+06/08/2018 07:00:00 - DEBUG - get_data_and_validate run 0.263879 s
+06/08/2018 07:00:01 - DEBUG - get_data_and_validate run 0.263787 s
+06/08/2018 07:00:01 - DEBUG - overal time of exec 60.010838 s
+06/08/2018 07:00:02 - DEBUG - preparing time 0.997499196183 s
+06/08/2018 07:00:02 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 07:00:02 - DEBUG - get_data_and_validate run 0.290446 s
+06/08/2018 07:00:03 - DEBUG - BH1750_pi		sensors in queue [(766, 'I2C-28-BH1750', 'BH1750_pi')] 
+06/08/2018 07:00:03 - DEBUG - get_data_and_validate run 0.292092 s
+06/08/2018 07:00:04 - DEBUG - get_data_and_validate run 0.267532 s
+06/08/2018 07:00:05 - DEBUG - DS18S20_pi		sensors in queue [(1, '10-000802d070f4', 'DS18S20_pi')] 
+06/08/2018 07:00:05 - DEBUG - MathExpr		sensors in queue [(924, 'SUN_ACCURACY_01', 'MathExpr'), (2181, 'REKU_SPRAWNOSC2', 'MathExpr')] 
+06/08/2018 07:00:05 - DEBUG - MoonPhse		sensors in queue [(2180, 'MOONPHASE', 'MoonPhse')] 
+06/08/2018 07:00:06 - DEBUG - linuxCommand_pi		sensors in queue [(956, 'PI-SYS-CPU-LOAD', 'linuxCommand_pi'), (957, 'PI-SYS-MEM-LOAD', 'linuxCommand_pi'), (958, 'PI-SYS-DRIVE-LOAD', 'linuxCommand_pi'), (764, 'PI-SYS-CPU-TEMP', 'linuxCommand_pi')] 
+06/08/2018 07:00:06 - DEBUG - BME280_Temperature_pi		sensors in queue [(762, 'I2C-76-BME280-temp', 'BME280_Temperature_pi')] 
+06/08/2018 07:00:06 - DEBUG - BME280_Pressure_pi		sensors in queue [(763, 'I2C-76-BME280-press', 'BME280_Pressure_pi')] 
+06/08/2018 07:00:06 - DEBUG - BME280_Humidity_pi		sensors in queue [(2182, 'I2C-77-BME280-humidity', 'BME280_Humidity_pi')] 
+06/08/2018 07:00:06 - DEBUG - get_data_and_validate run 0.91215 s
+06/08/2018 07:00:06 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 07:00:06 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 07:00:06 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 07:00:06 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 07:00:06 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 07:00:06 - DEBUG - Read 0x6D6A from register pair 0x88, 0x89
+06/08/2018 07:00:06 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 07:00:06 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 07:00:06 - DEBUG - DS18S20_pi		sensors in queue [(3, '10-0008025e5e9d', 'DS18S20_pi')] 
+06/08/2018 07:00:06 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 07:00:06 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 07:00:06 - DEBUG - Read 0x66FC from register pair 0x8A, 0x8B
+06/08/2018 07:00:06 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 07:00:06 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 07:00:06 - DEBUG - Read 0x0032 from register pair 0x8C, 0x8D
+06/08/2018 07:00:06 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 07:00:06 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 07:00:06 - DEBUG - Read 0x9409 from register pair 0x8E, 0x8F
+06/08/2018 07:00:06 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 07:00:06 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 07:00:06 - DEBUG - Read 0xD5CD from register pair 0x90, 0x91
+06/08/2018 07:00:06 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 07:00:06 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 07:00:06 - DEBUG - Read 0x0BD0 from register pair 0x92, 0x93
+06/08/2018 07:00:06 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 07:00:06 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 07:00:06 - DEBUG - Read 0x1C8F from register pair 0x94, 0x95
+06/08/2018 07:00:06 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 07:00:06 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 07:00:06 - DEBUG - Read 0x0013 from register pair 0x96, 0x97
+06/08/2018 07:00:06 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 07:00:06 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 07:00:06 - DEBUG - Read 0xFFF9 from register pair 0x98, 0x99
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 07:00:06 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 07:00:06 - DEBUG - DS18B20_pi		sensors in queue [(2, '10-0008025e7c6c', 'DS18B20_pi')] 
+06/08/2018 07:00:06 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 07:00:06 - DEBUG - Read 0x300C from register pair 0x9A, 0x9B
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 07:00:06 - DEBUG - Read 0xD120 from register pair 0x9C, 0x9D
+06/08/2018 07:00:06 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 07:00:06 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 07:00:06 - DEBUG - Read 0x1388 from register pair 0x9E, 0x9F
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 07:00:06 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xA1
+06/08/2018 07:00:06 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Read 0x0184 from register pair 0xE1, 0xE2
+06/08/2018 07:00:06 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 07:00:06 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 07:00:06 - DEBUG - Read 0x00 from register 0xE3
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Read 0x1E from register 0xE7
+06/08/2018 07:00:06 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 07:00:06 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Read 0x10 from register 0xE4
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Read 0x03 from register 0xE6
+06/08/2018 07:00:06 - DEBUG - Read 0x24 from register 0xE5
+06/08/2018 07:00:06 - DEBUG - Wrote 0x24 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 07:00:06 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 07:00:06 - DEBUG - Wrote 0x60 to register 0xF5
+06/08/2018 07:00:06 - DEBUG - Wrote 0x04 to register 0xF2
+06/08/2018 07:00:06 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 07:00:06 - DEBUG - Wrote 0x27 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Wrote 0x01 to register 0xF2
+06/08/2018 07:00:06 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Wrote 0x33 to register 0xF4
+06/08/2018 07:00:06 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read 0x0C from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read the following from register 0xF7: O© ÅR Z
+06/08/2018 07:00:06 - DEBUG - Read 0x04 from register 0xF3
+06/08/2018 07:00:06 - DEBUG - Read the following from register 0xF7: O© ÅR Z
+06/08/2018 07:00:06 - DEBUG - Read the following from register 0xF7: O© ÅR Z
+06/08/2018 07:00:06 - DEBUG - MathExpr		sensors in queue [(33, 'accuracy_01', 'MathExpr'), (2171, 'WYDAJ_REKU_M3_NA_H', 'MathExpr'), (2172, 'PIEC_DISABLE_POMPS', 'MathExpr')] 
+06/08/2018 07:00:06 - DEBUG - get_data_and_validate run 0.441212 s
+06/08/2018 07:00:07 - DEBUG - DS18S20_pi		sensors in queue [(2179, '28-0316543c57ff', 'DS18S20_pi')] 
+06/08/2018 07:00:07 - DEBUG - DS18B20_pi		sensors in queue [(5, '28-0000071ff788', 'DS18B20_pi')] 
+06/08/2018 07:00:07 - DEBUG - GpioSwitch_pi		sensors in queue [(2164, 'GWC-GPIO-POMP-SWICHT', 'GpioSwitch_pi'), (767, 'PI-GPIO-4', 'GpioSwitch_pi')] 
+06/08/2018 07:00:07 - DEBUG - MathExpr		sensors in queue [(2170, 'REKU_ODZYSK_ENERGI', 'MathExpr'), (2173, 'ODZYSK_ENERGII_SUMA', 'MathExpr'), (2162, 'GWC-ZYSK-ENERGII', 'MathExpr'), (2174, 'EENERGIA_C_O', 'MathExpr'), (2166, 'test', 'MathExpr')] 
+06/08/2018 07:00:07 - DEBUG - get_data_and_validate run 0.493103 s
+06/08/2018 07:00:08 - DEBUG - DS18S20_pi		sensors in queue [(2187, '28-04168575f9ff', 'DS18S20_pi')] 
+06/08/2018 07:00:08 - DEBUG - DS18B20_pi		sensors in queue [(6, '28-0000071f466c', 'DS18B20_pi')] 
+06/08/2018 07:00:08 - DEBUG - MathExpr		sensors in queue [(765, 'I2C-77-BMP180-sea-press', 'MathExpr')] 
+06/08/2018 07:00:08 - DEBUG - get_data_and_validate run 0.309634 s
+06/08/2018 07:00:08 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 07:00:08.771766, Condition min_max = True  	 Read value from sensor id = 2164, value is =2
+06/08/2018 07:00:09 - DEBUG - DEBUG GPIO On/Off 1 2018-06-08 07:00:09.183969, Read value for sensor id = 767   is = 0 
+06/08/2018 07:00:09 - DEBUG - get_data_and_validate run 0.254826 s
+06/08/2018 07:00:10 - DEBUG - DS18B20_pi		sensors in queue [(7, '28-0000071f0826', 'DS18B20_pi')] 
+06/08/2018 07:00:10 - DEBUG - get_data_and_validate run 0.279725 s
+06/08/2018 07:00:11 - DEBUG - DS18B20_pi		sensors in queue [(8, '28-000007201856', 'DS18B20_pi')] 
+06/08/2018 07:00:11 - DEBUG - get_data_and_validate run 0.292054 s
+06/08/2018 07:00:12 - DEBUG - DS18B20_pi		sensors in queue [(9, '28-0000071ea24e', 'DS18B20_pi')] 
+06/08/2018 07:00:12 - DEBUG - get_data_and_validate run 0.289567 s
+06/08/2018 07:00:13 - DEBUG - DS18B20_pi		sensors in queue [(10, '28-0000071f9b51', 'DS18B20_pi')] 
+06/08/2018 07:00:13 - DEBUG - get_data_and_validate run 0.290449 s
+06/08/2018 07:00:14 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (11, '28-000007200fbd', 'DS18B20_pi')] 
+06/08/2018 07:00:14 - DEBUG - get_data_and_validate run 0.299866 s
+06/08/2018 07:00:15 - DEBUG - get_data_and_validate run 0.26423 s
+06/08/2018 07:00:16 - DEBUG - DS18B20_pi		sensors in queue [(12, '28-0000071f84eb', 'DS18B20_pi'), (13, '28-0416574fb8ff', 'DS18B20_pi')] 
+06/08/2018 07:00:16 - DEBUG - get_data_and_validate run 0.305564 s
+06/08/2018 07:00:17 - DEBUG - DS18B20_pi		sensors in queue [(14, '28-04165666f8ff', 'DS18B20_pi')] 
+06/08/2018 07:00:17 - DEBUG - get_data_and_validate run 0.286306 s
+06/08/2018 07:00:18 - DEBUG - DS18B20_pi		sensors in queue [(15, '28-0316545144ff', 'DS18B20_pi')] 
+06/08/2018 07:00:18 - DEBUG - get_data_and_validate run 0.287124 s
+06/08/2018 07:00:19 - DEBUG - DS18B20_pi		sensors in queue [(16, '28-0316540da4ff', 'DS18B20_pi')] 
+06/08/2018 07:00:19 - DEBUG - get_data_and_validate run 0.28822 s
+06/08/2018 07:00:20 - DEBUG - DS18B20_pi		sensors in queue [(17, '28-0316532c2cff', 'DS18B20_pi')] 
+06/08/2018 07:00:20 - DEBUG - get_data_and_validate run 0.28043 s
+06/08/2018 07:00:21 - DEBUG - get_data_and_validate run 0.264628 s
+06/08/2018 07:00:22 - DEBUG - DS18B20_pi		sensors in queue [(18, '28-0316545c22ff', 'DS18B20_pi')] 
+06/08/2018 07:00:22 - DEBUG - get_data_and_validate run 0.282475 s
+06/08/2018 07:00:23 - DEBUG - DS18B20_pi		sensors in queue [(19, '28-0316545522ff', 'DS18B20_pi')] 
+06/08/2018 07:00:23 - DEBUG - get_data_and_validate run 0.283376 s
+06/08/2018 07:00:24 - DEBUG - DS18B20_pi		sensors in queue [(20, '28-041656623aff', 'DS18B20_pi')] 
+06/08/2018 07:00:24 - DEBUG - get_data_and_validate run 0.284231 s
+06/08/2018 07:00:25 - DEBUG - DS18B20_pi		sensors in queue [(21, '28-0316546a7aff', 'DS18B20_pi')] 
+06/08/2018 07:00:25 - DEBUG - get_data_and_validate run 0.284959 s
+06/08/2018 07:00:26 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (22, '28-03165459beff', 'DS18B20_pi')] 
+06/08/2018 07:00:26 - DEBUG - get_data_and_validate run 0.302444 s
+06/08/2018 07:00:27 - DEBUG - get_data_and_validate run 0.264417 s
+06/08/2018 07:00:28 - DEBUG - DS18B20_pi		sensors in queue [(23, '28-03165343b9ff', 'DS18B20_pi'), (24, '28-04165754adff', 'DS18B20_pi')] 
+06/08/2018 07:00:28 - DEBUG - get_data_and_validate run 0.295946 s
+06/08/2018 07:00:29 - DEBUG - DS18B20_pi		sensors in queue [(25, '28-04165666f3ff', 'DS18B20_pi')] 
+06/08/2018 07:00:29 - DEBUG - get_data_and_validate run 0.280348 s
+06/08/2018 07:00:30 - DEBUG - DS18B20_pi		sensors in queue [(26, '28-031653cccbff', 'DS18B20_pi')] 
+06/08/2018 07:00:30 - DEBUG - get_data_and_validate run 0.281161 s
+06/08/2018 07:00:31 - DEBUG - DS18B20_pi		sensors in queue [(27, '28-03165343cbff', 'DS18B20_pi')] 
+06/08/2018 07:00:31 - DEBUG - get_data_and_validate run 0.29043 s
+06/08/2018 07:00:32 - DEBUG - DS18B20_pi		sensors in queue [(29, '28-031653ccefff', 'DS18B20_pi')] 
+06/08/2018 07:00:32 - DEBUG - get_data_and_validate run 0.282946 s
+06/08/2018 07:00:33 - DEBUG - DS18B20_pi		sensors in queue [(2178, '28-0416858a11ff', 'DS18B20_pi')] 
+06/08/2018 07:00:33 - DEBUG - get_data_and_validate run 0.283561 s
+06/08/2018 07:00:34 - DEBUG - DS18B20_pi		sensors in queue [(1052, '28-0316543a89ff', 'DS18B20_pi')] 
+06/08/2018 07:00:34 - DEBUG - get_data_and_validate run 0.284499 s
+06/08/2018 07:00:35 - DEBUG - get_data_and_validate run 0.264315 s
+06/08/2018 07:00:36 - DEBUG - DS18B20_pi		sensors in queue [(135, '28-031653b386ff', 'DS18B20_pi')] 
+06/08/2018 07:00:36 - DEBUG - get_data_and_validate run 0.286726 s
+06/08/2018 07:00:37 - DEBUG - DS18B20_pi		sensors in queue [(715, '28-031685530cff', 'DS18B20_pi')] 
+06/08/2018 07:00:37 - DEBUG - get_data_and_validate run 0.287341 s
+06/08/2018 07:00:38 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi'), (719, '28-04165666aaff', 'DS18B20_pi')] 
+06/08/2018 07:00:38 - DEBUG - get_data_and_validate run 0.305043 s
+06/08/2018 07:00:39 - DEBUG - get_data_and_validate run 0.264444 s
+06/08/2018 07:00:40 - DEBUG - DS18B20_pi		sensors in queue [(2141, '28-04168584c6ff', 'DS18B20_pi')] 
+06/08/2018 07:00:40 - DEBUG - get_data_and_validate run 0.282087 s
+06/08/2018 07:00:41 - DEBUG - DS18B20_pi		sensors in queue [(2186, '28-031684ee9fff', 'DS18B20_pi')] 
+06/08/2018 07:00:41 - DEBUG - get_data_and_validate run 0.282959 s
+06/08/2018 07:00:42 - DEBUG - get_data_and_validate run 0.26468 s
+06/08/2018 07:00:43 - DEBUG - get_data_and_validate run 0.264245 s
+06/08/2018 07:00:44 - DEBUG - get_data_and_validate run 0.264875 s
+06/08/2018 07:00:45 - DEBUG - get_data_and_validate run 0.264816 s
+06/08/2018 07:00:46 - DEBUG - get_data_and_validate run 0.264421 s
+06/08/2018 07:00:47 - DEBUG - get_data_and_validate run 0.264413 s
+06/08/2018 07:00:48 - DEBUG - get_data_and_validate run 0.26534 s
+06/08/2018 07:00:49 - DEBUG - get_data_and_validate run 0.263929 s
+06/08/2018 07:00:50 - DEBUG - DS18B20_pi		sensors in queue [(4, '28-0000071f5f30', 'DS18B20_pi')] 
+06/08/2018 07:00:50 - DEBUG - get_data_and_validate run 0.287123 s
+06/08/2018 07:00:51 - DEBUG - get_data_and_validate run 0.256619 s
+06/08/2018 07:00:52 - DEBUG - get_data_and_validate run 0.264133 s
+06/08/2018 07:00:53 - DEBUG - get_data_and_validate run 0.263202 s
+06/08/2018 07:00:54 - DEBUG - get_data_and_validate run 0.26396 s
+06/08/2018 07:00:55 - DEBUG - get_data_and_validate run 0.263659 s
+06/08/2018 07:00:56 - DEBUG - get_data_and_validate run 0.264395 s
+06/08/2018 07:00:57 - DEBUG - get_data_and_validate run 0.264481 s
+06/08/2018 07:00:58 - DEBUG - get_data_and_validate run 0.263918 s
+06/08/2018 07:00:59 - DEBUG - get_data_and_validate run 0.263981 s
+06/08/2018 07:01:00 - DEBUG - get_data_and_validate run 0.264144 s
+06/08/2018 07:01:01 - DEBUG - get_data_and_validate run 0.269955 s
