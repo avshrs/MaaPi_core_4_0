@@ -3,16 +3,20 @@ import sys
 import lib.MaaPi_DB_connection as maapidb
 from lib.Adafruit_BME280 import *
 from lib.lib_maapi_check import Check
+import logging
+
+logging.basicConfig(filename='/home/pi/MaaPi110/bin/logs/lib_maapi_bme280_pi_4_0.log',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 
 
 class class_get_values(object):
-    debug = 1
+    debug = 2
 
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG BME280\t\t {0} {1}, {2}".format(level, datetime.now(),
-                                                     msg))
+            logging.debug( "BME280         - {0}".format(msg))
+
+
 
     @classmethod
     def read_values(self, name, s_id):

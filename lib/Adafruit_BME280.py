@@ -22,7 +22,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-import logging
+#import logging
 import time
 
 
@@ -92,7 +92,7 @@ class BME280(object):
     def __init__(self, t_mode=BME280_OSAMPLE_1, p_mode=BME280_OSAMPLE_1, h_mode=BME280_OSAMPLE_1,
                  standby=BME280_STANDBY_250, filter=BME280_FILTER_off, address=BME280_I2CADDR, i2c=None,
                  **kwargs):
-        self._logger = logging.getLogger('Adafruit_BMP.BMP085')
+    #    self._logger = logging.getLogger('Adafruit_BMP.BMP085')
         # Check that t_mode is valid.
         if t_mode not in [BME280_OSAMPLE_1, BME280_OSAMPLE_2, BME280_OSAMPLE_4,
                         BME280_OSAMPLE_8, BME280_OSAMPLE_16]:
