@@ -7,7 +7,6 @@ import sched
 import time
 import sys
 import logging
-
 """
 add max count of sensor sended to lib 10 / becouse one wire on read time is ~750ms prer dev.
 """
@@ -15,17 +14,24 @@ add max count of sensor sended to lib 10 / becouse one wire on read time is ~750
 Class selector - check sensor which is reading is older then NOW() - interval
 get class name from devices conf. and get/put data from/to sensor/gpio
 """
-logging.basicConfig(filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(
+    filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%m/%d/%Y %H:%M:%S')
+
 
 class Selector(object):
     debug = 1
     start = datetime.now()
-    bord_id = 0
+    bord_id = 1
+    #0-serv,1-pi
+    
     # debug method
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            logging.debug( "MaaPi_Selector - {0}".format(msg))
+            logging.debug("MaaPi_Selector - {0}".format(msg))
             #print("DEBUG Selector    {0} {1}, {2}".format(level, datetime.now(), msg))
 
     # convert value from sensors interval from hours minutes to seconds
@@ -46,13 +52,9 @@ class Selector(object):
         start = datetime.now()
         self._debug(2, "Get data from table {0}".format("maapi_device_list"))
 
-
-
         data_devices_list = MaaPiDBConnection().table(
             "maapi_device_list").filters_eq(
                 device_enabled=True, device_location_id=self.board_id).get()
-
-
 
         self._debug(2, "Get data from table {0}".format("devices"))
         data_devices = MaaPiDBConnection().table("devices").columns(
@@ -66,9 +68,7 @@ class Selector(object):
             "dev_interval_queue",
             "dev_machine_location_id",
         ).order_by('dev_id').filters_eq(
-            dev_status=True,dev_machine_location_id=self.board_id ).get()
-
-
+            dev_status=True, dev_machine_location_id=self.board_id).get()
 
         self._debug(2, "ittering {0}".format("data_devices_list"))
         #itter all types in data_devices_list
@@ -84,7 +84,10 @@ class Selector(object):
 
                 for devices in data_devices:
                     self._debug(3, "in data_devices".format())
-                    self._debug(3, "if {0} == {1} and {2} is not True:".format(data_devices[devices]["dev_type_id"],data_devices_list[types]["id"],data_devices[devices]["dev_interval_queue"]))
+                    self._debug(3, "if {0} == {1} and {2} is not True:".format(
+                        data_devices[devices]["dev_type_id"],
+                        data_devices_list[types]["id"],
+                        data_devices[devices]["dev_interval_queue"]))
                     if data_devices[devices]["dev_type_id"] == data_devices_list[types]["id"] and data_devices[devices]["dev_interval_queue"] is not True:
 
                         self._debug(3, "if dev type id is {0}".format(
@@ -113,7 +116,8 @@ class Selector(object):
                                         time_delta))
                                 """addding to queue"""
                                 MaaPiDBConnection.queue(
-                                    data_devices[devices]["dev_id"], True,self.board_id)
+                                    data_devices[devices]["dev_id"], True,
+                                    self.board_id)
                                 devices_list.append(
                                     (data_devices[devices]["dev_id"],
                                      data_devices[devices]["dev_rom_id"],
@@ -143,7 +147,8 @@ class Selector(object):
     @classmethod
     def run(self):
         self.board_id = 0
-        board_location = MaaPiDBConnection().table("maapi_machine_locations").filters_eq(ml_enabled=True).get()
+        board_location = MaaPiDBConnection().table(
+            "maapi_machine_locations").filters_eq(ml_enabled=True).get()
         for i in board_location:
             if board_location[i]["ml_location"] == Maapi_location:
                 self.board_id = board_location[i]["id"]
