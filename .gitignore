@@ -1,5 +1,3 @@
  # exclude everything except directory foo/bar
  logs/*
- conf/*
-    
-    
+ conf/MaaPi_Settings.py
