@@ -24,9 +24,9 @@ logging.basicConfig(
 class Selector(object):
     debug = 1
     start = datetime.now()
-    bord_id = 1
-    #0-serv,1-pi
-    
+    bord_id = 0
+    #0-pi,1-serv
+
     # debug method
     @classmethod
     def _debug(self, level, msg):
