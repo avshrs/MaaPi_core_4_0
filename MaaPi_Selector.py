@@ -24,8 +24,6 @@ logging.basicConfig(
 class Selector(object):
     debug = 1
     start = datetime.now()
-    bord_id = 0
-    #0-pi,1-serv
 
     # debug method
     @classmethod
@@ -146,7 +144,7 @@ class Selector(object):
 
     @classmethod
     def run(self):
-        self.board_id = 0
+    
         board_location = MaaPiDBConnection().table(
             "maapi_machine_locations").filters_eq(ml_enabled=True).get()
         for i in board_location:
