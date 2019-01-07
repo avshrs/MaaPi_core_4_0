@@ -9,7 +9,7 @@ bus = smbus.SMBus(1)
 aout = 0
 
 def convert(input):
-   return input*(16.5/256)
+   return input*(3.3/256)
 
 v1 =0
 v2=0
