@@ -19,7 +19,7 @@ val0=0
 val1=0
 val2=0
 val3=0
-a=500
+a=1
 
 for i in range(0,a):
       bus.write_byte(0x48,0)
@@ -47,19 +47,19 @@ for i in range(0,a):
 conV0 = convert(math.sqrt(val0/a))
 conA0 = conV0/0.03333333
 conW0 = conA0*235
-print "{0}:{3} 235V - {1}A = {2}W".format(0,conA0, conW0,val0)
+print "{0}:{3} 235V - {1}A = {2}W \t {4}".format(0,conA0, conW0,val0, v0)
 conV1 = convert(math.sqrt(val1/a))
 conA1 = conV1/0.03333333
 conW1 = conA1*235
-print "{0}:{3} 235V - {1}A = {2}W".format(1,conA1, conW1,val1)  
+print "{0}:{3} 235V - {1}A = {2}W \t {4}".format(1,conA1, conW1,val1, v1)  
 conV2 = convert(math.sqrt(val2/a))
 conA2 = conV2/0.03333333 
 conW2 = conA2*235
-print "{0}:{3} 235V - {1}A = {2}W".format(2,conA2, conW2,val2)   
+print "{0}:{3} 235V - {1}A = {2}W \t {4}".format(2,conA2, conW2,val2, v2)   
 conV3 = convert(math.sqrt(val3/a))
 conA3 = conV3/0.03333333
 conW3 = conA3*235
-print "{0}:{3} 235V - {1}A = {2}W".format(3,conA3, conW3,val3)  
+print "{0}:{3} 235V - {1}A = {2}W \t {4}".format(3,conA3, conW3,val3, v3)  
 
 
 #7 6 5 4 3 2 1 0
