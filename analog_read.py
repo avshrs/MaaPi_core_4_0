@@ -10,7 +10,7 @@ aout = 0
 
 for a in range(0,4):
       aout = aout + 1
-      bus.write_byte_data(0x48,0x40 | ((a+1) & 0x03), aout)
+      bus.write_byte(0x48,a)
       v = bus.read_byte(0x48)
       #hashes = v / 4
       #spaces = 64 - hashes
