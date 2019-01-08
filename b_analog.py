@@ -10,7 +10,8 @@ def toV(input):
    vcc  = 3.3
    vgnd = vcc/2
    range = (vcc)/256
-   return (input* range) - vgnd
+   return (input* range)
+
 
 #   range = ((VCC)/256)
 #   return ((range)*input)-VGND
