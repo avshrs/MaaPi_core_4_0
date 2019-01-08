@@ -47,32 +47,25 @@ class class_get_values(object):
             return  bus.read_byte(addr)
         
         def getData():
-            for i in range(0,accuracy):
+           for a in range(0,accuracy):
                 for i in sens:
                     Vreaded = convertToVolts(readFromBus(DEVICE,sens[i]))
-                    VoltsSqValues[i]+= (Vreaded*Vreaded)
-            
-            
-            for i in sens:
-                volts[i] = math.sqrt(VoltsSqValues[i])
-                ampers[i] = convertToAmpers(volts[i])
-                wats[i] = convertToWats(ampers[i])
-
-
-
-
+                    VoltsSqValues[i] += (Vreaded*Vreaded)
+ 
+           for s in sens:
+                volts[s]  = math.sqrt(VoltsSqValues[s])
+                ampers[s] = convertToAmpers(volts[s])
+                wats[s]   = convertToWats(ampers[s])
 
         for arg in args:
-#           try:
-#                getData()
-		print "---------------------------------------------------------------------"
-		print int(arg[1][-1:][0])
-		print volts[int(arg[1][-1:][0])]
-		print ampers[int(arg[1][-1:][0])]
-		print wats[int(arg[1][-1:][0])]
+           try:
+	      
+              getData()
+              print int(arg[1][-1:][0])
+	      print wats[int(arg[1][-1:][0])]
+              maapidb.MaaPiDBConnection.insert_data(arg[0], wats[int(arg[1][-1:][0])]," " , True)
 
-                maapidb.MaaPiDBConnection.insert_data(arg[0], wats[int(arg[1][-1:][0])],arg[2] , True)
-  #         except:
-   #             self._debug(1, "\tERROR reading values from dev: {0}".format(arg[1]))
-#		maapidb.MaaPiDBConnection.insert_data(arg[0], 0,arg[2] , False)
+           except:
+              self._debug(1, "\tERROR reading values from dev: {0}".format(arg[1]))
+              maapidb.MaaPiDBConnection.insert_data(arg[0], 0," " , False)
 
