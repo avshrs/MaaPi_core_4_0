@@ -20,11 +20,11 @@ class class_get_values(object):
     #read data from sensor
     @classmethod
     def __init__(self, *args):
-        DEVICE = 0x48
+        device = 0x48
         supplayVolts = 235
         bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
         volt = 0
-        accuracy = 100 # 1 / 1000
+        accuracy = 100
         sens = [0,1,2,3]
         VoltsSqValues=[0,0,0,0]
         volts = [0,0,0,0]
@@ -32,10 +32,9 @@ class class_get_values(object):
         wats = [0,0,0,0]
         
         def convertToVolts(readings):
-            vcc  = 3.3                                                                                                                                                            
-            vgnd = vcc/2                                                                                                                                                          
+            vcc  = 2.22                                                                                                                                                           
             factor = (vcc)/256                                                                                                                                                     
-            return (readings * factor) - vgnd
+            return (readings * factor) 
 
         def convertToAmpers(volts_):
             return volts_ * (1/30)
@@ -44,28 +43,32 @@ class class_get_values(object):
             return ampers_ * supplayVolts
         
         def readFromBus(addr, sens):
-            bus.write_byte(addr,int(sens))   
-            return  bus.read_byte(addr)
+            bus.write_byte(addr,sens)   
+            time.sleep(0.002)
+            data = bus.read_byte(addr)
+            if data > 250:
+                return  0
+            else: 
+                return data 
         
         def getData():
-
            for a in range(0,accuracy):
                 for i in sens:
-                    int_ = readFromBus(DEVICE,sens[i])
+                    int_ = readFromBus(device,sens[i])
                     volt = convertToVolts(int_)
-		    if volt < 0:
+		    if volt > 0 or < 1.3:
               		volt*= (-1)
                     if volt < 1 :
                         VoltsSqValues[i] += (volt * volt)
 
            for s in sens:
-		print s
+
                 volts[s]  = math.sqrt(VoltsSqValues[s])
-#		print volts[s]
+
                 ampers[s] = convertToAmpers(volts[s])
-#		print ampers[s]
+
                 wats[s]   = convertToWats(ampers[s])
-#		print wats[s]
+
 
         for arg in args:
 #           try:
