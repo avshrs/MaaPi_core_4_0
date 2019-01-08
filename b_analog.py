@@ -7,7 +7,7 @@ import time
 bus = smbus.SMBus(1)
 
 def toV(input): 
-   vcc  = 3.28
+   vcc  = 2.21
    range = vcc/256
    return input * range
 
@@ -31,21 +31,29 @@ def toW(val):
 
 volts=[0,0,0,0]
 
-rr=1000
+rr=500
+
 for a in range(0,rr):
   for i in range(0,4):
     int_ = read(i)
     volt = toV(int_)
-    volts[i]+= volt * volt	
-
+    if volt < 0 or volt >1.4:
+       continue 
+    if volts[i] < volt:    
+       volts[i] = volt	
+  time.sleep(0.001)
 
 
 
 for i in range(0,4):
-   v= (math.sqrt(volts[i]/rr))
+   v= volts[i]
+
    ampers = toA(v)
    wats  = toW(ampers)
-   print "{0}:volts={1:.4f}  235V * {2:.2f}A\t = {3:.2f}W ".format(i,v,ampers, wats)  
+   if i==1:
+      print "{0}:                               volts={1:.4f}v ".format(i,v*190)  
+   else:
+      print "{0}:volts={1:.4f}  235V * {2:.2f}A\t = {3:.2f}W ".format(i,v,ampers, wats)
 
 
 #7 6 5 4 3 2 1 0
