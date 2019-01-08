@@ -7,11 +7,13 @@ import time
 bus = smbus.SMBus(1)
 
 def toV(input): 
-   vcc  = 3.3
-   vgnd = vcc/2
-   range = (vcc)/256
-   return (input* range)
+   vcc  = 3.28
+   range = vcc/256
+   return input * range
 
+#220ko
+#1,2ko
+#230 = 1.248
 
 #   range = ((VCC)/256)
 #   return ((range)*input)-VGND
@@ -34,9 +36,7 @@ for a in range(0,rr):
   for i in range(0,4):
     int_ = read(i)
     volt = toV(int_)
-    if volt < 0 or volt > 1:
-        continue
-    volts[i]+=volt*volt	
+    volts[i]+= volt * volt	
 
 
 
