@@ -3,7 +3,7 @@
 import sys
 from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
-import math
+
 import smbus
 import time
 
@@ -23,8 +23,7 @@ class class_get_values(object):
         DEVICE = 0x48
         supplayVolts = 235
         bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
-        volt = 0
-        accuracy = 100 # 1 / 1000
+        accuracy = 1000 # 1 / 1000
         sens = [0,1,2,3]
         VoltsSqValues=[0,0,0,0]
         volts = [0,0,0,0]
@@ -44,41 +43,34 @@ class class_get_values(object):
             return ampers_ * supplayVolts
         
         def readFromBus(addr, sens):
-            bus.write_byte(addr,int(sens))   
+            bus.write_byte(addr,sens)   
             return  bus.read_byte(addr)
         
         def getData():
-
-           for a in range(0,accuracy):
+            for i in accuracy:
                 for i in sens:
-                    int_ = readFromBus(DEVICE,sens[i])
-                    volt = convertToVolts(int_)
-		    if volt < 0:
-              		volt*= (-1)
-                    if volt < 1 :
-                        VoltsSqValues[i] += (volt * volt)
+                    Vreaded = convertToVolts(readFromBus(DEVICE,sens))
+                    VoltsSqValues[i]+= (Vreaded*Vreaded)
+            
+            
+            for i in sens:
+                volts[i] = math.sqrt(VoltsSqValues[i])
+                ampers[i] = convertToAmpers(volts[i])
+                wats[i] = convertToWats(ampers[i])
 
-           for s in sens:
-		print s
-                volts[s]  = math.sqrt(VoltsSqValues[s])
-#		print volts[s]
-                ampers[s] = convertToAmpers(volts[s])
-#		print ampers[s]
-                wats[s]   = convertToWats(ampers[s])
-#		print wats[s]
+
+        
+
 
         for arg in args:
-#           try:
-	      
-              getData()
-              
-	      print wats[int(arg[1][-1:][0])]
-              print wats[1]
-              print wats[2]
-              print wats[3]
-#	      maapidb.MaaPiDBConnection.insert_data(arg[0], wats[int(arg[1][-1:][0])]," " , True)
+            try:
+                getData()
+		print volts[int(ar]
+		print ampers[int(arg[1][-1:])]
+		print wats[int(arg[1][-1:])]
 
- #          except:
-              self._debug(1, "\tERROR reading values from dev: {0}".format(arg[1]))
- #             maapidb.MaaPiDBConnection.insert_data(arg[0], 0," " , False)
+                maapidb.MaaPiDBConnection.insert_data(arg[0], 0, True)
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(arg[1]))
+		maapidb.MaaPiDBConnection.insert_data(arg[0], 0, arg[1], False)
 
