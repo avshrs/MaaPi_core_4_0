@@ -7,14 +7,15 @@ import curses
 bus = smbus.SMBus(1)
 
 def toV(input): 
-   VCC  = 3.28 
-   VGND = 1.63
-   range = ((VCC - VGND)/128)
+   VCC  = 3.28
+   VGND = 1.64
+   range = ((VCC)/256)
+#   range 3.28
    return ((range)*input)-VGND
 
 def read(sens):
    bus.write_byte(0x48,sens) 
-   time.sleep(0.002)
+#   time.sleep(0.002)
    return  bus.read_byte(0x48)
 
 def toA(val):
@@ -23,14 +24,28 @@ def toA(val):
 def toW(val):
     return val*235
 
-for i in range(0,4):
+volts=[0,0,0,0]
+
+rr=1000
+for a in range(0,rr):
+  for i in range(0,4):
     ints = read(i)
-    volts = toV(ints)
-    if volts < -1.6:
-       continue 
-    ampers = toA(volts)
-    wats  = toW(ampers)
-    print "{0}:ints={1:.2f} \tvolts={2:.2f}\t  235V * {3:.2f}A\t = {4:.2f}W ".format(i,ints,volts,ampers,wats)  
+    volt = toV(ints)
+    if volt < -1.1 or volt > 1.1:
+       continue
+       
+    if volt < 0:
+       volt *= (-1)
+    volts[i]+=volt
+
+
+ampers = toA(volt)
+wats  = toW(ampers)
+for i in range(0,4):
+   v= volts[i]/rr
+   ampers = toA(v)
+   wats  = toW(ampers)
+   print "{0}:volts={1:.4f}  235V * {2:.2f}A\t = {3:.2f}W ".format(i,v,ampers, wats)  
 
 
 #7 6 5 4 3 2 1 0
