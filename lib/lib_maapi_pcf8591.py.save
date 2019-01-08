@@ -1,0 +1,49 @@
+#!/usr/bin/python
+
+import sys
+from datetime import datetime
+import lib.MaaPi_DB_connection as maapidb
+
+import smbus
+import time
+
+
+class class_get_values(object):
+    debug = 0
+    @classmethod
+    def _debug(self, level, msg):
+        if self.debug >= level:
+            print("DEBUG BH1750 {0} {1}, {2}".format(level, datetime.now(),
+                                                     msg))
+
+    #read data from sensor
+    @classmethod
+    def __init__(self, *args):
+        DEVICE = 0x48  # Default device I2C address
+	SpupplayVolts = 235
+	values=[0,0,0,0]
+	def convertToVolts(data):
+	    vcc = 3.3
+	    vgnd = vcc/2
+            factor = vcc/256
+
+            return (data*factor)-vgnd
+	def convertToAmpers(volts):
+            return volts*(1/30)
+
+	def convertToWats(ampers):
+            #cos fi = 1
+            return SpupplayVolts*amper
+
+        def readvalues(addr,sens):
+            data = bus.write_byte(addr,sens)
+            return data
+
+        for arg in args:
+            try:
+                maapidb.MaaPiDBConnection.insert_data(arg[0], readLight(),
+                                                      arg[2], True)
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(
+                    arg[1]))
+                maapidb.MaaPiDBConnection.insert_data(arg[0], 0, arg[2], False)
