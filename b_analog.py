@@ -2,16 +2,18 @@
 import math
 import smbus
 import time
-import curses
+#import curses
  
 bus = smbus.SMBus(1)
 
 def toV(input): 
-   VCC  = 3.28
-   VGND = 1.64
-   range = ((VCC)/256)
-#   range 3.28
-   return ((range)*input)-VGND
+   vcc  = 3.3
+   vgnd = vcc/2
+   range = (vcc)/256
+   return (input* range) - vgnd
+
+#   range = ((VCC)/256)
+#   return ((range)*input)-VGND
 
 def read(sens):
    bus.write_byte(0x48,sens) 
@@ -19,7 +21,7 @@ def read(sens):
    return  bus.read_byte(0x48)
 
 def toA(val):
-    return val/0.033
+    return val/0.033333333333
 
 def toW(val):
     return val*235
@@ -31,18 +33,18 @@ for a in range(0,rr):
   for i in range(0,4):
     ints = read(i)
     volt = toV(ints)
-    if volt < -1.1 or volt > 1.1:
+    if volt < -1 or volt > 1:
        continue
        
     if volt < 0:
        volt *= (-1)
-    volts[i]+=volt
+    volts[i]+=volt*volt
 
 
-ampers = toA(volt)
-wats  = toW(ampers)
+
+
 for i in range(0,4):
-   v= volts[i]/rr
+   v= math.sqrt(volts[i]/rr)
    ampers = toA(v)
    wats  = toW(ampers)
    print "{0}:volts={1:.4f}  235V * {2:.2f}A\t = {3:.2f}W ".format(i,v,ampers, wats)  
