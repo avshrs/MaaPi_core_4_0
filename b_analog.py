@@ -14,7 +14,7 @@ def toV(input):
 
 def read(sens):
    bus.write_byte(0x48,sens) 
-   time.sleep(0.002)
+ #  time.sleep(0.002)
    data_ = bus.read_byte(0x48)
    return  data_
 
@@ -26,7 +26,7 @@ def toW(val):
 
 volts=[0,0,0,0]
 sens=(0,1,2,3)
-rr=500
+rr=300
 
 for a in range(0,rr):
   for i in sens:
