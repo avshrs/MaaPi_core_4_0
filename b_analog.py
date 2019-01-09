@@ -39,13 +39,14 @@ def toV(data):
    out = [0,0,0,0]
    vcc = 2.29
    ratio = vcc / 256.0
-   for i in sens: 
+   for i in range(0,4): 
       out[i] = avg(data[i])*ratio
    return out
 
 def toA(data):
-   for i in sens:
-        data[i] = data[i] / 0.0333333
+   for i in range(1,4):
+      if data[i] > 0 and data[i]<1.3:
+         data[i] = data[i] / 0.0333333
    return data
 
 def toW(data):
