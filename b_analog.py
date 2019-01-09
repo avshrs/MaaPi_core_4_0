@@ -7,19 +7,27 @@ import os
 bus = SMBus(1)
 sens = (0,1,2,3)
 start =dt.datetime.now()
-inter = 10
+inter = 5
+
 pause = 0.001
+
+
 def read():
     data = [[],[],[],[]] 
     out = [[],[],[],[]] 
     it = inter
     data_ =[]
     bus.read_i2c_block_data(0x48,0,1)
+    bus.write_byte(0x48,0x04)
     
     for i in range(0,it):
         for ii in range(0,4):
-            data[ii].append(bus.read_i2c_block_data(0x48,ii,31)[5::5])
+            readed = bus.read_i2c_block_data(0x48,4,4)[5:-5]
+            print readed
+
+            data[ii].append(readed)
             time.sleep(0.001)
+        print "fo"
     
     d=0
     for dii in data:
