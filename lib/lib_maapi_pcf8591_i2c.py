@@ -5,20 +5,37 @@ from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 from smbus2 import SMBus, i2c_msg
 import time
+import logging
+
+logging.basicConfig(
+    filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%m/%d/%Y %H:%M:%S')
+
 
 
 class class_get_values(object):
+    @classmethod
+    def _debug(self, level, msg):
+        if self.debug >= level:
+            logging.debug("lib_maapi_pcf8591_i2c - {0}".format(msg))
+
     bus = SMBus(1)
     @classmethod
     def read(self,sensor):
-        counter = 10
-        accuracy = 20
+        counter = 7
+        accuracy = 70
         self.bus.write_byte(0x48,0x04)
         out = []
         for ix in range(0,accuracy):
-            data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[1:]
+            data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[5:]
             if  data[1] > 1 and data[2] > 1:
-                out.append(max(data))
+                d = max(data)
+                if sensor !=0 :
+                    if d > 78:
+                        continue
+                out.append(d)
                 counter -= 1
                 if counter < 1:
                     break
