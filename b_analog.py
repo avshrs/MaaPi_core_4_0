@@ -7,35 +7,26 @@ import os
 bus = SMBus(1)
 sens = (0,1,2,3)
 start =dt.datetime.now()
-inter = 5
+inter = 3
 
 pause = 0.001
 
 
-def read():
-    data = [[],[],[],[]] 
-    out = [[],[],[],[]] 
-    it = inter
-    data_ =[]
-    bus.read_i2c_block_data(0x48,0,1)
-    bus.write_byte(0x48,0x04)
-    
-    for i in range(0,it):
-        for ii in range(0,4):
-            readed = bus.read_i2c_block_data(0x48,4,4)[5:-5]
-            print readed
-
-            data[ii].append(readed)
-            time.sleep(0.001)
-        print "fo"
-    
-    d=0
-    for dii in data:
-        for ii in dii:
-            for i in ii:
-                out[d].append(i) 
-        d+=1
-    return out
+def read(sensor):
+   counter = 3
+   accuracy = 50
+   bus.write_byte(0x48,0x04)
+   counter = inter
+   out = []
+   for ix in range(0,accuracy):
+      data = bus.read_i2c_block_data(0x48,int(sensor),32)[1:]
+      if  data[1] > 1 and data[2] > 1:
+         for dat in data:
+             out.append(dat)
+         counter -= 1
+         if counter < 1:
+            break
+   return out
 
 def avg(data):
     data_ = 0.0
@@ -70,11 +61,9 @@ def toVolts(data):
 
 pause = 0.001
 data=[[],[],[],[]]
-for x in range(0,inter):
-    readings = read()
-    for c in range(0,4):
-          data[c].append(float(max(readings[c])))
-        
+for x in range(0,4):
+    readings = read(x)
+  
    
 print data
 volts = toV(data)
