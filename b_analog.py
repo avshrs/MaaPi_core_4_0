@@ -8,15 +8,16 @@ sens = (0,1,2,3)
 
 def read():
    data = [[],[],[],[]] 
-   inter = 100
-   for i in sens:	
-
-      #bus.write_byte(0x48,i)
-      write = i2c_msg.write(0x48, [i])
-      read = i2c_msg.read(0x48,1)      
-      for ii in range(0,inter):
-         data[i].append(bus.i2c_rdwr(write,read))
-   print data
+   it = 50
+   data_ =[]
+#   bus.read_i2c_block_data(0x48,0,1)
+   for ii in range(0,4):
+      for i in range(0,it):
+         bus.write_byte(0x48,ii)
+         data_.append(bus.read_i2c_block_data(0x48,0,1)[0])
+#      print data_
+      data[ii] = data_
+	
    return data
 
 def toV(data):
