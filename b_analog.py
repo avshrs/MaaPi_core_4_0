@@ -7,16 +7,23 @@ import time
 bus = smbus.SMBus(1)
 
 def toV(input): 
-   vcc  = 2.22
+   vcc  = 3.3
    ra = vcc/256
+   print input
    return input * ra
 
 
 def read(sens):
-   bus.write_byte(0x48,sens) 
- #  time.sleep(0.002)
-   data_ = bus.read_byte(0x48)
-   return  data_
+   aout=[]
+   bus.write_byte(0x48,sens)
+   time.sleep(0.001)
+   data_ = bus.read_i2c_block_data(0x48,0)
+#   data_ = bus.read_byte(0x48)
+   data_da = 0 
+   for da in data_:
+     # if data_da < da:
+         data_da += da
+   return  data_da / len(data_)
 
 def toA(val):
     return val/0.033333333333
@@ -26,7 +33,7 @@ def toW(val):
 
 volts=[0,0,0,0]
 sens=(0,1,2,3)
-rr=300
+rr=10
 
 for a in range(0,rr):
   for i in sens:
