@@ -1,24 +1,22 @@
 #!/usr/bin/python
 import math
-import smbus
+from smbus2 import SMBus, i2c_msg
 import time
  
-bus = smbus.SMBus(1)
-
+bus = SMBus(1)
+sens = (0,1,2,3)
 
 def read():
-   #data_=[0,0,0,0]
    data = [[],[],[],[]] 
    inter = 100
-#   bus.write_byte(0x48,0x00)
-#   time.sleep(0.001)
+   for i in sens:	
 
-   for i in range(0,4):	
-      bus.write_byte(0x48,i)
-      time.sleep(0.002)
+      #bus.write_byte(0x48,i)
+      write = i2c_msg.write(0x48, [i])
+      read = i2c_msg.read(0x48,1)      
       for ii in range(0,inter):
-         data[i].append(bus.read_byte(0x48))
-	 time.sleep(0.0009)
+         data[i].append(bus.i2c_rdwr(write,read))
+   print data
    return data
 
 def toV(data):
@@ -27,30 +25,35 @@ def toV(data):
    ratio = vcc / 256
    for i in range(0,4): 
       out[i] = max(data[i])*ratio
-      if i == 0: 
-         out[i]*=190
    return out
 
 def toA(data):
-   print type(data)
-   out = [0,0,0,0]
-   ratio = 1/30
    for i in range(1,4):
-      out[i] = max(data[i]) * ratio
-   return out 
+      if data[i] > 0 and data[i]<1.3:
+         data[i] = data[i] / 0.0333333
+   return data
 
 def toW(data):
-   out = [0,0,0,0]
    ratio = 234
    for i in range(1,4):
-      out[i] = max(data[i])*ratio
-   return out
+      data[i]*=ratio
+   return data
+
+def toVolts(data): 
+   ratio = 190
+   data[0]*=190
+   return data
+
 
 readings = read()
 volts = toV(readings)
 ampers = toA(volts)
 wats = toW(ampers)
+out = toVolts(wats)
 
-for i in wats:
-  print i
+for i in sens:
+   if i != 0:
+      print ("{0}\t max_read= {1}\t volts= {2:.1f} \tampers= {3:.1f} \twats= {4:.1f} ".format(i,max(readings[i]),volts[i],ampers[i],wats[i]))
+   else:
+      print "{0}\t max_read= {1} \t\t\t\t\tsieci ={2:.2f}".format(i,max(readings[i]),out[i])
 
