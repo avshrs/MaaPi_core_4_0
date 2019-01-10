@@ -17,6 +17,7 @@ logging.basicConfig(
 
 
 class class_get_values(object):
+
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
@@ -34,7 +35,7 @@ class class_get_values(object):
 
     @classmethod
     def read(self,sensor):
-        counter = 10
+        counter = 7
         accuracy = 10
         self.bus.write_byte(0x48,0x04)
         out = []
@@ -49,28 +50,10 @@ class class_get_values(object):
                 counter -= 1
                 if counter < 1:
                     break
-        out2 = []
         if len(out) < 1:
                 out = [0]
-        else:
-           std=stdev(out)
-           avgg=self.avg(out)
-           for o in out:
-               if o > (avgg - std) and o < (avgg + std):
-                  out2.append(o)
-  
- 
+        return out
 
-        
-
-
-        return out2
-    @classmethod
-    def avg(self,data):
-        data_ = 0
-        for i in data:
-            data_+= i
-        return data_/(len(data))
     @classmethod
     def convert(self,data,type_):
         factor = 2.29 / 256.0  # pfc factor
@@ -92,7 +75,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+          try:
                 data = self.read(int(arg[1][-1:][0]))
                 volt, amper, wat = self.convert(data,int(arg[1][-1:][0]))
                 if int(arg[1][-1:]) > 0:
@@ -100,7 +83,8 @@ class class_get_values(object):
                 else:
                     
                     maapidb.MaaPiDBConnection.insert_data(arg[0],volt," " , True)
-            except:
+          except:
                 self._debug(1, "\tERROR reading values from dev: {0}".format(arg[1]))
-                maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
+		errr=0
+                maapidb.MaaPiDBConnection.insert_data(arg[0][0], errr," " , False)
 

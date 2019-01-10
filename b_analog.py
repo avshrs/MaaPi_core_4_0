@@ -32,7 +32,7 @@ class pcfxxxxi2(object):
                break
       out2 = []
       if len(out) < 1:
-           out = [0]
+           out = [0,0,0]
       else:
            std=stdev(out)
            avgg=self.avg(out)
@@ -55,8 +55,10 @@ class pcfxxxxi2(object):
    def convert(self,data,type_):
       factor = 2.29 / 256.0  # pfc factor
 
-      print max(data)
-      dataAvg = median(data)
+      if len(data) > 1 and data[0] !=0:
+	  dataAvg = median(data)
+      else: 
+          dataAvg = 0
       print dataAvg
       if type_ != 0:
          volts  = dataAvg * factor 
