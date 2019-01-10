@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import math
-from statistics import median, stdev
 from smbus2 import SMBus, i2c_msg
 import time
 import datetime as dt
@@ -10,13 +9,12 @@ import os
 class pcfxxxxi2(object):
    bus = SMBus(1)
    def read(self,sensor):
-      counter = 20
-      accuracy = 50
+      counter = 10
+      accuracy = 20
       self.bus.write_byte(0x48,0x04)
       out = []
       for ix in range(0,accuracy):
          data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[1:]
-#	 print data
          if  data[1] > 1 and data[2] > 1:
             out.append(max(data))
             counter -= 1
@@ -24,8 +22,7 @@ class pcfxxxxi2(object):
                break
          if len(out) < 1:
             out = [0]
-      print out[1:]   # print printprintprintprintprint
-      print stdev(out[1:])
+      #print out   # print printprintprintprintprint
       return out
 
    def avg(self,data):
@@ -36,9 +33,7 @@ class pcfxxxxi2(object):
 
    def convert(self,data,type_):
       factor = 2.29 / 256.0  # pfc factor
-      print max(data)
-      dataAvg = median(data)
-      print dataAvg
+      dataAvg = max(data)
       if type_ != 0:
          volts  = dataAvg * factor 
          ampers = volts / 0.0333333
