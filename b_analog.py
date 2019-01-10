@@ -25,45 +25,20 @@ class pcfxxxxi2(object):
       out = []
       for ix in range(0,accuracy):
          data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[5:]
-#	 print data
          if  data[12] > 0 :
-            print data
 	    time.sleep(0.002)
             out.append(max(data))
             counter -= 1
             if counter < 1:
                break
-      out2 = []
-      if len(out) < 1:
-           out = [0,0,0]
-      else:
-           std=stdev(out)
-           avgg=self.avg(out)
-           for o in out:
-               if o > (avgg - std) and o < (avgg + std):
-                  out2.append(o)            
-
-
-
-
-      print out
-      print out2      
-      return out2
-
-   def avg(self,data):
-      data_ = 0
-      for i in data:
-         data_+= i
-      return data_/(len(data))
+      return out
 
    def convert(self,data,type_):
       factor = 2.29 / 256.0  # pfc factor
-
-      if len(data) > 1 and data[0] !=0:
-	  dataAvg = median(data)
-      else: 
-          dataAvg = 0
-      print dataAvg
+      if data:
+	 dataAvg = max(data)
+      else:
+         dataAvg = 0
       if type_ != 0:
          volts  = dataAvg * factor 
          ampers = volts / 0.0333333
@@ -77,7 +52,7 @@ class pcfxxxxi2(object):
 
 
    def __init__(self,args):
-      for iii in range(1,2):
+      for iii in range(0,4):
          data = self.read(iii)
          volt, amper, wat = self.convert(data,iii)
          print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.1f} ".format(iii,volt,amper,wat))
