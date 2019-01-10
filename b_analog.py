@@ -9,8 +9,16 @@ import os
 
 class pcfxxxxi2(object):
    bus = SMBus(1)
+    
+   def avg(self,data):
+        data_ = 0
+        for i in data:
+            data_+= i
+        return data_/(len(data))
+                                       
+
    def read(self,sensor):
-      counter = 20
+      counter = 30
       accuracy = 50
       self.bus.write_byte(0x48,0x04)
       out = []
@@ -22,11 +30,21 @@ class pcfxxxxi2(object):
             counter -= 1
             if counter < 1:
                break
-         if len(out) < 1:
-            out = [0]
-      print out[1:]   # print printprintprintprintprint
-      print stdev(out[1:])
-      return out
+      out2 = []
+      if len(out) < 1:
+           out = [0]
+      else:
+           std=stdev(out)
+           avgg=self.avg(out)
+           for o in out:
+               if o > (avgg - std) and o < (avgg + std):
+                  out2.append(o)            
+
+
+
+
+      
+      return out2
 
    def avg(self,data):
       data_ = 0
@@ -36,6 +54,7 @@ class pcfxxxxi2(object):
 
    def convert(self,data,type_):
       factor = 2.29 / 256.0  # pfc factor
+
       print max(data)
       dataAvg = median(data)
       print dataAvg

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+from statistics import median, stdev
 from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 from smbus2 import SMBus, i2c_msg
@@ -22,10 +23,19 @@ class class_get_values(object):
             logging.debug("lib_maapi_pcf8591_i2c - {0}".format(msg))
 
     bus = SMBus(1)
+ 
+    @classmethod
+    def avg(self,data):
+        data_ = 0
+        for i in data: 
+            data_+= i 
+        return data_/(len(data))
+
+
     @classmethod
     def read(self,sensor):
-        counter = 7
-        accuracy = 70
+        counter = 10
+        accuracy = 10
         self.bus.write_byte(0x48,0x04)
         out = []
         for ix in range(0,accuracy):
@@ -39,10 +49,22 @@ class class_get_values(object):
                 counter -= 1
                 if counter < 1:
                     break
-            if len(out) < 1:
+        out2 = []
+        if len(out) < 1:
                 out = [0]
-        #print out   # print printprintprintprintprint
-        return out
+        else:
+           std=stdev(out)
+           avgg=self.avg(out)
+           for o in out:
+               if o > (avgg - std) and o < (avgg + std):
+                  out2.append(o)
+  
+ 
+
+        
+
+
+        return out2
     @classmethod
     def avg(self,data):
         data_ = 0
