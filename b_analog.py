@@ -25,32 +25,35 @@ class pcfxxxxi2(object):
       self.bus.write_byte(add,0x00)
       out = []
       for ix in range(0,accuracy):
-         data = self.bus.read_i2c_block_data(add,sensor,32)[5:]
-#	 print data
-         if  data[12] > 0 and data[12] < 240 and data[26] < 240 and data[0] < 240:
-#            print data
-	    #time.sleep(0.002)
-            out.append(max(data))
+        data = self.bus.read_i2c_block_data(add,sensor,32)
+
+        if  data[12] > 0 and data[12] < 254 and data[26] < 240 and data[0] < 240:
+            for da in data:
+                out.append(da)
             counter -= 1
             if counter < 1:
                break
-      print out
       return out
 
    def convert(self,data,type_):
-      factor = 2.29 / 256.0  # pfc factor
-      if data:
-	 dataAvg = max(data)
-      else:
-         dataAvg = 0
+        volts=[]
+        ampers=0
+        wats=0
+        volt=0
+        factor = 2.29 / 256.0  
+        for di in data:
+            idd = (di * (factor) - 0.57) * 190
+            volts.append(idd)
+         
 
-      volts  = (dataAvg * factor ) - 1.1
-#      print volts
-      ampers = volts / 0.0333333
-      wats   = ampers * 235.0
-      volts  *=190
-
-      return volts,ampers,wats
+            
+       
+        volt = max(volts)
+        print volt 
+        ampers = min(volts)
+        print ampers
+        print "\n"
+        return volt,ampers,wats
 
 
    def __init__(self,args):
