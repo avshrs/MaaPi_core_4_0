@@ -12,39 +12,32 @@ from conf.MaaPi_Settings import *
 
 
 class MaaPiDBConnection(object):
-    try:
-        conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
-    except:
-        print ("I am unable to connect to the database")
-
-
-
-
-
-
-
-
-
     debug = 0
-
-    @classmethod 
-    def chauvenetCriter(self,senor_id,value):
-	pass         
-
+    @classmethod
+    def _debug(self, level, msg):
+        if self.debug >= level:
+            print("DEBUG MaaPi Connection DB Main {0} {1}, {2}".format(level, datetime.now(), msg))
 
     @classmethod
     def insert_data(self,senor_id,value,sensor_type,status):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+            self._debug(1,"open database connection")
+
+        except:
+            print ("I am unable to connect to the database")
+        else:
             self._debug(1,"SENSOR ID ={0}".format(senor_id))
             self._debug(1,"value ={0}".format(value))
             self._debug(1,"sensor_type ={0}".format(sensor_type))
-            x =self.conn.cursor()
+            x = conn.cursor()
             self._debug(1,"x connection cursor")
             x.execute("SELECT dev_value, dev_rom_id, dev_collect_values_to_db FROM devices WHERE dev_id='{0}' and dev_status=True".format(senor_id))
             db_data = x.fetchone()
             self._debug(1,"get data from devices")
             try:
                 x.execute("UPDATE devices SET dev_value_old={0} WHERE dev_id='{1}' and dev_status=True".format(db_data[0],senor_id))
-                self.conn.commit()
+                conn.commit()
             except:
                 pass
             if status is True:
@@ -52,47 +45,59 @@ class MaaPiDBConnection(object):
                 """if stst is true, update actual value, date and stat on devices"""
                 if value == True:
                     x.execute("UPDATE devices SET dev_value={0}, dev_last_update=NOW(),dev_read_error='ok' WHERE dev_id='{1}' and dev_status=True".format(1,senor_id))
-                    self.conn.commit()
+                    conn.commit()
                     if db_data[2]:
                         x.execute("""INSERT INTO maapi_dev_rom_{0}_values VALUES (default,{1},default,{2})""".format(db_data[1].replace("-", "_"), senor_id,1))
-                        self.conn.commit()
+                        conn.commit()
                     """if dev_collect_values_to_db true - enable write to values table"""
                 elif value == False:
                     x.execute("UPDATE devices SET dev_value={0}, dev_last_update=NOW(),dev_read_error='ok' WHERE dev_id='{1}' and dev_status=True".format(0,senor_id))
-                    self.conn.commit()
+                    conn.commit()
                     if db_data[2]:
                         x.execute("""INSERT INTO maapi_dev_rom_{0}_values VALUES (default,{1},default,{2})""".format(db_data[1].replace("-", "_"), senor_id,0))
                         conn.commit()
                     """if dev_collect_values_to_db true - enable write to values table"""
                 else:
                     x.execute("UPDATE devices SET dev_value={0}, dev_interval_queue = {2}, dev_last_update=NOW(), dev_read_error='ok' WHERE dev_id='{1}' and dev_status=True".format(value,senor_id,False))
-                    self.conn.commit()
+                    conn.commit()
 
                     if db_data[2]:
                         x.execute("""INSERT INTO maapi_dev_rom_{0}_values VALUES (default,{1},default,{2})""".format(db_data[1].replace("-", "_"), senor_id,value))
                         conn.commit()
             else:
                 x.execute("UPDATE devices SET  dev_interval_queue = {2},dev_value={0},dev_read_error='Error' WHERE dev_id='{1}' and dev_status=True".format(9999,senor_id,False))
-                self.conn.commit()
+                conn.commit()
+            conn.close()
 
 
 
     @classmethod
     def queue(self,dev_id,status,board_id):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
             #print("time={0}\t file name={1}\t file_location={2}".format(time,file_name,Maapi_location))
 
-            x = self.conn.cursor()
+            x = conn.cursor()
             if dev_id == '*':
                 x.execute("UPDATE devices SET dev_interval_queue={0} where dev_status=TRUE  and dev_machine_location_id = {1}".format(status,board_id))
-                self.conn.commit()
+                conn.commit()
             else:
                 x.execute("UPDATE devices SET dev_interval_queue={0} where dev_id={1} and dev_machine_location_id = {2}".format(status,dev_id,board_id))
-                self.conn.commit()
+                conn.commit()
+            conn.close()
 
 
     @classmethod
     def select_last_nr_of_values(self,dev_id,range_nr):
-                x = self.conn.cursor()
+            try:
+                conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+            except:
+                print "I am unable to connect to the database"
+            else:
+                x = conn.cursor()
 
                 try:
                     x.execute("SELECT dev_rom_id FROM devices where dev_id={0}".format(dev_id))
@@ -113,14 +118,21 @@ class MaaPiDBConnection(object):
 
                 self._debug(1,"value_history{0}".format(values_history))
 
-                return  values_history
+                conn.close()
+            return  values_history
 
     @classmethod
     def queue_all(self,status):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
             #print("time={0}\t file name={1}\t file_location={2}".format(time,file_name,Maapi_location))
-            x = self.conn.cursor()
+            x = conn.cursor()
             x.execute("UPDATE devices SET dev_interval_queue={0} ".format(status))
-            self.conn.commit()
+            conn.commit()
+            conn.close()
 
     def columns(self, *args):
         self.columns_ = args
@@ -206,8 +218,17 @@ class MaaPiDBConnection(object):
 
 
     def exec_query_select(self, query, name):
+        #print query
+        try:
+            conn = psycopg2.connect(
+                "dbname='{0}' user='{1}' host='{2}' password='{3}'".format(
+                    Maapi_dbname, Maapi_user, Maapi_host, Maapi_passwd))
+        except:
+            raise IOError(
+                "Can not open connection with DB {0}".format(Maapi_dbname))
+        else:
             table_data_dict = {}
-            x = self.conn.cursor()
+            x = conn.cursor()
             try:
                 x.execute(query)
                 table_data = x.fetchall()
@@ -255,23 +276,40 @@ class MaaPiDBConnection(object):
             except (Exception, psycopg2.DatabaseError) as error:
                 pass
 
-            return table_data_dict
+            conn.close()
+        return table_data_dict
 
     @classmethod
     def update_cron(self,file_name,time):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
+
             #print("time={0}\t file name={1}\t file_location={2}".format(time,file_name,Maapi_location))
-            x = self.conn.cursor()
+            x = conn.cursor()
             x.execute("UPDATE maapi_cron SET cron_last_file_exec=NOW(), cron_time_of_exec={1} WHERE cron_file_path ='{2}' and cron_where_exec='{3}'".format(datetime.now(),time,file_name,Maapi_location))
 
-            self.conn.commit()
+            conn.commit()
+
+            conn.close()
 
 
     @classmethod
     def reindex(self,tables):
+        try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+        except:
+            print ("I am unable to connect to the database")
+        else:
+
+            x = conn.cursor()
             for t in tables:
                 x.execute("REINDEX TABLE maapi_dev_rom_{0}_values".format(tables[t]['dev_rom_id'].replace("-", "_")))
                 #print ("REINDEX TABLE maapi_dev_rom_{0}_values".format(tables[t]['dev_rom_id'].replace("-", "_")))
-                self.conn.commit()
+                conn.commit()
+            conn.close()
 
 
     def __init__(self):
@@ -280,9 +318,3 @@ class MaaPiDBConnection(object):
         self.columns_ = {}
         self.columns_var = {}
         self.table_ = {}
-
-
-
-    def __del__(self):
-#        self.conn.close()
-        print self.id, 'died'
