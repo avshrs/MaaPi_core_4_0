@@ -25,6 +25,7 @@ class pcfxxxxi2(object):
       out = []
       for ix in range(0,accuracy):
          data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[5:]
+	 print data
          if  data[12] > 0 :
 	    time.sleep(0.002)
             out.append(max(data))
@@ -39,15 +40,11 @@ class pcfxxxxi2(object):
 	 dataAvg = max(data)
       else:
          dataAvg = 0
-      if type_ != 0:
-         volts  = dataAvg * factor 
-         ampers = volts / 0.0333333
-         wats   = ampers * 235.0
-         volts  = 0
-      else: 
-         volts  = (dataAvg * factor )*190
-         ampers = 0
-         wats   = 0
+      volts  = dataAvg * factor 
+      ampers = volts / 0.0333333
+      wats   = ampers * 235.0
+      volts  = 0
+
       return volts,ampers,wats
 
 

@@ -33,13 +33,12 @@ class class_get_values(object):
 
     @classmethod
     def read(self,sensor, address):
-
         counter = 20
         accuracy = 50
-        self.bus.write_byte(0x4c,0x04)
+        self.bus.write_byte(address,0x04)
         out = []
         for ix in range(0,accuracy):      
-            data = self.bus.read_i2c_block_data(0x4c,int(sensor),32)[5:]
+            data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:]
             if  data[12] > 0 and data[13] > 0 and data[14] > 0:
                 d = max(data)
 #                if sensor !=0 :
@@ -52,24 +51,28 @@ class class_get_values(object):
         return out
 
     @classmethod
-    def convert(self,data,type_):
+    def convert(self,data,kind):
         factor = 2.29 / 256.0  # pfc factor
+        out = 0
+        print data
         if data:
             dataAvg = max(data)
-            if type_ != 0:
+            if kind == "W":
                 volts  = (dataAvg * factor )-1.63
                 ampers = volts / 0.0333333
                 wats   = ampers * 235.0
-                volts  = 0
-            else: 
+                out = wats
+            if kind == "V":
+                 
                 volts  = (dataAvg * factor )*190
                 ampers = 0
                 wats   = 0
+                out = volts
         else:
             volts  = 0
             ampers = 0
             wats   = 0
-        return volts,ampers,wats
+        return out
 
 
    
@@ -77,18 +80,20 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-           # try:
-                nr = int(arg[1][-1:],10)
-                addr = int(arg[1][-8:-4],16)
-                data = self.read(nr, 0x4a)
-                volt, amper, wat = self.convert(data,int(arg[1][-1:][0]))
-                if int(arg[1][-1:]) > 0:
-                    maapidb.MaaPiDBConnection.insert_data(arg[0],wat ," " , True)
-                else:
-                        
-                    maapidb.MaaPiDBConnection.insert_data(arg[0],volt," " , True)
-           # except:
-             #   self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+            try:
+                nr = int(arg[1][-2],10)
+                
+                addr = int(arg[1][-7:-3],16)
+                kind = arg[1][-1]
+              
+                data = self.read(nr, addr)
+
+                value = self.convert(data,str(kind))
+     
+                maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
+                
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
 		  
-             #   maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
+                maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
 
