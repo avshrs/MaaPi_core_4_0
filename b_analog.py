@@ -20,7 +20,7 @@ class pcfxxxxi2(object):
    def read(self,sensor):
       counter = 10
       accuracy = 200
-      add=0x48
+      add=0x4c
 
       self.bus.write_byte(add,0x00)
       out = []
@@ -44,7 +44,7 @@ class pcfxxxxi2(object):
       else:
          dataAvg = 0
 
-      volts  = (dataAvg * factor )
+      volts  = (dataAvg * factor ) - 1.1
 #      print volts
       ampers = volts / 0.0333333
       wats   = ampers * 235.0
@@ -54,7 +54,7 @@ class pcfxxxxi2(object):
 
 
    def __init__(self,args):
-      for iii in range(0,4):
+      for iii in range(0,3):
          data = self.read(iii)
          volt, amper, wat = self.convert(data,iii)
          print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.1f} ".format(iii,volt,amper,wat))
