@@ -34,7 +34,7 @@ class class_get_values(object):
     @classmethod
     def read(self,sensor, address):
         counter = 30
-        self.bus.write_byte(address,0x04)
+        self.bus.write_byte(address,int(sensor))
         out = []
         for ix in range(0,counter):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
@@ -77,17 +77,12 @@ class class_get_values(object):
         for arg in args:
             try:
                 nr = int(arg[1][-2],10)
-                
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
-              
                 data = self.read(nr, addr)
-
                 value = self.convert(data,str(kind))
-     
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
-                
             except:
                 self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-		            maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
-
+                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg))
+#		        maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
