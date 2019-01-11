@@ -34,7 +34,7 @@ class class_get_values(object):
     @classmethod
     def read(self,sensor, address):
         counter = 20
-        accuracy = 50
+        accuracy = 100
         self.bus.write_byte(address,0x04)
         out = []
         for ix in range(0,accuracy):      
@@ -58,7 +58,7 @@ class class_get_values(object):
         if data:
             dataAvg = max(data)
             if kind == "W":
-                volts  = (dataAvg * factor )-1.63
+                volts  = (dataAvg * factor )
                 ampers = volts / 0.0333333
                 wats   = ampers * 235.0
                 out = wats

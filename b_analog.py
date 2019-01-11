@@ -18,16 +18,19 @@ class pcfxxxxi2(object):
                                        
 
    def read(self,sensor):
-      counter = 20
-      accuracy = 50
+      counter = 11
 
-      self.bus.write_byte(0x48,0x04)
+      accuracy = 11
+
+      add=0x48
+      self.bus.write_byte(add,0x00)
       out = []
       for ix in range(0,accuracy):
-         data = self.bus.read_i2c_block_data(0x48,int(sensor),32)[5:]
-	 print data
-         if  data[12] > 0 :
-	    time.sleep(0.002)
+         data = self.bus.read_i2c_block_data(add,sensor,32)[5:]
+#	 print data
+         if  data[12] > 0 and data[12] < 240 and data[26] < 240 and data[0] < 240:
+            print data
+	    #time.sleep(0.002)
             out.append(max(data))
             counter -= 1
             if counter < 1:
@@ -40,10 +43,12 @@ class pcfxxxxi2(object):
 	 dataAvg = max(data)
       else:
          dataAvg = 0
-      volts  = dataAvg * factor 
+
+      volts  = (dataAvg * factor )
+#      print volts
       ampers = volts / 0.0333333
       wats   = ampers * 235.0
-      volts  = 0
+      volts  *=190
 
       return volts,ampers,wats
 
