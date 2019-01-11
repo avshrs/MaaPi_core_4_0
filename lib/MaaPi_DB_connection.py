@@ -12,18 +12,10 @@ from conf.MaaPi_Settings import *
 
 
 class MaaPiDBConnection(object):
-    try:
-        conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
-    except:
-        print ("I am unable to connect to the database")
-
-
-
-
-
-
-
-
+#    try:
+#        conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+#    except:
+#        print ("I am unable to connect to the database")
 
     debug = 0
 
@@ -274,9 +266,16 @@ class MaaPiDBConnection(object):
                 self.conn.commit()
 
 
-    def __init__(self):
+    def __init__(self): 
+
+	try:
+            conn = psycopg2.connect("dbname='{0}' user='{1}' host='{2}' password='{3}'".format(Maapi_dbname,Maapi_user,Maapi_host,Maapi_passwd))
+            self._debug(1,"open database connection")
+        except: self.orders_ = {}
+            print ("I am unable to connect to the database") 
+
+
         self.filters_ = {}
-        self.orders_ = {}
         self.columns_ = {}
         self.columns_var = {}
         self.table_ = {}
@@ -285,4 +284,4 @@ class MaaPiDBConnection(object):
 
     def __del__(self):
 #        self.conn.close()
-        print self.id, 'died'
+        print  '-------------------------------died---------------------------------------------------'
