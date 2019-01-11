@@ -18,10 +18,9 @@ class pcfxxxxi2(object):
                                        
 
    def read(self,sensor):
-      counter = 10
-      accuracy = 200
+      counter = 30
+      accuracy = 30
       add=0x4c
-
       self.bus.write_byte(add,0x00)
       out = []
       for ix in range(0,accuracy):
@@ -40,19 +39,26 @@ class pcfxxxxi2(object):
         ampers=0
         wats=0
         volt=0
-        factor = 2.29 / 256.0  
+        vcc = 2.29
+        factor = vcc / 256.0  
         for di in data:
-            idd = (di * (factor) - 0.57) * 190
-            volts.append(idd)
-         
-
-            
+            idd = ((di * (factor)) - (vcc/2)) *205
+            volts.append(abs(idd))
+        
+        """
+        for di in data:
+            idd = ((di * (factor)) -(vcc/2)) 
+            volts.append(abs(idd))
+        """
+        print max(data)        
+        print min(data)    
        
         volt = max(volts)
-        print volt 
-        ampers = min(volts)
-        print ampers
-        print "\n"
+      
+        ampers = volt /0.033333
+ 
+        wats = ampers * 233 
+ 
         return volt,ampers,wats
 
 
@@ -60,7 +66,7 @@ class pcfxxxxi2(object):
       for iii in range(0,3):
          data = self.read(iii)
          volt, amper, wat = self.convert(data,iii)
-         print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.1f} ".format(iii,volt,amper,wat))
+         print ("{0}\t volts= {1:.4f} \tampers= {2:.4f} \t\twats= {3:.1f} ".format(iii,volt,amper,wat))
 
 
 start = dt.datetime.now()

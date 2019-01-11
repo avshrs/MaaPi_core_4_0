@@ -33,42 +33,40 @@ class class_get_values(object):
 
     @classmethod
     def read(self,sensor, address):
-        counter = 20
-        accuracy = 200
+        counter = 30
         self.bus.write_byte(address,0x04)
         out = []
-        for ix in range(0,accuracy):      
-            data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:]
-            if  min(data) < 200 and max(data) > 1 and max(data) < 240:
-                d = max(data)
-                out.append(d)
-                counter -= 1
-                if counter < 1:
-                    break
+        for ix in range(0,counter):      
+            data = self.bus.read_i2c_block_data(address,int(sensor),32)
+            if  data[12] > 0 and data[12] < 255:
+                for da in data:
+                    out.append(da)
         return out
+    @classmethod
+    def factorCalc(self,data,multip):
+        vcc = 2.29
+        factor = vcc / 256.0  # pfc factor
+        data_=[]
+        for di in data:
+            idd = ((di * (factor)) - (vcc/2)) * multip
+            data_.append(abs(idd))
+        return data_
 
     @classmethod
     def convert(self,data,kind):
-        factor = 2.29 / 256.0  # pfc factor
         out = 0
-        print data
         if data:
-            dataAvg = max(data)
             if kind == "W":
-                volts  = (dataAvg * factor )
+                volts  = max(self.factorCalc(data,1))
                 ampers = volts / 0.0333333
                 wats   = ampers * 235.0
                 out = wats
             if kind == "V":
-                 
-                volts  = (dataAvg * factor )*190
+                volts  = max(self.factorCalc(data,205))
                 ampers = 0
                 wats   = 0
                 out = volts
-        else:
-            volts  = 0
-            ampers = 0
-            wats   = 0
+    
         return out
 
 
@@ -91,6 +89,5 @@ class class_get_values(object):
                 
             except:
                 self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-		  
-                maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
+		            maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
 
