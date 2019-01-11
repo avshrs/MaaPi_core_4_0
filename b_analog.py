@@ -18,10 +18,8 @@ class pcfxxxxi2(object):
                                        
 
    def read(self,sensor):
-      counter = 11
-
-      accuracy = 11
-
+      counter = 10
+      accuracy = 200
       add=0x48
       self.bus.write_byte(add,0x00)
       out = []
@@ -29,12 +27,13 @@ class pcfxxxxi2(object):
          data = self.bus.read_i2c_block_data(add,sensor,32)[5:]
 #	 print data
          if  data[12] > 0 and data[12] < 240 and data[26] < 240 and data[0] < 240:
-            print data
+#            print data
 	    #time.sleep(0.002)
             out.append(max(data))
             counter -= 1
             if counter < 1:
                break
+      print out
       return out
 
    def convert(self,data,type_):

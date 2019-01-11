@@ -15,7 +15,7 @@ logging.basicConfig(
     datefmt='%m/%d/%Y %H:%M:%S')
 
 class class_get_values(object):
-
+    debug = 1
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
@@ -34,16 +34,13 @@ class class_get_values(object):
     @classmethod
     def read(self,sensor, address):
         counter = 20
-        accuracy = 100
+        accuracy = 200
         self.bus.write_byte(address,0x04)
         out = []
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:]
-            if  data[12] > 0 and data[13] > 0 and data[14] > 0:
+            if  min(data) < 200 and max(data) > 1 and max(data) < 240:
                 d = max(data)
-#                if sensor !=0 :
-#                    if d > 78: 
-#                        continue
                 out.append(d)
                 counter -= 1
                 if counter < 1:
