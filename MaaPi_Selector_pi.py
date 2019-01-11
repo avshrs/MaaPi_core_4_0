@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from lib.MaaPi_DB_connection import MaaPiDBConnection
+import  lib.MaaPi_DB_connection as maapiDB
 from datetime import datetime
 from conf.MaaPi_Settings import *
 import threading
@@ -13,7 +13,7 @@ add max count of sensor sended to lib 10 / becouse one wire on read time is ~750
 Class selector - check sensor which is reading is older then NOW() - interval
 get class name from devices conf. and get/put data from/to sensor/gpio
 """
-
+MaaPiDBConnection = maapiDB.MaaPiDBConnection
 
 class Selector(object):
     debug = 1
