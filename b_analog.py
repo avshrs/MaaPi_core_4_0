@@ -21,6 +21,7 @@ class pcfxxxxi2(object):
       counter = 10
       accuracy = 200
       add=0x48
+
       self.bus.write_byte(add,0x00)
       out = []
       for ix in range(0,accuracy):
