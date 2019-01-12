@@ -2,7 +2,7 @@
 
 import sys
 from statistics import median, stdev, mean
-from datetime import datetime
+from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
 from smbus2 import SMBus, i2c_msg
 import time
@@ -22,10 +22,11 @@ class class_get_values(object):
             logging.debug("lib_maapi_pcf8591_i2c - {0}".format(msg))
 
     bus = SMBus(1)
- 
+    dataCout = 0
     @classmethod
     def read(self,sensor, address):
         counter = 30
+        self.dataCout = counter * 32
         self.bus.write_byte(address,int(sensor))
         out = []
         for ix in range(0,counter):      
@@ -35,7 +36,7 @@ class class_get_values(object):
                     out.append(da)
         return out
     @classmethod
-    def factorCalc(self,data,multip,filter_):
+    def factorCalc(self,data,multip,filter_,chaver):
         vcc = 2.29
         factor = vcc / 256.0  # pfc factor
         data_=[]
@@ -44,13 +45,11 @@ class class_get_values(object):
             idd = ((di * (factor)) - (vcc/2)) * multip
             data_.append(abs(idd))
         if filter_:
-            smalVolts  = mean(data_)
-            avg = mean(smalVolts)
-            std = stdev(smalVolts)
-            s
-            correct = 1
-            for sv in smalVolts:
-                if sv < avg + (std * correct) and sv > avg - (std * correct):
+            data_.sort(reverse=True)
+            avg = mean(data_[:(self.dataCout/2)*(-1)])
+            std = stdev(data_)
+            for sv in data_:
+                if sv < avg + (std * chaver) and sv > avg - (std * chaver):
                     svOut.append(sv)
             return svOut
         else:
@@ -63,17 +62,16 @@ class class_get_values(object):
         out = 0
         if data:
             if kind == "W":
-                volts = max(self.factorCalc(data,1,True))
+                volts  = max(self.factorCalc(data,1,True,2))
                 ampers = volts / 0.0333333
-                wats   = ampers * 234.0
-                out = wats
+                out    = ampers * 234.0
+
             if kind == "V":
-                volts = max(self.factorCalc(data,205,True))
-                ampers = 0
-                wats   = 0
-                out = volts
+                out    = max(self.factorCalc(data,205,True,4))
+
             if kind == "A":
-                pass
+                volts  = max(self.factorCalc(data,1,True,4))
+                out    = volts / 0.0333333
         return out
 
 
@@ -82,14 +80,17 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+           # try:
+                start = dt.now()
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
                 data = self.read(nr, addr)
                 value = self.convert(data,str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg))
-#		        maapidb.MaaPiDBConnection.insert_data(arg[0][0], 0," " , False)
+                stop = dt.now()
+                self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
+          #  except:
+           #     self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+             #   self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg))
+            #    maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
