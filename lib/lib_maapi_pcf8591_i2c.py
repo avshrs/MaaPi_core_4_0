@@ -25,19 +25,23 @@ class class_get_values(object):
     dataCout = 0
     @classmethod
     def read(self,sensor, address):
-        counter = 30
+        counter = 90
+        accuracy = 200
         self.dataCout = counter * 32
         self.bus.write_byte(address,int(sensor))
         out = []
-        for ix in range(0,counter):      
+        for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
-            if  data[12] > 0 and data[12] < 255:
+            if  data[0] > 0 and data[0] < 254 and data[31] < 254 and data[31] > 0:
                 for da in data:
                     out.append(da)
+                counter -= 1
+                if counter < 1:
+                    break    
         return out
     @classmethod
     def factorCalc(self,data,multip,filter_,chaver):
-        vcc = 2.29
+        vcc = 2.30
         factor = vcc / 256.0  # pfc factor
         data_=[]
         svOut = []
