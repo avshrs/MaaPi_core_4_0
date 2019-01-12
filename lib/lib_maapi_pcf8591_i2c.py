@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-from statistics import median, stdev
+from statistics import median, stdev, mean
 from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 from smbus2 import SMBus, i2c_msg
@@ -24,14 +24,6 @@ class class_get_values(object):
     bus = SMBus(1)
  
     @classmethod
-    def avg(self,data):
-        data_ = 0
-        for i in data: 
-            data_+= i 
-        return data_/(len(data))
-
-
-    @classmethod
     def read(self,sensor, address):
         counter = 30
         self.bus.write_byte(address,int(sensor))
@@ -43,30 +35,45 @@ class class_get_values(object):
                     out.append(da)
         return out
     @classmethod
-    def factorCalc(self,data,multip):
+    def factorCalc(self,data,multip,filter_):
         vcc = 2.29
         factor = vcc / 256.0  # pfc factor
         data_=[]
+        svOut = []
         for di in data:
             idd = ((di * (factor)) - (vcc/2)) * multip
             data_.append(abs(idd))
-        return data_
+        if filter_:
+            smalVolts  = mean(data_)
+            avg = mean(smalVolts)
+            std = stdev(smalVolts)
+            s
+            correct = 1
+            for sv in smalVolts:
+                if sv < avg + (std * correct) and sv > avg - (std * correct):
+                    svOut.append(sv)
+            return svOut
+        else:
+            return data_
+
+        
 
     @classmethod
     def convert(self,data,kind):
         out = 0
         if data:
             if kind == "W":
-                volts  = max(self.factorCalc(data,1))
+                volts = max(self.factorCalc(data,1,True))
                 ampers = volts / 0.0333333
-                wats   = ampers * 235.0
+                wats   = ampers * 234.0
                 out = wats
             if kind == "V":
-                volts  = max(self.factorCalc(data,205))
+                volts = max(self.factorCalc(data,205,True))
                 ampers = 0
                 wats   = 0
                 out = volts
-    
+            if kind == "A":
+                pass
         return out
 
 
