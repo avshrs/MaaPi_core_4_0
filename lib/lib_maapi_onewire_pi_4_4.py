@@ -40,6 +40,7 @@ class class_get_values(object):
                     format(temp, dev_id))
                 w1_file.close()
                 self._debug(2, "Close file")
+                print temp
                 maapidb.MaaPiDBConnection.insert_data(
                     dev_id, temp, ' ', True)
             else:
@@ -66,9 +67,10 @@ class class_get_values(object):
             if condition:
                 if condition_min_max:
                     self.read_data_from_1w(rom_id[1], rom_id[0])
-
+                    
 
                 else:
+
                     maapidb.MaaPiDBConnection.insert_data(
                         rom_id[0], force_value, ' ', True)
                     self._debug(

@@ -1,7 +1,7 @@
 
-from lib.lib_maapi_pcf8591_i2c  import class_get_values as bh
+from lib.lib_maapi_onewire_pi_4_4  import class_get_values as bh
 
-a=((2191, "PCF8591_I2C_0X48_1W", 0,1),(2191, "PCF8591_I2C_0X48_1W", 0,1))
+a=[[2187, "28-04168575f9ff", 0,1],[9,"28-0000071ea24e", 0,1]]
 
 for i in a:
   print a[1]
