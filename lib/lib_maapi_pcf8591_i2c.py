@@ -16,6 +16,7 @@ logging.basicConfig(
 
 class class_get_values(object):
     debug = 1
+    
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
@@ -23,8 +24,10 @@ class class_get_values(object):
 
     bus = SMBus(1)
     dataCout = 0
+
+
     @classmethod
-    def read(self,sensor, address):
+    def readFromI2C(self,sensor, address):
         counter = 30
         accuracy = 30
         self.dataCout = counter * 32
@@ -33,11 +36,13 @@ class class_get_values(object):
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             if  data[0] > 0 and data[0] < 254 and data[31] < 254 and data[31] > 0:
-                for da in data:
-                    out.append(da)
+                data_ = max(data)
+                out.append(data_)
+
                 counter -= 1
                 if counter < 1:
                     break    
+        print out                    
         return out
 
     @classmethod
@@ -70,7 +75,7 @@ class class_get_values(object):
         range_  = 5
         out     = []
         for i in range (0,range_):
-            allData.append(self.read(nr, addr))
+            allData.append(self.readFromI2C(nr, addr))
         for data in allData:
             if data:
                 if kind == "W":
@@ -101,7 +106,6 @@ class class_get_values(object):
                 value = self.convert(nr, addr, str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
-                print stop-start
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
           #  except:
            #     self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
