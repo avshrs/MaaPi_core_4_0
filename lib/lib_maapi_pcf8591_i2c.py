@@ -50,9 +50,9 @@ class class_get_values(object):
             idd = ((di * (factor)) - (vcc/2)) * multip
             if idd != 0:
                 data_.append(abs(idd))
-                
+        data_.sort(reverse=True)
         if filter_:
-            data_.sort(reverse=True)
+            
             avg = mean(data_[:-20])
             std = stdev(data_[:-20])
             for sv in data_:
@@ -60,7 +60,7 @@ class class_get_values(object):
                     svOut.append(sv)
             return svOut
         else:
-            return data_[:-10]
+            return data_[:-20]
 
         
 
@@ -80,7 +80,7 @@ class class_get_values(object):
 
                 if kind == "V":
                     out.append(max(self.factorCalc(data,205,False,1)))
-                    print out
+                
                 if kind == "A":
                     volts  = max(self.factorCalc(data,1,False,4))
                     out.append(volts / 0.0333333)
