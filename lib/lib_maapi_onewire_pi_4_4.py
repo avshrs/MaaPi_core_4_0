@@ -22,25 +22,24 @@ class class_get_values(object):
 
     @classmethod
     def read_data_from_1w(self, rom_id, dev_id):
-        print "read"
         if os.path.isfile('/sys/bus/w1/devices/{0}/w1_slave'.format(rom_id)):
             w1_file = open('/sys/bus/w1/devices/{0}/w1_slave'.format(rom_id),'r')
-            self._debug(1,"Open file /sys/bus/w1/devices/{0}/w1_slave".format(rom_id))
+            self._debug(1,
+                        "Open file /sys/bus/w1/devices/{0}/w1_slave"
+                        .format(rom_id))
             w1_line = w1_file.readline()
             w1_crc = w1_line.rsplit(' ', 1)
             w1_crc = w1_crc[1].replace('\n', '')
-            print w1_file.readline()
-            print w1_file.readline()
             if w1_crc == 'YES':
                 self._debug(2, "CRC - YES")
                 w1_line = w1_file.readline()
                 w1_temp = w1_line.rsplit('t=', 1)
                 temp = float(float(w1_temp[1]) / float(1000))
-                self._debug(1, "Read_data_from_1w - Value is {0} for rom_id[1] {1}".format(temp, dev_id))
+                self._debug(
+                    1, "Read_data_from_1w - Value is {0} for rom_id[1] {1}".
+                    format(temp, dev_id))
                 w1_file.close()
                 self._debug(2, "Close file")
-                print "----------------------------------------"
-                print temp
                 maapidb.MaaPiDBConnection.insert_data(
                     dev_id, temp, ' ', True)
             else:
@@ -57,11 +56,9 @@ class class_get_values(object):
 
     @classmethod
     def __init__(self, *args):
-        print args
         for rom_id in args:
-            print rom_id[0]
-            condition, condition_min_max, force_value = Check().condition(rom_id[0])
-            print "after condition"
+            condition, condition_min_max, force_value = Check().condition(
+                rom_id[0])
             self._debug(
                 1,
                 "Condition is = {0}\t condition_min_max is = {1}, \t forced value is = {2}".
@@ -69,10 +66,10 @@ class class_get_values(object):
             if condition:
                 if condition_min_max:
                     self.read_data_from_1w(rom_id[1], rom_id[0])
-                    print "condition true"
+                    
 
                 else:
-                    print "condition true else"
+
                     maapidb.MaaPiDBConnection.insert_data(
                         rom_id[0], force_value, ' ', True)
                     self._debug(
@@ -81,4 +78,3 @@ class class_get_values(object):
                         format(rom_id[0], force_value))
             else:
                 self.read_data_from_1w(rom_id[1], rom_id[0])
-                print "condition false"

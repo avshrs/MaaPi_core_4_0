@@ -25,8 +25,8 @@ class class_get_values(object):
     dataCout = 0
     @classmethod
     def read(self,sensor, address):
-        counter = 90
-        accuracy = 200
+        counter = 30
+        accuracy = 30
         self.dataCout = counter * 32
         self.bus.write_byte(address,int(sensor))
         out = []
@@ -39,9 +39,10 @@ class class_get_values(object):
                 if counter < 1:
                     break    
         return out
+
     @classmethod
     def factorCalc(self,data,multip,filter_,chaver):
-        vcc = 2.30
+        vcc = 2.29
         factor = vcc / 256.0  # pfc factor
         data_=[]
         svOut = []
@@ -49,35 +50,41 @@ class class_get_values(object):
             idd = ((di * (factor)) - (vcc/2)) * multip
             if idd != 0:
                 data_.append(abs(idd))
+                
         if filter_:
             data_.sort(reverse=True)
             avg = mean(data_[:-20])
-            std = stdev(data_)
+            std = stdev(data_[:-20])
             for sv in data_:
                 if sv < avg + (std * chaver) and sv > avg - (std * chaver):
                     svOut.append(sv)
             return svOut
         else:
-            return data_
+            return data_[:-10]
 
         
 
     @classmethod
-    def convert(self,data,kind):
-        out = 0
-        if data:
-            if kind == "W":
-                volts  = max(self.factorCalc(data,1,True,4))
-                ampers = volts / 0.0333333
-                out    = ampers * 234.0
+    def convert(self,nr,addr,kind):
+        allData = []
+        range_  = 5
+        out     = []
+        for i in range (0,range_):
+            allData.append(self.read(nr, addr))
+        for data in allData:
+            if data:
+                if kind == "W":
+                    volts  = max(self.factorCalc(data,1,True,2))
+                    ampers = volts / 0.0333333
+                    out.append(ampers * 234.0)
 
-            if kind == "V":
-                out    = max(self.factorCalc(data,205,False,4))
-
-            if kind == "A":
-                volts  = max(self.factorCalc(data,1,False,4))
-                out    = volts / 0.0333333
-        return out
+                if kind == "V":
+                    out.append(max(self.factorCalc(data,205,False,1)))
+                    print out
+                if kind == "A":
+                    volts  = max(self.factorCalc(data,1,False,4))
+                    out.append(volts / 0.0333333)
+        return max(out)
 
 
    
@@ -90,8 +97,8 @@ class class_get_values(object):
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
-                data = self.read(nr, addr)
-                value = self.convert(data,str(kind))
+                
+                value = self.convert(nr, addr, str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 print stop-start
