@@ -63,7 +63,7 @@ class class_get_values(object):
         out = 0
         if data:
             if kind == "W":
-                volts  = max(self.factorCalc(data,1,True,2))
+                volts  = max(self.factorCalc(data,1,True,4))
                 ampers = volts / 0.0333333
                 out    = ampers * 234.0
 
@@ -71,7 +71,7 @@ class class_get_values(object):
                 out    = max(self.factorCalc(data,205,False,4))
 
             if kind == "A":
-                volts  = max(self.factorCalc(data,1,True,4))
+                volts  = max(self.factorCalc(data,1,False,4))
                 out    = volts / 0.0333333
         return out
 
