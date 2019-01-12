@@ -18,7 +18,7 @@ class pcfxxxxi2(object):
                                        
 
    def read(self,sensor):
-      counter = 30
+      counter = 10
       accuracy = 30
       add=0x4c
       self.bus.write_byte(add,0x00)
@@ -32,6 +32,7 @@ class pcfxxxxi2(object):
             counter -= 1
             if counter < 1:
                break
+      print out
       return out
 
    def convert(self,data,type_):

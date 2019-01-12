@@ -25,7 +25,7 @@ class class_get_values(object):
     dataCout = 0
     @classmethod
     def read(self,sensor, address):
-        counter = 40
+        counter = 30
         self.dataCout = counter * 32
         self.bus.write_byte(address,int(sensor))
         out = []
