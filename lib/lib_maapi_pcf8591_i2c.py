@@ -25,7 +25,7 @@ class class_get_values(object):
     dataCout = 0
     @classmethod
     def read(self,sensor, address):
-        counter = 30
+        counter = 40
         self.dataCout = counter * 32
         self.bus.write_byte(address,int(sensor))
         out = []
@@ -43,10 +43,11 @@ class class_get_values(object):
         svOut = []
         for di in data:
             idd = ((di * (factor)) - (vcc/2)) * multip
-            data_.append(abs(idd))
+            if idd != 0:
+                data_.append(abs(idd))
         if filter_:
             data_.sort(reverse=True)
-            avg = mean(data_[:(self.dataCout/2)*(-1)])
+            avg = mean(data_[:-20])
             std = stdev(data_)
             for sv in data_:
                 if sv < avg + (std * chaver) and sv > avg - (std * chaver):
@@ -67,7 +68,7 @@ class class_get_values(object):
                 out    = ampers * 234.0
 
             if kind == "V":
-                out    = max(self.factorCalc(data,205,True,4))
+                out    = max(self.factorCalc(data,205,False,4))
 
             if kind == "A":
                 volts  = max(self.factorCalc(data,1,True,4))
@@ -89,6 +90,7 @@ class class_get_values(object):
                 value = self.convert(data,str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
+                print stop-start
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
           #  except:
            #     self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
