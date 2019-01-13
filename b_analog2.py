@@ -131,8 +131,8 @@ class pcfxxxxi2(object):
             readRetray  = 5
             STDdirection="all"
             avgRetry = 2
-            removeSmallVal = 0.1
-            removeHighVal = 0.1
+            removeSmallVal = 0.05
+            removeHighVal = 0.05
             dataAvg = []
             vcc = 2.2
             vccAdjust = 0
@@ -150,8 +150,8 @@ class pcfxxxxi2(object):
             readRetray  = 2
             STDdirection="all"
             avgRetry = 2
-            removeSmallVal = 0.4
-            removeHighVal = 0.1
+            removeSmallVal = 0.05
+            removeHighVal = 0.05
             dataAvg = []
             vcc = 1.68
             vccAdjust = 0
