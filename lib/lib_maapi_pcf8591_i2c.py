@@ -45,7 +45,10 @@ class class_get_values(object):
         out = []
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
-            out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
+            if data[10] > 0 and data[10]<250 and data[20] > 0 and data[20]<250 :
+                out.append(self.toVolts(data[5:-2],Vmultip,vcc, vccAdjust))
+            if out is None:
+                out.append(0)
         
         return out
 
@@ -84,12 +87,16 @@ class class_get_values(object):
                     self._debug(1, "\tParameter STDchaver {0} is bad multiplaying   data len {1}".format(STDchaver, len(out)))
                     std  = std_ * STDchaver 
                     for do in data_out[:int(rsv)]:
-                        if STDdirection == "up" or STDdirection == "all":
+                        if STDdirection == "all":   
+                            if do < (avg + std) and do > (avg - std):
+                                out.append(do)
+                        elif STDdirection == "up" :
                             if do < (avg + std):
                                 out.append(do)
-                        if STDdirection == "down" or STDdirection == "all":
+                        elif STDdirection == "down" :
                             if do > (avg - std):
                                 out.append(do)
+                                        
                     
             else: 
                 out = data_out
@@ -105,10 +112,10 @@ class class_get_values(object):
         if kind == "W":
             Vmultip = 1
             STDfilter = True
-            STDchaver = 0.7
+            STDchaver = 0.5
             accuracy = 5       # how many times loop read from sensor 
             readRetray  = 5
-            STDdirection="up"
+            STDdirection="all"
             avgRetry = 6
             dataAvg = []
             removeSmallVal = 0.2

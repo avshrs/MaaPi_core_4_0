@@ -46,7 +46,6 @@ class class_get_values(object):
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
-        
         return out
 
 
@@ -54,23 +53,20 @@ class class_get_values(object):
     def dataAnalize(self,sensor, address, readRetray, Vmultip, STDfilter, STDchaver, STDdirection, accuracy ,removeSmallVal, vcc, vccAdjust):
         data_out = []
         out = []
-        for ret in range(0,readRetray):
-            data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy,vcc, vccAdjust)
-            data_temp   = []
-            for da in data_readed:
-                if da:
-                    data_temp.append(max(da))
-                else: data_temp.append(0)
-            data_out.append(max(data_temp))
 
         if STDfilter :
+            for ret in range(0,readRetray):
+                data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy,vcc, vccAdjust)
+                for dr in data_readed: 
+                    for d in dr:
+                        data_out.append(d)
+
+            data_out.sort(reverse=True)
             avg  = mean(data_out)
             std_ = stdev(data_out)
             std  = std_ * STDchaver 
-            data_out.sort(reverse=True)
             if std != 0:
-                rsv = int(len(data_out)*removeSmallVal)*(-1)
-                for do in data_out[:int(rsv)]:
+                for do in data_out:
                     if STDdirection == "up" or STDdirection == "all":
                         if do < (avg + std):
                             out.append(do)
@@ -78,19 +74,6 @@ class class_get_values(object):
                         if do > (avg - std):
                             out.append(do)
                 
-                if out:
-                    self._debug(1, "\tParameter STDchaver {0} is goood data len {1}".format(STDchaver, len(out)))
-                else:
-                    self._debug(1, "\tParameter STDchaver {0} is bad multiplaying   data len {1}".format(STDchaver, len(out)))
-                    std  = std_ * STDchaver 
-                    for do in data_out[:int(rsv)]:
-                        if STDdirection == "up" or STDdirection == "all":
-                            if do < (avg + std):
-                                out.append(do)
-                        if STDdirection == "down" or STDdirection == "all":
-                            if do > (avg - std):
-                                out.append(do)
-                    
             else: 
                 out = data_out
         else:
@@ -105,11 +88,11 @@ class class_get_values(object):
         if kind == "W":
             Vmultip = 1
             STDfilter = True
-            STDchaver = 0.7
+            STDchaver = 0.5
             accuracy = 5       # how many times loop read from sensor 
             readRetray  = 5
-            STDdirection="up"
-            avgRetry = 6
+            STDdirection="all"
+            avgRetry = 5
             dataAvg = []
             removeSmallVal = 0.2
             vcc = 1.68
@@ -159,7 +142,7 @@ class class_get_values(object):
             vccAdjust = 0
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
-            volts = median(dataAvg)
+            volts = mean(dataAvg)
             out = volts
         elif kind == "V" and sensor == 3:
             Vmultip = 2.08 

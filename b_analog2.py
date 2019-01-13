@@ -33,7 +33,10 @@ class pcfxxxxi2(object):
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             #print data[5:-2]
-            out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
+            if data[10] > 0 and data[10]<250 and data[20] > 0 and data[20]<250 :
+                out.append(self.toVolts(data[5:-2],Vmultip,vcc, vccAdjust))
+            if out is None:
+                out.append(0)
         return out
 
 
@@ -55,11 +58,7 @@ class pcfxxxxi2(object):
             std  = std_ * STDchaver 
             
             if std != 0:
-                rsv = int(len(data_out)*removeSmallVal)
-                print rsv
-                rhv = int(len(data_out)*removeHighVal)
-                print rhv
-                for do in data_out[int(rhv):(int(rsv)*(-1))]:
+                for do in data_out:
                     if STDdirection == "up" or STDdirection == "all":
                         if do < (avg + std):
                             out.append(do)
@@ -132,13 +131,14 @@ class pcfxxxxi2(object):
             STDdirection="all"
             avgRetry = 2
             removeSmallVal = 0.05
-            removeHighVal = 0.05
+            removeHighVal =  0.
             dataAvg = []
             vcc = 2.2
             vccAdjust = 0
             for i in range(0,avgRetry):
+
                 dat =self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,removeHighVal,vcc, vccAdjust)
-               # print dat
+               
                 dataAvg.append(max(dat))
             volts = mean(dataAvg)
             out = volts
