@@ -25,13 +25,12 @@ class class_get_values(object):
     bus = SMBus(1)
 
     @classmethod
-    def toVolts(self, data, Vmultip):
-        vcc    = 2.29
+    def toVolts(self, data, Vmultip,vcc, vccAdjust):
         factor = vcc / 256.0
         out    = []
         for di in data:
             if di:
-                volts = abs(((di * factor) - (vcc/2)) * Vmultip)
+                volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
             else: volts = 0
             if volts > 0:
                 out.append(volts)
@@ -41,22 +40,22 @@ class class_get_values(object):
             
 
     @classmethod
-    def readFromI2C(self,sensor, address, Vmultip, accuracy):
+    def readFromI2C(self,sensor, address, Vmultip, accuracy,vcc, vccAdjust):
         self.bus.write_byte(address,int(sensor))
         out = []
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
-            out.append(self.toVolts(data,Vmultip))
+            out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
         
         return out
 
 
     @classmethod
-    def dataAnalize(self,sensor, address, readRetray, Vmultip, STDfilter, STDchaver, STDdirection, accuracy ,removeSmallVal):
+    def dataAnalize(self,sensor, address, readRetray, Vmultip, STDfilter, STDchaver, STDdirection, accuracy ,removeSmallVal, vcc, vccAdjust):
         data_out = []
         out = []
         for ret in range(0,readRetray):
-            data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy)
+            data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy,vcc, vccAdjust)
             data_temp   = []
             for da in data_readed:
                 if da:
@@ -111,8 +110,10 @@ class class_get_values(object):
             avgRetry = 4
             dataAvg = []
             removeSmallVal = 0.2
+            vcc = 2.9
+            vccAdjust = vcc/2
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -131,9 +132,10 @@ class class_get_values(object):
             avgRetry = 4
             removeSmallVal = 0.2
             dataAvg = []
-            
+            vcc = 2.9
+            vccAdjust = vcc/2
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -151,8 +153,10 @@ class class_get_values(object):
             avgRetry = 2
             removeSmallVal = 0.4
             dataAvg = []
+            vcc = 2.9
+            vccAdjust = 0
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             out = volts
         return out
