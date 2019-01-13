@@ -8,6 +8,7 @@ import os
 
 
 class pcfxxxxi2(object):
+   
     bus = SMBus(1)
 
     @classmethod
@@ -16,12 +17,12 @@ class pcfxxxxi2(object):
         out    = []
         for di in data:
             if di:
-                volts = abs(((di * factor) - (vccAdjust)) )
+                volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
             else: volts = 0
             if volts > 0:
-                out.append(volts* Vmultip)
+                out.append(volts)
     
- 
+
         return out
             
 
@@ -31,33 +32,34 @@ class pcfxxxxi2(object):
         out = []
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
+            #print data[5:-2]
             out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
-           # print min(data)
-            #print max(data)
         return out
 
 
     @classmethod
-    def dataAnalize(self,sensor, address, readRetray, Vmultip, STDfilter, STDchaver, STDdirection, accuracy ,removeSmallVal, vcc, vccAdjust):
+    def dataAnalize(self,sensor, address, readRetray, Vmultip, STDfilter, STDchaver, STDdirection, accuracy ,removeSmallVal,removeHighVal , vcc, vccAdjust):
         data_out = []
         out = []
-        for ret in range(0,readRetray):
-            data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy,vcc, vccAdjust)
-            data_temp   = []
-            for da in data_readed:
-                if da:
-                    data_temp.append(max(da))
-                else: 
-                    data_temp.append(0)
-            data_out.append(max(data_temp))
 
         if STDfilter :
-            avg = mean(data_out)
-            std = (stdev(data_out)*STDchaver)
+            for ret in range(0,readRetray):
+                data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy,vcc, vccAdjust)
+                for dr in data_readed: 
+                    for d in dr:
+                        data_out.append(d)
+
             data_out.sort(reverse=True)
+            avg  = mean(data_out)
+            std_ = stdev(data_out)
+            std  = std_ * STDchaver 
+            
             if std != 0:
-                rsv = int(len(data_out)*removeSmallVal)*(-1)
-                for do in data_out[:int(rsv)]:
+                rsv = int(len(data_out)*removeSmallVal)
+                print rsv
+                rhv = int(len(data_out)*removeHighVal)
+                print rhv
+                for do in data_out[int(rhv):(int(rsv)*(-1))]:
                     if STDdirection == "up" or STDdirection == "all":
                         if do < (avg + std):
                             out.append(do)
@@ -65,20 +67,6 @@ class pcfxxxxi2(object):
                         if do > (avg - std):
                             out.append(do)
                 
-                if out:
-                    #self._debug(1, "\tParameter STDchaver {0} is goood data len {1}".format(STDchaver, len(out)))
-                    pass
-                else:
-                    #self._debug(1, "\tParameter STDchaver {0} is bad multiplaying   data len {1}".format(STDchaver, len(out)))
-                    std = (stdev(data_out)*(STDchaver*2))
-                    for do in data_out[:int(rsv)]:
-                        if STDdirection == "up" or STDdirection == "all":
-                            if do < (avg + std):
-                                out.append(do)
-                        if STDdirection == "down" or STDdirection == "all":
-                            if do > (avg - std):
-                                out.append(do)
-                    
             else: 
                 out = data_out
         else:
@@ -97,13 +85,14 @@ class pcfxxxxi2(object):
             accuracy = 5       # how many times loop read from sensor 
             readRetray  = 5
             STDdirection="up"
-            avgRetry = 5
+            avgRetry = 6
             dataAvg = []
             removeSmallVal = 0.2
+            removeHighVal = 0.1
             vcc = 1.68
             vccAdjust = vcc/2
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal,vcc, vccAdjust)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal,removeHighVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -112,20 +101,21 @@ class pcfxxxxi2(object):
             wats = ampers * 234.0
             out = wats
 
-        if kind == "A":
+        elif kind == "A":
             Vmultip = 1
             STDfilter = True
             STDchaver = 1
-            accuracy = 2 
+            accuracy = 2
             readRetray  = 2
             STDdirection="all"
             avgRetry = 4
             removeSmallVal = 0.2
+            removeHighVal = 0.1
             dataAvg = []
             vcc = 1.68
             vccAdjust = vcc/2
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,removeHighVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -133,40 +123,46 @@ class pcfxxxxi2(object):
                 ampers = 0
             out = ampers
 
-        if kind == "V":
-            Vmultip = 255
+        elif kind == "V":
+            Vmultip = 195
             STDfilter = True
             STDchaver = 0.5
             accuracy = 5
             readRetray  = 5
-            STDdirection="down"
+            STDdirection="all"
             avgRetry = 2
-            removeSmallVal = 0.2
+            removeSmallVal = 0.1
+            removeHighVal = 0.1
             dataAvg = []
-            vcc = 1.68
+            vcc = 2.2
             vccAdjust = 0
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
+                dat =self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,removeHighVal,vcc, vccAdjust)
+               # print dat
+                dataAvg.append(max(dat))
             volts = mean(dataAvg)
             out = volts
-        if kind == "V" and sensor == 3:
+        elif kind == "V" and sensor == 3:
             Vmultip = 2.08 
             STDfilter = True
             STDchaver = 0.5
-            accuracy = 6  
-            readRetray  = 4
+            accuracy = 2  
+            readRetray  = 2
             STDdirection="all"
-            avgRetry = 3
+            avgRetry = 2
             removeSmallVal = 0.4
+            removeHighVal = 0.1
             dataAvg = []
             vcc = 1.68
             vccAdjust = 0
             for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,removeHighVal,vcc, vccAdjust)))
             volts = mean(dataAvg)
             out = volts
         return out
 
+
+   
 
     
 
@@ -174,7 +170,7 @@ class pcfxxxxi2(object):
         for iii in range(0,3):
             volt  = 0
             amper = 0 
-            wat   = self.getValue(iii,0x48,"W") 
+            wat   = self.getValue(iii,0x4c,"V") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
 
 
