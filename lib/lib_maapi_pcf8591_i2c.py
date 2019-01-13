@@ -29,13 +29,9 @@ class class_get_values(object):
         factor = vcc / 256.0
         out    = []
         for di in data:
-            if di:
-                volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
-            else: volts = 0
+            volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
             if volts > 0:
                 out.append(volts)
-    
-
         return out
             
 
@@ -47,8 +43,8 @@ class class_get_values(object):
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             if data[10] > 0 and data[10]<250 and data[20] > 0 and data[20]<250 :
                 out.append(self.toVolts(data[5:-2],Vmultip,vcc, vccAdjust))
-            if out is None:
-                out.append(0)
+            if out:
+                out.append((0,0))
         
         return out
 
@@ -63,7 +59,8 @@ class class_get_values(object):
             for da in data_readed:
                 if da:
                     data_temp.append(max(da))
-                else: data_temp.append(0)
+                else: continue
+
             data_out.append(max(data_temp))
 
         if STDfilter :
@@ -73,11 +70,15 @@ class class_get_values(object):
             data_out.sort(reverse=True)
             if std != 0:
                 rsv = int(len(data_out)*removeSmallVal)*(-1)
-                for do in data_out[:int(rsv)]:
-                    if STDdirection == "up" or STDdirection == "all":
+                
+                for do in data_out:
+                    if STDdirection == "all":   
+                        if do < (avg + std) and do > (avg - std):
+                            out.append(do)
+                    elif STDdirection == "up" :
                         if do < (avg + std):
                             out.append(do)
-                    if STDdirection == "down" or STDdirection == "all":
+                    elif STDdirection == "down" :
                         if do > (avg - std):
                             out.append(do)
                 
@@ -112,7 +113,7 @@ class class_get_values(object):
         if kind == "W":
             Vmultip = 1
             STDfilter = True
-            STDchaver = 0.5
+            STDchaver = 1
             accuracy = 5       # how many times loop read from sensor 
             readRetray  = 5
             STDdirection="all"
@@ -155,7 +156,7 @@ class class_get_values(object):
         elif kind == "V":
             Vmultip = 195
             STDfilter = True
-            STDchaver = 0.2
+            STDchaver = 1
             accuracy = 5
             readRetray  = 5
             STDdirection="all"
@@ -168,6 +169,7 @@ class class_get_values(object):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
             volts = median(dataAvg)
             out = volts
+
         elif kind == "V" and sensor == 3:
             Vmultip = 2.08 
             STDfilter = True
@@ -192,7 +194,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+            #try:
                 start = dt.now()
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -202,7 +204,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg))
-                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+            #except:
+             #   self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+             #   self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg))
+             #   maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
