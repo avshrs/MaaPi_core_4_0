@@ -16,12 +16,12 @@ class pcfxxxxi2(object):
         out    = []
         for di in data:
             if di:
-                volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
+                volts = abs(((di * factor) - (vccAdjust)) )
             else: volts = 0
             if volts > 0:
-                out.append(volts)
+                out.append(volts* Vmultip)
     
-        print out
+ 
         return out
             
 
@@ -32,7 +32,8 @@ class pcfxxxxi2(object):
         for ix in range(0,accuracy):      
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             out.append(self.toVolts(data,Vmultip,vcc, vccAdjust))
-        
+           # print min(data)
+            #print max(data)
         return out
 
 
@@ -46,6 +47,8 @@ class pcfxxxxi2(object):
             for da in data_readed:
                 if da:
                     data_temp.append(max(da))
+                else: 
+                    data_temp.append(0)
             data_out.append(max(data_temp))
 
         if STDfilter :
@@ -90,14 +93,14 @@ class pcfxxxxi2(object):
         if kind == "W":
             Vmultip = 1
             STDfilter = True
-            STDchaver = 0.8
+            STDchaver = 0.7
             accuracy = 5       # how many times loop read from sensor 
-            readRetray  = 6
+            readRetray  = 5
             STDdirection="up"
-            avgRetry = 4
+            avgRetry = 5
             dataAvg = []
             removeSmallVal = 0.2
-            vcc = 2.9
+            vcc = 1.68
             vccAdjust = vcc/2
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal,vcc, vccAdjust)))
@@ -113,13 +116,13 @@ class pcfxxxxi2(object):
             Vmultip = 1
             STDfilter = True
             STDchaver = 1
-            accuracy = 2
+            accuracy = 2 
             readRetray  = 2
             STDdirection="all"
             avgRetry = 4
             removeSmallVal = 0.2
             dataAvg = []
-            vcc = 2.9
+            vcc = 1.68
             vccAdjust = vcc/2
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
@@ -131,16 +134,32 @@ class pcfxxxxi2(object):
             out = ampers
 
         if kind == "V":
-            Vmultip = 205
+            Vmultip = 255
             STDfilter = True
-            STDchaver = 0.8
-            accuracy = 6
-            readRetray  = 6
+            STDchaver = 0.5
+            accuracy = 5
+            readRetray  = 5
             STDdirection="down"
             avgRetry = 2
+            removeSmallVal = 0.2
+            dataAvg = []
+            vcc = 1.68
+            vccAdjust = 0
+            for i in range(0,avgRetry):
+                dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
+            volts = mean(dataAvg)
+            out = volts
+        if kind == "V" and sensor == 3:
+            Vmultip = 2.08 
+            STDfilter = True
+            STDchaver = 0.5
+            accuracy = 6  
+            readRetray  = 4
+            STDdirection="all"
+            avgRetry = 3
             removeSmallVal = 0.4
             dataAvg = []
-            vcc = 2.9
+            vcc = 1.68
             vccAdjust = 0
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,removeSmallVal,vcc, vccAdjust)))
@@ -154,9 +173,9 @@ class pcfxxxxi2(object):
     def __init__(self,args):
         for iii in range(0,3):
             volt  = 0
-            amper = 0
+            amper = 0 
             wat   = self.getValue(iii,0x48,"W") 
-            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.1f} ".format(iii,volt,amper,wat))
+            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
 
 
 
