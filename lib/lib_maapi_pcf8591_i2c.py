@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import sys
 from statistics import median, stdev, mean
 from datetime import datetime as dt
@@ -45,7 +44,6 @@ class class_get_values(object):
                 out.append(self.toVolts(data[5:-2],Vmultip,vcc, vccAdjust))
             if out:
                 out.append((0,0))
-        
         return out
 
 
@@ -117,7 +115,7 @@ class class_get_values(object):
             accuracy = 5       # how many times loop read from sensor 
             readRetray  = 5
             STDdirection="all"
-            avgRetry = 6
+            avgRetry = 5
             dataAvg = []
             removeSmallVal = 0.2
             vcc = 1.68
