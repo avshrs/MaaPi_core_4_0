@@ -72,13 +72,14 @@ class pcfxxxxi2(object):
             data_tmp.append(max(dad_))
         
         data_tmp.sort(reverse=True)
-        data_len = int(len(data_tmp)*0.5)
+	
+        data_len = int(len(data_tmp)*0.7)
         leed_avg = mean(data_tmp[data_len:])
-
+        
         for dto in data_tmp:
-            if dto > leed_avg:
+            if dto >= leed_avg:
                 data_out.append(dto)
-        print data_out
+
 
         if STDfilter :
             avg  = mean(data_out)
@@ -151,11 +152,10 @@ class pcfxxxxi2(object):
         elif kind == "V":
             Vmultip = 195
             STDfilter = True
-            STDchaver = 0.8
+            STDchaver = 1
             accuracy = 10
             STDdirection="all"
-            avgRetry = 2
-            
+            avgRetry = 4
             dataAvg = []
             vcc = 2.2
             vccAdjust = 0
