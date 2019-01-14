@@ -104,7 +104,7 @@ class pcfxxxxi2(object):
             vccAdjust    = vcc/1.96225
             toAmper = True
             toAmperToWat = False  
-        elif kind == "V" and address == 0x4c:
+        elif kind == "V" and address == 0x4c and sensor != 3 :
             Vmultip      = 195
             STDfilter    = True
             ChauvenetC   = 1
@@ -116,14 +116,14 @@ class pcfxxxxi2(object):
             toAmper = False
             toAmperToWat = False       
         elif kind == "V" and sensor == 3 and address == 0x4c:
-            Vmultip      = 1
+            Vmultip      = 1.09
             STDfilter    = True
-            ChauvenetC    = 0.5
+            ChauvenetC    = 1
             avgToCut     =  0.5
-            accuracy     = 2
+            accuracy     = 10
             STDdirection="all"
-            vcc          = 1.68
-            vccAdjust    = vcc/2
+            vcc          = 3.3
+            vccAdjust    = 0
             toAmper = False
             toAmperToWat = False
 
@@ -136,7 +136,7 @@ class pcfxxxxi2(object):
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
         data_bin_temp = []
         print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
-
+        print data_bin_readed
         for dr in data_bin_readed:
             if dr[0] > 254:
                 if dr[0] == dr[1]:
@@ -160,28 +160,15 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        for iii in range(0,3):
+        
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(iii,0x48,"W") 
-            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
+            wat   = self.getdata(3,0x4c,"V") 
+            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(3,volt,amper,wat))
 
             stop1 = dt.datetime.now()
             print stop1-start1
-
-
-        print "\n\n"
-	"""
-        for iii in range(0,3):
-            start2 = dt.datetime.now()
-            volt = 0
-            amper = 0
-            wat = self.getValue(iii,0x4c,"V")
-            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
-            stop2 = dt.datetime.now()
-            print stop2 - start2                                                                                                                                                                                              
-	"""
 
 
 

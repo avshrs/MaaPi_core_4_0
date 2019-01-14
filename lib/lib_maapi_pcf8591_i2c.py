@@ -43,31 +43,33 @@ class class_get_values(object):
         for data_ in data:
             if data_ >= data_avg and data_ != 0:
                 data_out.append(data_)
-        if not data_out:
-            data_out.append(0)
-            data_out.append(0)
-        print type(data_out)
-        return max(data_out)
+
+        return data_out
     
     @classmethod
     def filter_stdCh(self,data,ChauvenetC,STDdirection):
         out=[]
-        avg = mean(data)
-        std_ = stdev(data)
-        std = std_ * ChauvenetC
-        if std != 0:
-            for do in data:
-                if STDdirection == "all":
-                    if do < (avg + std) and do > (avg - std):
-                        out.append(do)
-                elif STDdirection == "up" :
-                    if do < (avg + std):
-                        out.append(do)
-                elif STDdirection == "down" :
-                    if do > (avg - std):
-                        out.append(do)
+  
+        if len(data)>2:
+            avg = mean(data)
+             
+            std_ = stdev(data)
+            std = std_ * ChauvenetC
+            if std != 0:
+                for do in data:
+                    if STDdirection == "all":
+                        if do < (avg + std) and do > (avg - std):
+                            out.append(do)
+                    elif STDdirection == "up" :
+                        if do < (avg + std):
+                            out.append(do)
+                    elif STDdirection == "down" :
+                        if do > (avg - std):
+                            out.append(do)
+            else:
+                out = data
         else:
-            out = data
+            out = [0,0]
         return out
 
 
@@ -102,16 +104,16 @@ class class_get_values(object):
     @classmethod
     def getSensorConf(self,sensor,address,kind):
         if kind == "W" and address == 0x48:
-            Vmultip = 1
-            STDfilter = True
-            ChauvenetC = 1
-            avgToCut     =  0.2
-            accuracy = 50
-            STDdirection ="all"
-            vcc= 1.68
-            vccAdjust = vcc/1.96225
-            toAmper = False
-            toAmperToWat = True
+            Vmultip         = 1
+            STDfilter       = True
+            ChauvenetC      = 1.5
+            avgToCut        =  0.4
+            accuracy        = 50
+            STDdirection    ="all"
+            vcc             = 1.68
+            vccAdjust       = vcc/1.96225
+            toAmper         = False
+            toAmperToWat    = True
         elif kind == "A" and address == 0x48:
             Vmultip      = 1
             STDfilter    = True
@@ -123,26 +125,37 @@ class class_get_values(object):
             vccAdjust    = vcc/1.96225
             toAmper = True
             toAmperToWat = False  
-        elif kind == "V" and address == 0x4c:
-            Vmultip      = 195
+        elif kind == "V" and address == 0x4c and sensor !=1 and sensor != 3:
+            Vmultip      = 255
             STDfilter    = True
             ChauvenetC   = 1
-            avgToCut     =  0.5
-            accuracy     = 40
+            avgToCut     =  0.3
+            accuracy     = 60
+            STDdirection = "all"
+            vcc          = 1.68
+            vccAdjust    = 0
+            toAmper = False
+            toAmperToWat = False       
+        elif kind == "V" and address == 0x4c and sensor == 1 and sensor != 3:
+            Vmultip      = 327
+            STDfilter    = True
+            ChauvenetC   = 1
+            avgToCut     =  0.3
+            accuracy     = 60
             STDdirection = "all"
             vcc          = 1.68
             vccAdjust    = 0
             toAmper = False
             toAmperToWat = False       
         elif kind == "V" and sensor == 3 and address == 0x4c:
-            Vmultip      = 1
+            Vmultip      = 1.08
             STDfilter    = True
-            ChauvenetC    = 0.5
+            ChauvenetC    = 1
             avgToCut     =  0.5
-            accuracy     = 2
+            accuracy     = 20
             STDdirection="all"
-            vcc          = 1.68
-            vccAdjust    = vcc/2
+            vcc          = 3.3
+            vccAdjust    = 0
             toAmper = False
             toAmperToWat = False
 
@@ -154,31 +167,33 @@ class class_get_values(object):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
         data_bin_temp = []
-       
-        print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
+        data=[]
+        #print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*29))
 
         for dr in data_bin_readed:
-            if dr[0] > 254:
-                if dr[0] == dr[1]:
-                    continue
-            data_bin_temp+=(self.filter_gtavg(dr,avgToCut))
-
-       #print data_bin_temp
+            data_bin_temp.append(self.filter_gtavg(dr,avgToCut))
 
         #convert section
-        print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
-        
-        data = self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust)
+        #print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
+        for ech_ in data_bin_temp:
+
+            data.append(self.toVolts(ech_,vMultip,vcc,vccAdjust))
+
         # filter section 
         if STDfilter:
-            data = self.filter_stdCh(data,ChauvenetC,STDdirection)
-            print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
-
+            data_=[]
+            dat = []
+            for da in data:
+                dat = self.filter_stdCh(da,ChauvenetC,STDdirection)
+                if len(dat)>1:
+                    data_.append(max(dat))
+           # print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
+            data = data_
         if toAmper or toAmperToWat :
             data = self.toAmper(data)
         if toAmperToWat:
             data = self.toWat(data)
-        print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
+        #print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
         
         return  max(data)
 
@@ -187,8 +202,8 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-#            try:
-                start = dt.now()
+            try:
+                start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
@@ -196,8 +211,8 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-		print stop - start
- #           except:
-  #              self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-   #             self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-    #            maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+                print stop - start
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)

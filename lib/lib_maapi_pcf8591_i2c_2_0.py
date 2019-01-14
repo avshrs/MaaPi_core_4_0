@@ -23,72 +23,40 @@ class class_get_values(object):
 
     bus = SMBus(1)
 
-  @classmethod
+
+
+    @classmethod
     def toVolts(self, data, Vmultip,vcc, vccAdjust):
         factor = vcc / 256.0
         out = []
         for di in data:
-            volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
-            if volts > 0:
-                out.append(volts)
-        if not out:
-            out.append(0)
+           if di < 254:
+              volts = (((di * factor) - (vccAdjust)) * Vmultip)
+              out.append(abs(volts))
         return out
+
     @classmethod
-    def readFromI2C(self,sensor, address, Vmultip, accuracy,vcc, vccAdjust):
-        self.bus.write_byte(address,int(sensor))
-        out = []
+    def filter_gtavg(self,data,percent):
+        data_len = int(len(data)*percent)
+        data_avg = mean(data[data_len:])
         data_out = []
-        con0=0
-        con255=0
-        counter = 0
-        while True:
-            if counter > accuracy:
-                break
-            data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:-2]
-            con0=0
-            con255=0
-            for iii in data:
-                if iii < 1:
-                    con0+=1
-                if iii > 254:
-                    con255+=1
-            if con0 > 20 or con255 >20:
-                continue
-            else:
-                counter+=1
-            data.sort(reverse=True)
-            data_len = int(len(data)*0.2)
-            leed_avg = mean(data[data_len:])
-            for dto in data:
-                if dto > leed_avg:
-                    data_out.append(dto)
-            out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust))
-        return out
+        for data_ in data:
+            if data_ >= data_avg and data_ != 0:
+                data_out.append(data_)
+
+        return data_out
+    
     @classmethod
-    def dataAnalize(self,sensor, address, Vmultip, STDfilter, STDchaver, STDdirection, accuracy , vcc, vccAdjust):
-        data_out = []
-        data_tmp = []
-        out = []
-        data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy, vcc, vccAdjust)
-                                                                                                                                                                                              
-        for dad_ in data_readed:
-            data_tmp.append(max(dad_))
-        data_tmp.sort(reverse=True)
-                                                                                                                                                                                              
-        data_len = int(len(data_tmp)*0.7)
-        leed_avg = mean(data_tmp[data_len:])
-        for dto in data_tmp:
-            if dto >= leed_avg:
-                data_out.append(dto)
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-        if STDfilter :
-            avg = mean(data_out)
-            std_ = stdev(data_out)
-            std = std_ * STDchaver
+    def filter_stdCh(self,data,ChauvenetC,STDdirection):
+        out=[]
+  
+        if len(data)>2:
+            avg = mean(data)
+             
+            std_ = stdev(data)
+            std = std_ * ChauvenetC
             if std != 0:
-                for do in data_out:
+                for do in data:
                     if STDdirection == "all":
                         if do < (avg + std) and do > (avg - std):
                             out.append(do)
@@ -99,98 +67,143 @@ class class_get_values(object):
                         if do > (avg - std):
                             out.append(do)
             else:
-                out = data_out
+                out = data
         else:
-            out = data_out
-                                                                                                                                                                                              
+            out = [0,0]
         return out
-                                                                                                                                                                                              
-                                                                                                                                                                                              
+
+
+    @classmethod
+    def readFromI2C(self,sensor, address, accuracy):
+        self.bus.write_byte(address,int(sensor))
+        time.sleep(0.02)
+        out = []
+        for i in range(0,accuracy):
+            
+            data = self.bus.read_i2c_block_data(address,int(sensor),32)[3:]
+            out.append(data)
+        return out
+
+    @classmethod
+    def toAmper(self,data):
+        out=[]
+        div = 1/30.0
+        for i in data:
+            if i > 0:
+                out.append(i/div)
+            else:
+                out.append(i)
+        return out
+    @classmethod
+    def toWat(self,data):
+        out=[]
+        for i in data:
+                out.append(i*233)
+        return out
+    
+    @classmethod
+    def getSensorConf(self,sensor,address,kind):
+        if kind == "W" and address == 0x48:
+            Vmultip         = 1
+            STDfilter       = True
+            ChauvenetC      = 1.5
+            avgToCut        =  0.4
+            accuracy        = 50
+            STDdirection    ="all"
+            vcc             = 1.68
+            vccAdjust       = vcc/1.96225
+            toAmper         = False
+            toAmperToWat    = True
+        elif kind == "A" and address == 0x48:
+            Vmultip      = 1
+            STDfilter    = True
+            ChauvenetC    = 1
+            avgToCut     =  0.5
+            accuracy     = 60
+            STDdirection ="all"
+            vcc          = 1.68
+            vccAdjust    = vcc/1.96225
+            toAmper = True
+            toAmperToWat = False  
+        elif kind == "V" and address == 0x4c and sensor !=1 and sensor != 3:
+            Vmultip      = 255
+            STDfilter    = True
+            ChauvenetC   = 1
+            avgToCut     =  0.3
+            accuracy     = 60
+            STDdirection = "all"
+            vcc          = 1.68
+            vccAdjust    = 0
+            toAmper = False
+            toAmperToWat = False       
+        elif kind == "V" and address == 0x4c and sensor == 1 and sensor != 3:
+            Vmultip      = 327
+            STDfilter    = True
+            ChauvenetC   = 1
+            avgToCut     =  0.3
+            accuracy     = 60
+            STDdirection = "all"
+            vcc          = 1.68
+            vccAdjust    = 0
+            toAmper = False
+            toAmperToWat = False       
+        elif kind == "V" and sensor == 3 and address == 0x4c:
+            Vmultip      = 1.08
+            STDfilter    = True
+            ChauvenetC    = 1
+            avgToCut     =  0.5
+            accuracy     = 20
+            STDdirection="all"
+            vcc          = 3.3
+            vccAdjust    = 0
+            toAmper = False
+            toAmperToWat = False
+
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
+        
+
     @classmethod
     def getValue(self,sensor,address,kind):
-        if kind == "W":
-            Vmultip = 1
-            STDfilter = True
-            STDchaver = 1
-            accuracy = 5 # how many times loop read from sensor
-            STDdirection="all"
-            avgRetry = 5
-            dataAvg = []
-            removeSmallVal = 0.2
-            vcc = 1.68
-            vccAdjust = vcc/2
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, vcc, vccAdjust)))
-            volts = mean(dataAvg)
-            if volts and volts != 0:
-                ampers = volts / 0.0333333
-            else:
-                ampers = 0
-            wats = ampers * 234.0
-            out = wats
-                                                                                                                                                                                              
-        elif kind == "A":
-            Vmultip = 1
-            STDfilter = True
-            STDchaver = 1
-            accuracy = 2
-            readRetray = 2
-            STDdirection="all"
-            avgRetry = 4
-            removeSmallVal = 0.2
-            dataAvg = []
-            vcc = 1.68
-            vccAdjust = vcc/2
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
-            volts = mean(dataAvg)
-            if volts and volts != 0:
-                ampers = volts / 0.0333333
-            else:
-                ampers = 0
-            out = ampers
-                                                                                                                                                                                              
-        elif kind == "V":
-            Vmultip = 195
-            STDfilter = True
-            STDchaver = 1
-            accuracy = 10
-            STDdirection="all"
-            avgRetry = 4
-            dataAvg = []
-            vcc = 2.2
-            vccAdjust = 0
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
-            volts = mean(dataAvg)
-            out = volts
-                                                                                                                                                                                              
-        elif kind == "V" and sensor == 3:
-            Vmultip = 1
-            STDfilter = True
-            STDchaver = 0.5
-            accuracy = 2
-            readRetray = 2
-            STDdirection="all"
-            avgRetry = 2
-            removeSmallVal = 0.4
-            dataAvg = []
-            vcc = 1.68
-            vccAdjust = vcc/2
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
-            volts = mean(dataAvg)
-            out = volts
-        return out                                 
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
+        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
+        data_bin_temp = []
+        data=[]
+        #print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*29))
 
+        for dr in data_bin_readed:
+            data_bin_temp.append(self.filter_gtavg(dr,avgToCut))
+
+        #convert section
+        #print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
+        for ech_ in data_bin_temp:
+
+            data.append(self.toVolts(ech_,vMultip,vcc,vccAdjust))
+
+        # filter section 
+        if STDfilter:
+            data_=[]
+            dat = []
+            for da in data:
+                dat = self.filter_stdCh(da,ChauvenetC,STDdirection)
+                if len(dat)>1:
+                    data_.append(max(dat))
+           # print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
+            data = data_
+        if toAmper or toAmperToWat :
+            data = self.toAmper(data)
+        if toAmperToWat:
+            data = self.toWat(data)
+        #print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
+        
+        return  max(data)
 
 
     #read data from sensor
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            #try:
-                start = dt.now()
+            try:
+                start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
@@ -198,6 +211,8 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-            #except:
-             #   self._debug(1, "\tERROR reading values from dev: {0}".format(arg)) self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-             #   maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+                print stop - start
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
