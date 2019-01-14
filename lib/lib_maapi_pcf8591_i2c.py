@@ -29,13 +29,10 @@ class class_get_values(object):
         out = []
         for di in data:
             volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
-            if volts > 0:
-                out.append(volts)
-        if not out:
-            out.append(0)
+            out.append(volts)
         return out
-    @classmethod
 
+    @classmethod
     def readFromI2C(self,sensor, address, Vmultip, accuracy,vcc, vccAdjust):
         self.bus.write_byte(address,int(sensor))
         out = []
@@ -47,24 +44,15 @@ class class_get_values(object):
             if counter > accuracy:
                 break
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:-2]
-            con0=0
-            con255=0
-            for iii in data:
-                if iii < 1:
-                    con0+=1
-                if iii > 254:
-                    con255+=1
-            if con0 > 20 or con255 >20:
-                continue
-            else:
-                counter+=1
+            counter+=1
             data.sort(reverse=True)
             data_len = int(len(data)*0.2)
             leed_avg = mean(data[data_len:])
             for dto in data:
-                if dto > leed_avg:
+                if dto >= leed_avg:
                     data_out.append(dto)
             out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust))
+            
         return out
     @classmethod
     def dataAnalize(self,sensor, address, Vmultip, STDfilter, STDchaver, STDdirection, accuracy , vcc, vccAdjust):
@@ -114,10 +102,10 @@ class class_get_values(object):
             Vmultip = 1
             STDfilter = True
             STDchaver = 1
-            accuracy = 40
+            accuracy = 60
             STDdirection="all"
             vcc = 1.68
-            vccAdjust = vcc/2
+            vccAdjust = vcc/1.96225
             volts = max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, vcc, vccAdjust))
 	    if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -136,7 +124,7 @@ class class_get_values(object):
             avgRetry = 4
             removeSmallVal = 0.2
             vcc = 1.68
-            vccAdjust = vcc/2
+            vccAdjust = vcc/1.96225
             volts = max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust))
             if volts and volts != 0:
                 ampers = volts / 0.0333333
@@ -191,6 +179,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
+		print stop - start
  #           except:
   #              self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
    #             self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 

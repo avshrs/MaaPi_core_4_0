@@ -16,12 +16,17 @@ class pcfxxxxi2(object):
         factor = vcc / 256.0
         out    = []
         for di in data:
-            volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
-            if volts > 0:
+	    volt_ = ((di * factor) - (vccAdjust)) * Vmultip
+	    volts = (volt_)
+	    #print min(volt_)
+  	              
+	    #print volt_
+            if volts:
                 out.append(volts)
         if not out:
             out.append(0)    
-      
+        print min(out)
+        print max(out)
         return out
             
 
@@ -30,33 +35,21 @@ class pcfxxxxi2(object):
         self.bus.write_byte(address,int(sensor))
         out = []
         data_out = []
-        con0=0
-        con255=0
-        
         counter = 0
         while True:
-            if counter > accuracy:
-                break
+	    #read data 
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:-2]
-            con0=0
-            con255=0
-            for iii in data: 
-                if iii < 1: 
-                    con0+=1
-                if iii > 254: 
-                    con255+=1
-            if con0 > 20 or con255 >20:        
-                continue
-            else:
-                counter+=1
+
             data.sort(reverse=True)
-            data_len = int(len(data)*0.2)
+            data_len = int(len(data)*0.3)
             leed_avg = mean(data[data_len:])
             for dto in data:
                 if dto > leed_avg:
                     data_out.append(dto)
             out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust)) 
-        
+            counter +=1
+	    if counter > accuracy:
+	        break        
         return out
 
  
@@ -111,13 +104,13 @@ class pcfxxxxi2(object):
             Vmultip = 1
             STDfilter = True
             STDchaver = 1
-            accuracy = 5       # how many times loop read from sensor 
+            accuracy = 40      # how many times loop read from sensor 
             STDdirection="all"
-            avgRetry = 5
+            avgRetry = 1
             dataAvg = []
             removeSmallVal = 0.2
             vcc = 1.68
-            vccAdjust = vcc/2
+            vccAdjust = vcc/(1.99225)
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address,  Vmultip, STDfilter,STDchaver, STDdirection, accuracy, vcc, vccAdjust)))
             volts = mean(dataAvg)
@@ -139,7 +132,7 @@ class pcfxxxxi2(object):
             removeSmallVal = 0.2
             dataAvg = []
             vcc = 1.68
-            vccAdjust = vcc/2
+            vccAdjust = vcc/1.96225
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address,  Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
             volts = mean(dataAvg)
@@ -153,9 +146,9 @@ class pcfxxxxi2(object):
             Vmultip = 195
             STDfilter = True
             STDchaver = 1
-            accuracy = 10
+            accuracy = 40
             STDdirection="all"
-            avgRetry = 4
+            avgRetry = 1
             dataAvg = []
             vcc = 2.2
             vccAdjust = 0
@@ -192,18 +185,47 @@ class pcfxxxxi2(object):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getValue(iii,0x4c,"V") 
+            wat   = self.getValue(iii,0x48,"W") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
 
             stop1 = dt.datetime.now()
             print stop1-start1
 
-start = dt.datetime.now()
-read = pcfxxxxi2(1) 
 
-stop = dt.datetime.now()
+        print "\n\n"
+	"""
+        for iii in range(0,3):
+            start2 = dt.datetime.now()
+            volt = 0
+            amper = 0
+            wat = self.getValue(iii,0x4c,"V")
+            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(iii,volt,amper,wat))
+            stop2 = dt.datetime.now()
+            print stop2 - start2                                                                                                                                                                                              
+	"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+start = dt.datetime.now() 
+read = pcfxxxxi2(1)
+stop = dt.datetime.now() 
 print stop-start
-
       
 
    
