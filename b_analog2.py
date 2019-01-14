@@ -97,15 +97,28 @@ class pcfxxxxi2(object):
             STDdirection="all"
             vcc          = 1.68
             vccAdjust    = vcc/2
-        return  Vmultip, STDfilter, ChauvenetC, accuracy, STDdirection, vcc, vccAdjust
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust
         
 
     @classmethod
     def getdata(self,sensor,address,kind):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust = self.getSensorConf(sensor,address,kind)
         data_readed = self.readFromI2C(sensor, address, accuracy)
+        data_temp = []
+        print len(data_readed)
+        for dr in data_readed:
+            
+            if dr[0] > 254:
+                if dr[0] == dr[1]:
+                    continue
+            data_temp.append(dr)
+            
+        print len(data_temp)
 
- 
+
+       # filter_gtavg
+       # filter_stdCh
+        #toVolts
    
         return  max(data_readed)
 
