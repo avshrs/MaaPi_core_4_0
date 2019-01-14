@@ -23,15 +23,20 @@ class class_get_values(object):
 
     bus = SMBus(1)
 
+
     @classmethod
     def toVolts(self, data, Vmultip,vcc, vccAdjust):
+
         factor = vcc / 256.0
         out = []
+
         for di in data:
            if di < 254:
               volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
               out.append(volts)
         return out
+
+
 
     @classmethod
     def readFromI2C(self,sensor, address, Vmultip, accuracy,vcc, vccAdjust):
@@ -45,17 +50,18 @@ class class_get_values(object):
             if counter > accuracy:
                 break
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:-2]
+	    
             counter+=1
-	    if data[10] < 1 and data[10]>254 and data[20]<1 and data[20]>254:
-                 continue
-            data.sort(reverse=True)
-            data_len = int(len(data)*0.2)
-            leed_avg = mean(data[data_len:])
+	    if data[10] > 0 and data[10] < 254 and data[20] > 0 and data[20] < 254:
+                
+	       data.sort(reverse=True)
+               data_len = int(len(data)*0.2)
+               leed_avg = mean(data[data_len:])
 
-            for dto in data:
-                if dto >= leed_avg:
-                    data_out.append(dto)
-            out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust))
+               for dto in data:
+                  if dto >= leed_avg:
+                     data_out.append(dto)
+               out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust))
         return out
     @classmethod
     def dataAnalize(self,sensor, address, Vmultip, STDfilter, STDchaver, STDdirection, accuracy , vcc, vccAdjust):
