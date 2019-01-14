@@ -19,6 +19,9 @@ class pcfxxxxi2(object):
             volts = abs(((di * factor) - (vccAdjust)) * Vmultip)
             if volts > 0:
                 out.append(volts)
+        if not out:
+            out.append(0)    
+      
         return out
             
 
@@ -27,20 +30,36 @@ class pcfxxxxi2(object):
         self.bus.write_byte(address,int(sensor))
         out = []
         data_out = []
-        for ix in range(0,accuracy):
-            
+        con0=0
+        con255=0
+        
+        counter = 0
+        while True:
+            if counter > accuracy:
+                break
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[5:-2]
+            con0=0
+            con255=0
+            for iii in data: 
+                if iii < 1: 
+                    con0+=1
+                if iii > 254: 
+                    con255+=1
+            if con0 > 20 or con255 >20:        
+                continue
+            else:
+                counter+=1
             data.sort(reverse=True)
-            data_len = int(len(data)*0.1)
+            data_len = int(len(data)*0.2)
             leed_avg = mean(data[data_len:])
             for dto in data:
                 if dto > leed_avg:
                     data_out.append(dto)
             out.append(self.toVolts(data_out,Vmultip,vcc, vccAdjust)) 
-            time.sleep(0.01)
+        
         return out
 
-
+ 
     @classmethod
     def dataAnalize(self,sensor, address, Vmultip, STDfilter, STDchaver, STDdirection, accuracy , vcc, vccAdjust):
         data_out = []
@@ -48,22 +67,19 @@ class pcfxxxxi2(object):
         out = []
 
         data_readed = self.readFromI2C(sensor, address, Vmultip, accuracy, vcc, vccAdjust)
+
         for dad_ in data_readed:
-            try:
-                data_tmp.append(max(dad_))
-            except:
-                print data_readed
-                raise
+            data_tmp.append(max(dad_))
         
         data_tmp.sort(reverse=True)
-        data_len = int(len(data_tmp)*0.2)
+        data_len = int(len(data_tmp)*0.5)
         leed_avg = mean(data_tmp[data_len:])
 
         for dto in data_tmp:
-
             if dto > leed_avg:
                 data_out.append(dto)
-        print data_out
+                print data_out
+
         if STDfilter :
             avg  = mean(data_out)
             std_ = stdev(data_out)
@@ -136,7 +152,7 @@ class pcfxxxxi2(object):
             Vmultip = 195
             STDfilter = True
             STDchaver = 0.8
-            accuracy = 50
+            accuracy = 10
             STDdirection="all"
             avgRetry = 2
             

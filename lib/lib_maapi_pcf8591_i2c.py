@@ -118,7 +118,7 @@ class class_get_values(object):
             avgRetry = 5
             dataAvg = []
             removeSmallVal = 0.2
-            vcc = 1.68
+            vcc = 1.71
             vccAdjust = vcc/2
             for i in range(0,avgRetry):
                 dataAvg.append(max(self.dataAnalize(sensor, address, readRetray, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, removeSmallVal,vcc, vccAdjust)))
