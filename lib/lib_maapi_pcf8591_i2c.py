@@ -79,11 +79,12 @@ class class_get_values(object):
                                                                                                                                                                                               
         data_len = int(len(data_tmp)*0.7)
         leed_avg = mean(data_tmp[data_len:])
+
         for dto in data_tmp:
             if dto >= leed_avg:
                 data_out.append(dto)
-                                                                                                                                                                                              
-                                                                                                                                                                                              
+                                                                                                                                                                                   
+                                                                                                                                                                                             
         if STDfilter :
             avg = mean(data_out)
             std_ = stdev(data_out)
@@ -113,17 +114,12 @@ class class_get_values(object):
             Vmultip = 1
             STDfilter = True
             STDchaver = 1
-            accuracy = 5 # how many times loop read from sensor
+            accuracy = 40
             STDdirection="all"
-            avgRetry = 5
-            dataAvg = []
-            removeSmallVal = 0.2
             vcc = 1.68
             vccAdjust = vcc/2
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, vcc, vccAdjust)))
-            volts = mean(dataAvg)
-            if volts and volts != 0:
+            volts = max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy, vcc, vccAdjust))
+	    if volts and volts != 0:
                 ampers = volts / 0.0333333
             else:
                 ampers = 0
@@ -139,12 +135,9 @@ class class_get_values(object):
             STDdirection="all"
             avgRetry = 4
             removeSmallVal = 0.2
-            dataAvg = []
             vcc = 1.68
             vccAdjust = vcc/2
-            for i in range(0,avgRetry):
-                dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
-            volts = mean(dataAvg)
+            volts = max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust))
             if volts and volts != 0:
                 ampers = volts / 0.0333333
             else:
@@ -155,14 +148,14 @@ class class_get_values(object):
             Vmultip   = 195
             STDfilter = True
             STDchaver = 1
-            accuracy  = 50
+            accuracy  = 40
             STDdirection = "all"
             avgRetry  = 1
             dataAvg   = []
             vcc       = 2.2
             vccAdjust = 0
-            dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
-            volts     = dataAvg
+#            dataAvg.append(max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust)))
+            volts     = max(self.dataAnalize(sensor, address, Vmultip, STDfilter,STDchaver, STDdirection, accuracy,vcc, vccAdjust))
             out       = volts
                                                                                                                                                                                               
         elif kind == "V" and sensor == 3:
@@ -189,7 +182,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+#            try:
                 start = dt.now()
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -198,7 +191,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+ #           except:
+  #              self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+   #             self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+    #            maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
