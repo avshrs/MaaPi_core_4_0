@@ -19,7 +19,7 @@ class pcfxxxxi2(object):
         for di in data:
            if di < 254:
               volts = (((di * factor) - (vccAdjust)) * Vmultip)
-              out.append(volts)
+              out.append(abs(volts))
         return out
 
     @classmethod
@@ -35,7 +35,7 @@ class pcfxxxxi2(object):
     @classmethod
     def filter_stdCh(self,data,ChauvenetC,STDdirection):
         out=[]
-        data_avg = mean(data)
+        avg = mean(data)
         std_ = stdev(data)
         std = std_ * ChauvenetC
         if std != 0:
@@ -62,65 +62,102 @@ class pcfxxxxi2(object):
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             out.append(data)
         return out
+
+    @classmethod
+    def toAmper(self,data):
+        out=[]
+        div = 1/30.0
+        for i in data:
+            if i > 0:
+                out.append(i/div)
+            else:
+                out.append(i)
+        return out
+    @classmethod
+    def toWat(self,data):
+        out=[]
+        for i in data:
+                out.append(i*233)
+        return out
+    
     @classmethod
     def getSensorConf(self,sensor,address,kind):
         if kind == "W" and address == 0x48:
             Vmultip = 1
             STDfilter = True
             ChauvenetC = 1
-            accuracy = 60
+            avgToCut     =  0.2
+            accuracy = 50
             STDdirection ="all"
             vcc= 1.68
             vccAdjust = vcc/1.96225
-
+            toAmper = False
+            toAmperToWat = True
         elif kind == "A" and address == 0x48:
             Vmultip      = 1
             STDfilter    = True
             ChauvenetC    = 1
+            avgToCut     =  0.5
             accuracy     = 60
             STDdirection ="all"
             vcc          = 1.68
-            vccAdjust    = vcc/1.96225  
+            vccAdjust    = vcc/1.96225
+            toAmper = True
+            toAmperToWat = False  
         elif kind == "V" and address == 0x4c:
             Vmultip      = 195
             STDfilter    = True
             ChauvenetC   = 1
+            avgToCut     =  0.5
             accuracy     = 40
             STDdirection = "all"
             vcc          = 2.2
             vccAdjust    = 0
+            toAmper = False
+            toAmperToWat = False       
         elif kind == "V" and sensor == 3 and address == 0x4c:
             Vmultip      = 1
             STDfilter    = True
             ChauvenetC    = 0.5
+            avgToCut     =  0.5
             accuracy     = 2
             STDdirection="all"
             vcc          = 1.68
             vccAdjust    = vcc/2
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust
+            toAmper = False
+            toAmperToWat = False
+
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
         
 
     @classmethod
     def getdata(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust = self.getSensorConf(sensor,address,kind)
-        data_readed = self.readFromI2C(sensor, address, accuracy)
-        data_temp = []
-        print len(data_readed)
-        for dr in data_readed:
-            
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
+        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
+        data_bin_temp = []
+        print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
+
+        for dr in data_bin_readed:
             if dr[0] > 254:
                 if dr[0] == dr[1]:
                     continue
-            data_temp.append(dr)
-            
-        print len(data_temp)
+            data_bin_temp+=self.filter_gtavg(dr,avgToCut)
+        #convert section
+        print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
+        
+        data = self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust)
+        # filter section 
+        if STDfilter:
+            data = self.filter_stdCh(data,ChauvenetC,STDdirection)
+            print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
 
+        if toAmper or toAmperToWat :
+            data = self.toAmper(data)
+        if toAmperToWat:
+            data = self.toWat(data)
+        print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
 
-       # filter_gtavg
-       # filter_stdCh
-        #toVolts
-   
-        return  max(data_readed)
+        return  max(data)
 
     def __init__(self,args):
         for iii in range(0,3):
