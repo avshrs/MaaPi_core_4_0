@@ -78,7 +78,7 @@ class pcfxxxxi2(object):
         for dto in data_tmp:
             if dto > leed_avg:
                 data_out.append(dto)
-                print data_out
+        print data_out
 
         if STDfilter :
             avg  = mean(data_out)
