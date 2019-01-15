@@ -23,6 +23,12 @@ class class_get_values(object):
 
     bus = SMBus(1)
 
+    @classmethod
+    def listIsZero(self,data): 
+        for i in data: 
+            if i > 0: 
+                return True 
+        return False
 
 
     @classmethod
@@ -76,12 +82,13 @@ class class_get_values(object):
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
         self.bus.write_byte(address,int(sensor))
-        time.sleep(0.02)
         out = []
         for i in range(0,accuracy):
-            
+
             data = self.bus.read_i2c_block_data(address,int(sensor),32)[3:]
-            out.append(data)
+	    if self.listIsZero(data):
+	       out.append(data)
+	
         return out
 
     @classmethod
@@ -119,7 +126,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC    = 1
             avgToCut     =  0.5
-            accuracy     = 60
+            accuracy     = 50
             STDdirection ="all"
             vcc          = 1.68
             vccAdjust    = vcc/1.96225
@@ -141,7 +148,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC   = 1
             avgToCut     =  0.3
-            accuracy     = 60
+            accuracy     =60
             STDdirection = "all"
             vcc          = 1.68
             vccAdjust    = 0
@@ -210,9 +217,9 @@ class class_get_values(object):
                 value = self.getValue(nr, addr, str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
-                self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
+   #             self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
                 print stop - start
             except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+ #               self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+#                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
                 maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)

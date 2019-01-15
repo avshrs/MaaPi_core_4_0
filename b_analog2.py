@@ -10,8 +10,12 @@ import os
 class pcfxxxxi2(object):
    
     bus = SMBus(1)
-
-   
+    @classmethod
+    def listIsZero(self,data):
+	for i in data:
+	    if i > 0:
+		return True
+	return False   
     @classmethod
     def toVolts(self, data, Vmultip,vcc, vccAdjust):
         factor = vcc / 256.0
@@ -57,16 +61,16 @@ class pcfxxxxi2(object):
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
 	sensor=0b00000001
-	accuracy = 20
+	accuracy = 1
 	address = 0x4c
 	self.bus.write_byte(address,sensor)
 
         out = []
         for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data(address,sensor,32)[3:]
-            out.append(data)
-            print data
-
+            data = self.bus.read_i2c_block_data32(address,sensor,6)
+	    if self.listIsZero(data):	
+		out.append(data)
+                print data
         return out
 
     @classmethod
@@ -166,12 +170,12 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        
+        for i in range(0,3):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(3,0x48,"W") 
-            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(3,volt,amper,wat))
+            wat   = self.getdata(i,0x48,"W") 
+            print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(i,volt,amper,wat))
 
             stop1 = dt.datetime.now()
             print stop1-start1
