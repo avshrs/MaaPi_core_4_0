@@ -61,20 +61,25 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-        sensor=0b00000001
-
-        accuracy = 1
-        coun = 30
+        sensor=0b00000010
+        data=[]
+        accuracy = 12
+        coun = 5
         address = 0x48
         self.bus.write_byte(address,sensor)
         out = []
         sta = dt.datetime.now()
         for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data32(address,sensor,coun)
+            
+            read = self.bus.read_i2c_block_data32(address,sensor,coun)
+            #print read
+
+            data.append(max(read))
         sto = dt.datetime.now()
         print sto -sta
         print data
         print max(data) 
+        print mean(data) 
         return out
 
     @classmethod
@@ -101,7 +106,7 @@ class pcfxxxxi2(object):
             STDfilter = True
             ChauvenetC = 1
             avgToCut     =  0.2
-            accuracy = 35
+            accuracy = 50
             STDdirection ="all"
             vcc= 1.68
             vccAdjust = vcc/1.96225

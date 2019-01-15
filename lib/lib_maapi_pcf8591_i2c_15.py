@@ -58,7 +58,6 @@ class class_get_values(object):
   
         if len(data)>2:
             avg = mean(data)
-             
             std_ = stdev(data)
             std = std_ * ChauvenetC
             if std != 0:
@@ -105,29 +104,17 @@ class class_get_values(object):
     @classmethod
     def getSensorConf(self,sensor,address,kind):
         if kind == "W" and address == 0x48:
-            Vmultip         = 1
+            Vmultip         = 0.20
             STDfilter       = True
             ChauvenetC      = 1
             avgToCut        =  0.2
             accuracy        = 30
-
             STDdirection    ="all"
             vcc             = 1.68
-            vccAdjust       = vcc/1.96225
+            vccAdjust       = 0
             toAmper         = False
             toAmperToWat    = True
-        elif kind == "A" and address == 0x48:
-            Vmultip      = 1
-            STDfilter    = True
-            ChauvenetC    = 1
-            avgToCut     =  0.2
-            accuracy     = 30
-            STDdirection ="all"
-            vcc          = 1.68
-            vccAdjust    = vcc/1.96225
-            toAmper = True
-            toAmperToWat = False  
-        elif kind == "V" and address == 0x4c and sensor !=1 and sensor != 3:
+        elif kind == "V" and address == 0x48:
             Vmultip      = 255
             STDfilter    = True
             ChauvenetC   = 1
@@ -137,9 +124,20 @@ class class_get_values(object):
             vcc          = 1.68
             vccAdjust    = 0
             toAmper = False
-            toAmperToWat = False       
-        elif kind == "V" and address == 0x4c and sensor == 1 and sensor != 3:
-            Vmultip      = 327
+            toAmperToWat = False  
+        elif kind == "A" and address == 0x48:
+            Vmultip      = 1
+            STDfilter    = True
+            ChauvenetC    = 1
+            avgToCut     =  0.2
+            accuracy     = 30
+            STDdirection ="all" 
+            vcc          = 1.68
+            vccAdjust    = vcc/1.96225
+            toAmper = True
+            toAmperToWat = False  
+        elif kind == "V" and address == 0x4c  :
+            Vmultip      = 255
             STDfilter    = True
             ChauvenetC   = 1
             avgToCut     =  0.2
@@ -148,8 +146,9 @@ class class_get_values(object):
             vcc          = 1.68
             vccAdjust    = 0
             toAmper = False
-            toAmperToWat = False       
-        elif kind == "V" and sensor == 3 and address == 0x4c:
+            toAmperToWat = False  
+       
+        elif kind == "V" and sensor == 0 and address == 0x4c:
             Vmultip      = 1.08
             STDfilter    = True
             ChauvenetC    = 1
