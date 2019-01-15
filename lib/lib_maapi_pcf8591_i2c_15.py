@@ -109,7 +109,7 @@ class class_get_values(object):
             STDfilter       = True
             ChauvenetC      = 1
             avgToCut        =  0.2
-            accuracy        = 10
+            accuracy        = 30
 
             STDdirection    ="all"
             vcc             = 1.68
@@ -121,7 +121,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC    = 1
             avgToCut     =  0.2
-            accuracy     = 15
+            accuracy     = 30
             STDdirection ="all"
             vcc          = 1.68
             vccAdjust    = vcc/1.96225
@@ -132,7 +132,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC   = 1
             avgToCut     =  0.2
-            accuracy     = 10
+            accuracy     = 30
             STDdirection = "all"
             vcc          = 1.68
             vccAdjust    = 0
@@ -143,7 +143,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC   = 1
             avgToCut     =  0.2
-            accuracy     = 10
+            accuracy     = 30
             STDdirection = "all"
             vcc          = 1.68
             vccAdjust    = 0
@@ -168,28 +168,16 @@ class class_get_values(object):
     def getValue(self,sensor,address,kind):
 
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
-	out =[]
-	for i in range(0,10): 
-            data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-            data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut))
-            data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
 
-		
-	    if toAmper or toAmperToWat :
-               data = self.toAmper(data)
-        
-	    if toAmperToWat:
-               data = self.toWat(data)
+        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
+        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut))
+        data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
+        if toAmper or toAmperToWat :
+           data = self.toAmper(data)
+        if toAmperToWat:
+           data = self.toWat(data)
 
-            out.append(max(data))
-
-        if STDfilter:
-            out = self.filter_stdCh(out,ChauvenetC,STDdirection)  
-	if not out:
-	    out = mean(out)
-	
-        
-        return  mean(out)
+        return  mean(data)
 
 
     #read data from sensor
