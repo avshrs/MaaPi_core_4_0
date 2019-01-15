@@ -56,11 +56,13 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-        self.bus.write_byte(address,int(sensor))
+        self.bus.write_byte(address,0b00000100)
         out = []
         for i in range(0,accuracy):
             data = self.bus.read_i2c_block_data(address,int(sensor),32)
             out.append(data)
+	    print data
+
         return out
 
     @classmethod
@@ -87,7 +89,7 @@ class pcfxxxxi2(object):
             STDfilter = True
             ChauvenetC = 1
             avgToCut     =  0.2
-            accuracy = 50
+            accuracy = 35
             STDdirection ="all"
             vcc= 1.68
             vccAdjust = vcc/1.96225
@@ -109,7 +111,7 @@ class pcfxxxxi2(object):
             STDfilter    = True
             ChauvenetC   = 1
             avgToCut     =  0.5
-            accuracy     = 40
+            accuracy     = 35
             STDdirection = "all"
             vcc          = 2.2
             vccAdjust    = 0
@@ -136,7 +138,7 @@ class pcfxxxxi2(object):
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
         data_bin_temp = []
         print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
-        print data_bin_readed
+#        print data_bin_readed
         for dr in data_bin_readed:
             if dr[0] > 254:
                 if dr[0] == dr[1]:
@@ -164,7 +166,7 @@ class pcfxxxxi2(object):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(3,0x4c,"V") 
+            wat   = self.getdata(3,0x48,"W") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(3,volt,amper,wat))
 
             stop1 = dt.datetime.now()
