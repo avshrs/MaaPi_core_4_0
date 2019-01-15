@@ -10,6 +10,7 @@ import os
 class pcfxxxxi2(object):
    
     bus = SMBus(1)
+
     @classmethod
     def listIsZero(self,data):
 	for i in data:
@@ -68,6 +69,8 @@ class pcfxxxxi2(object):
         out = []
         for i in range(0,accuracy):
             data = self.bus.read_i2c_block_data32(address,sensor,20)
+	    print data
+	    print max(data)
         return out
 
     @classmethod

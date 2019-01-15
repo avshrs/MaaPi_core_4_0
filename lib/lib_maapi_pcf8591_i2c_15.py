@@ -82,8 +82,7 @@ class class_get_values(object):
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
         self.bus.write_byte(address,int(sensor))
-        for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data32(address,int(sensor),accuracy)[5:]
+        data = self.bus.read_i2c_block_data32(address,int(sensor),accuracy)
         return data
 
     @classmethod
@@ -108,9 +107,10 @@ class class_get_values(object):
         if kind == "W" and address == 0x48:
             Vmultip         = 1
             STDfilter       = True
-            ChauvenetC      = 1.5
-            avgToCut        =  0.4
+            ChauvenetC      = 1
+            avgToCut        =  0.2
             accuracy        = 10
+
             STDdirection    ="all"
             vcc             = 1.68
             vccAdjust       = vcc/1.96225
@@ -120,8 +120,8 @@ class class_get_values(object):
             Vmultip      = 1
             STDfilter    = True
             ChauvenetC    = 1
-            avgToCut     =  0.5
-            accuracy     = 10
+            avgToCut     =  0.2
+            accuracy     = 15
             STDdirection ="all"
             vcc          = 1.68
             vccAdjust    = vcc/1.96225
@@ -131,7 +131,7 @@ class class_get_values(object):
             Vmultip      = 255
             STDfilter    = True
             ChauvenetC   = 1
-            avgToCut     =  0.3
+            avgToCut     =  0.2
             accuracy     = 10
             STDdirection = "all"
             vcc          = 1.68
@@ -142,7 +142,7 @@ class class_get_values(object):
             Vmultip      = 327
             STDfilter    = True
             ChauvenetC   = 1
-            avgToCut     =  0.3
+            avgToCut     =  0.2
             accuracy     = 10
             STDdirection = "all"
             vcc          = 1.68
@@ -153,8 +153,8 @@ class class_get_values(object):
             Vmultip      = 1.08
             STDfilter    = True
             ChauvenetC    = 1
-            avgToCut     =  0.5
-            accuracy     = 5
+            avgToCut     =  0.2
+            accuracy     = 10
             STDdirection="all"
             vcc          = 3.3
             vccAdjust    = 0
@@ -168,26 +168,28 @@ class class_get_values(object):
     def getValue(self,sensor,address,kind):
 
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
+	out =[]
+	for i in range(0,10): 
+            data_bin_readed = self.readFromI2C(sensor, address, accuracy)
+            data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut))
+            data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
 
-        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-
-        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut))
-
-        data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
-
-        # filter section 
-        if STDfilter:
-            data = self.filter_stdCh(data,ChauvenetC,STDdirection)
 		
-	if toAmper or toAmperToWat :
-            data = self.toAmper(data)
+	    if toAmper or toAmperToWat :
+               data = self.toAmper(data)
         
-	if toAmperToWat:
-            data = self.toWat(data)
+	    if toAmperToWat:
+               data = self.toWat(data)
+
+            out.append(max(data))
+
+        if STDfilter:
+            out = self.filter_stdCh(out,ChauvenetC,STDdirection)  
+	if not out:
+	    out = mean(out)
+	
         
-	print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
-        
-        return  max(data)
+        return  mean(out)
 
 
     #read data from sensor
@@ -202,7 +204,7 @@ class class_get_values(object):
                 value = self.getValue(nr, addr, str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
-   #             self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
+ #             self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
                 print stop - start
 #            except:
  #               self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
