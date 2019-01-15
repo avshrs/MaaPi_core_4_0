@@ -56,12 +56,16 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-        self.bus.write_byte(address,0b00000100)
+	sensor=0b00000001
+	accuracy = 20
+	self.bus.write_byte(address,sensor)
+
         out = []
         for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data(address,int(sensor),32)
+            data = self.bus.read_i2c_block_data(address,sensor,32)[2:-3]
             out.append(data)
-	    print data
+            print data
+	    print all(data)
 
         return out
 
