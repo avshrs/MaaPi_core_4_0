@@ -56,16 +56,16 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-	sensor=0b00000001
-	accuracy = 20
-	address = 0x4c
+	sensor=0b00
+000010
+	accuracy = 100
 	self.bus.write_byte(address,sensor)
 
         out = []
         for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data(address,sensor,32)[3:]
+            data = self.bus.read_i2c_block_data(address,sensor,32)[2:]
             out.append(data)
-            print data
+	    print data
 
         return out
 
@@ -170,7 +170,7 @@ class pcfxxxxi2(object):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(3,0x48,"W") 
+            wat   = self.getdata(3,0x4c,"V") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(3,volt,amper,wat))
 
             stop1 = dt.datetime.now()

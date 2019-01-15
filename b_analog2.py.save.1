@@ -63,8 +63,10 @@ class pcfxxxxi2(object):
 
         out = []
         for i in range(0,accuracy):
-            data = self.bus.read_i2c_block_data(address,sensor,32)[3:]
+            data = self.bus.read_i2c_block_data(address,sensor,0)
             out.append(data)
+	    if all(data):
+		time.sleep(0.01)
             print data
 
         return out
