@@ -111,7 +111,7 @@ class class_get_values(object):
             accuracy        = 30
             STDdirection    ="all"
             vcc             = 1.68
-            vccAdjust       = 0
+            vccAdjust       = vcc/2
             toAmper         = False
             toAmperToWat    = True
         elif kind == "V" and address == 0x48:
@@ -169,8 +169,13 @@ class class_get_values(object):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
 
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut))
+        if STDfilter:
+            out = self.filter_stdCh(data_bin_readed,ChauvenetC,STDdirection)
+            
+        data_bin_temp =(self.filter_gtavg(out,avgToCut))
+
         data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
+
         if toAmper or toAmperToWat :
            data = self.toAmper(data)
         if toAmperToWat:
@@ -183,7 +188,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
- #           try:
+            try:
                 start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -191,10 +196,10 @@ class class_get_values(object):
                 value = self.getValue(nr, addr, str(kind))
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
- #             self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
+                self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
                 print stop - start
-#            except:
- #               self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-#                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
- #               maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
-#
+            except:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
+                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+
