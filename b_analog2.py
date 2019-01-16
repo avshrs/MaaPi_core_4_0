@@ -1,4 +1,4 @@
-#!/usr/bin/python
+	#!/usr/bin/python
 import math
 from smbus2 import SMBus, i2c_msg
 from statistics import median, stdev, mean
@@ -61,10 +61,9 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-        sensor=0b00000010
-        data=[]
-        accuracy = 12
-        coun = 5
+        sensor=1
+        accuracy = 2
+        coun =500
         address = 0x48
         self.bus.write_byte(address,sensor)
         out = []
@@ -72,15 +71,16 @@ class pcfxxxxi2(object):
         for i in range(0,accuracy):
             
             read = self.bus.read_i2c_block_data32(address,sensor,coun)
-            #print read
-
+            print read
+	    read.sort(reverse=True)
+	    print "{0} - {1}".format(read[0:5],mean(read[0:5]))
             data.append(max(read))
         sto = dt.datetime.now()
         print sto -sta
-        print data
-        print max(data) 
+#        print data
+ #       print max(data) 
         print mean(data) 
-        return out
+        return data
 
     @classmethod
     def toAmper(self,data):
@@ -154,32 +154,29 @@ class pcfxxxxi2(object):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
         data_bin_temp = []
-        print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
+  #      print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
 #        print data_bin_readed
-        for dr in data_bin_readed:
-            if dr[0] > 254:
-                if dr[0] == dr[1]:
-                    continue
-            data_bin_temp+=self.filter_gtavg(dr,avgToCut)
+#        data_bin_temp=self.filter_gtavg(dr,avgToCut)
         #convert section
-        print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
+ #       print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
         
-        data = self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust)
+#        data = self.toVolts(data_bin_readed,vMultip,vcc,vccAdjust)
+	data = data_bin_readed
         # filter section 
         if STDfilter:
             data = self.filter_stdCh(data,ChauvenetC,STDdirection)
-            print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
-
+#            print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
+	print mean(data)
         if toAmper or toAmperToWat :
             data = self.toAmper(data)
         if toAmperToWat:
             data = self.toWat(data)
-        print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
+ #       print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
 
         return  max(data)
 
     def __init__(self,args):
-        for i in range(0,3):
+        for i in range(0,4):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
