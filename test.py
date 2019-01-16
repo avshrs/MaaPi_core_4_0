@@ -1,6 +1,10 @@
+import numpy as np
+import matplotlib.pyplot as plt
 
-from lib.lib_maapi_onewire_pi_4_4  import class_get_values as bh
+x = np.linspace(0,2*np.pi,100)
+y = np.sin(x) + np.random.random(100) * 0.2
+yhat = savitzky_golay(y, 51, 3) # window size 51, polynomial order 3
 
-a=(2187, "28-04168575f9ff", 0,1)
-
-bh(a)
+plt.plot(x,y)
+plt.plot(x,yhat, color='red')
+plt.show()
