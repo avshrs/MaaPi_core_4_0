@@ -104,7 +104,7 @@ class class_get_values(object):
     @classmethod
     def getSensorConf(self,sensor,address,kind):
         if kind == "W" and address == 0x48:
-            Vmultip         = 0.20
+            Vmultip         = 1
             STDfilter       = True
             ChauvenetC      = 1
             avgToCut        =  0.2
