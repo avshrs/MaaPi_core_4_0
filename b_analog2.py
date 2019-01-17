@@ -61,9 +61,9 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-#        sensor=0
-        accuracy = 2
-        coun =100
+        sensor=0b00000001
+        accuracy = 1
+        coun = 50
         address = 0x4c
 
         self.bus.write_byte(address,sensor)
@@ -181,7 +181,7 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        for i in range(0,4):
+        for i in range(0,1):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
