@@ -13,12 +13,12 @@ logging.basicConfig(
 
 
 class class_get_values(object):
-    debug = 1
+    debug = 0
 
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            logging.debug("lib_maapi_onewire_pi_4_4 - {0}".format(msg))
+            logging.debug("lib_maapi_onewire_pi_4_4 - \t{0}".format(msg))
 
     @classmethod
     def read_data_from_1w(self, rom_id, dev_id):

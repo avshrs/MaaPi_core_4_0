@@ -53,9 +53,9 @@ class class_get_values(object):
         return data_out
     
     @classmethod
+
     def filter_stdCh(self,data,ChauvenetC,STDdirection):
         out=[]
-  
         if len(data)>2:
             avg = mean(data)
             std_ = stdev(data)
@@ -169,21 +169,19 @@ class class_get_values(object):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
 
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-  
-        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut)) 
-
-
         if STDfilter:
-            out = self.filter_stdCh(data_bin_temp,ChauvenetC,STDdirection)
+            out = self.filter_stdCh(data_bin_readed,ChauvenetC,STDdirection)
             
-       # data=(self.toVolts(out,vMultip,vcc,vccAdjust))
+        data_bin_temp =(self.filter_gtavg(out,avgToCut))
 
-#        if toAmper or toAmperToWat :
- #          data = self.toAmper(data)
-  #      if toAmperToWat:
-   #        data = self.toWat(data)
+        data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
 
-        return  mean(out)
+        if toAmper or toAmperToWat :
+           data = self.toAmper(data)
+        if toAmperToWat:
+           data = self.toWat(data)
+
+        return  mean(data)
 
 
     #read data from sensor

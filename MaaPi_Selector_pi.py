@@ -23,7 +23,7 @@ class Selector(object):
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            print("DEBUG Selector    {0} {1}, {2}".format(
+            print("DEBUG Selector pi\t\t\t    {0} {1}, {2}".format(
                 level, datetime.now(), msg))
 
     # convert value from sensors interval from hours minutes to seconds

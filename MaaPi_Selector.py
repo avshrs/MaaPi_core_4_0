@@ -29,7 +29,7 @@ class Selector(object):
     @classmethod
     def _debug(self, level, msg):
         if self.debug >= level:
-            logging.debug("MaaPi_Selector - {0}".format(msg))
+            logging.debug("MaaPi_Selector\t\t-\t{0}".format(msg))
             #print("DEBUG Selector    {0} {1}, {2}".format(level, datetime.now(), msg))
 
     # convert value from sensors interval from hours minutes to seconds
