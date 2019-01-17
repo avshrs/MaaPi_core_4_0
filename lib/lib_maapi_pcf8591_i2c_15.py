@@ -168,11 +168,12 @@ class class_get_values(object):
     @classmethod
     def sinFilter(self, data):
         value = np.array(data)
-        time  = np.array(range(0,(len(data))))
-	freq = 0.5/(time[1:]-time[:-1]) 
-        freqTimes = (time[1:]+time[:-1])/2. 
+	out = []
+#        time  = np.array(range(0,(len(data))))
+#	freq = 0.5/(time[1:]-time[:-1]) 
+#       freqTimes = (time[1:]+time[:-1])/2. 
         b, a = signal.butter(1, 0.03)
-        out = signal.filtfilt(b, a, xn)
+        out = signal.filtfilt(b, a, value)
         return out
 
 
@@ -197,7 +198,7 @@ class class_get_values(object):
         if toAmperToWat:
            data = self.toWat(data)
 #	out  = np.trapz(out)/len(out)
-        return  mean(out)
+        return  mean(data)
 
 
     #read data from sensor
@@ -213,7 +214,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-                print stop - start
+#                print stop - start
 #            except Exception as e:
 #                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
 #                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
