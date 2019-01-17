@@ -65,13 +65,7 @@ class pcfxxxxi2(object):
     def readFromI2C(self,sensor, address, accuracy):
 
         self.bus.write_byte(address,sensor)
-        out = []
-        sta = dt.datetime.now()
-        data=[]
-        read = []
         read = self.bus.read_i2c_block_data32(address,sensor,accuracy)
-        
-        
         return read
 
     @classmethod
@@ -141,16 +135,18 @@ class pcfxxxxi2(object):
             reference    = 0
             toAmper = False
             toAmperToWat = False
-
+        
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut, reference
         
 
     @classmethod
     def getdata(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , reference = self.getSensorConf(sensor,address,kind)
+        
+        Vmultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , reference = self.getSensorConf(sensor,address,kind)
+        
         data = self.readFromI2C(sensor, address, accuracy)
 
-        data = self.toVolts(data, vMultip,vcc, vccAdjust, reference)
+        data = self.toVolts(data, Vmultip, vcc, vccAdjust, reference)
         self.filter_gtavg(data,0.5)
         #print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
         if STDfilter:
@@ -168,7 +164,7 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        for i in range(0,4):
+        for i in range(0,3):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 

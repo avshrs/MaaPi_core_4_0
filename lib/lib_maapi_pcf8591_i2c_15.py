@@ -37,8 +37,9 @@ class class_get_values(object):
         factor = vcc / 256.0
         out = []
         for di in data:
-              volts = (((abs(di-reference) * factor) ) * Vmultip)
-              out.append(volts)
+            if di < 240:
+                volts = (((abs(di-reference) * factor) ) * Vmultip)
+                out.append(volts)
         return out
 
     @classmethod
@@ -75,7 +76,7 @@ class class_get_values(object):
 
 
     @classmethod
-    def readFromI2C(self,sensor, address, accuracy,loops):
+    def readFromI2C(self,sensor, address, accuracy, loops):
         self.bus.write_byte(address,int(sensor))
         data = []
         for i in range(0,loops):
@@ -92,6 +93,8 @@ class class_get_values(object):
             else:
                 out.append(0)
         return out
+
+
     @classmethod
     def toWat(self,data):
         out=[]
@@ -99,9 +102,10 @@ class class_get_values(object):
                 out.append(i*233)
         return out
     
+
     @classmethod
     def getSensorConf(self,sensor,address,kind): 
-	Vmultip = 1
+        Vmultip = 1
         STDfilter = False
         ChauvenetC = 1
         avgToCut = 0.5
@@ -116,12 +120,13 @@ class class_get_values(object):
         loops=1
         if kind == "W" and address == 0x48:
             STDfilter       = True
-            accuracy        = 20
+            accuracy        = 50
             STDdirection    ="all"
-            reference       = 127.0
+            reference       = 126.9
             toAmperToWat    = True
             sinf            = True
-            loops           = 4
+            loops           = 1
+            vcc             = 3.27
 	    
         elif kind == "V" and address == 0x48:
             Vmultip      = 12
@@ -141,14 +146,15 @@ class class_get_values(object):
             STDdirection = "all"
 
         elif kind == "V" and sensor == 0 and address == 0x4c:
-            Vmultip      = 1
+            Vmultip      = 130
             STDfilter    = True
-            ChauvenetC   = 1
+            ChauvenetC   = 1 
             avgToCut     =  0.3
-            accuracy     = 20
+            accuracy     = 25
             STDdirection="all"
-            vccAdjust    = vcc/2.02
-            sinf 	 = False
+            vcc          = 3.27
+           # reference       = 1
+            sinf 	     = False
 
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops
 
@@ -170,20 +176,21 @@ class class_get_values(object):
         data_tmp =[]
         data = self.readFromI2C(sensor, address, accuracy,loops)
         for i in data:
-            data_tmp=(self.toVolts(i,vMultip,vcc, reference))
+            data_tmp=(self.toVolts(i, vMultip, vcc, reference))
 
             if STDfilter:
-                data_tmp = self.filter_stdCh(data_tmp,ChauvenetC,STDdirection) 
+                data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
             
             if sinf:
                 data_tmp = self.sinFilter(data_tmp)
 
             if toAmper or toAmperToWat :
                 data_tmp = self.toAmper(data_tmp)
+
             if toAmperToWat:
                 data_tmp = self.toWat(data_tmp)
             out.append(max(data_tmp))
-        return  min(out)
+        return  mean(out)
 
 
     #read data from sensor
