@@ -17,14 +17,16 @@ class pcfxxxxi2(object):
 	    if i > 0:
 		return True
 	return False   
+
+
+
     @classmethod
-    def toVolts(self, data, Vmultip,vcc, vccAdjust):
+    def toVolts(self, data, Vmultip,vcc, vccAdjust,reference):
         factor = vcc / 256.0
         out = []
         for di in data:
-           if di < 254:
-              volts = (((di * factor) - (vccAdjust)) * Vmultip)
-              out.append(abs(volts))
+              volts = (((abs(di-reference) * factor) ) * Vmultip)
+              out.append(volts)
         return out
 
     @classmethod
@@ -61,31 +63,16 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-       # sensor=0b00000001
-        accuracy = 2
-        coun = 5
-        address = 0x48
 
         self.bus.write_byte(address,sensor)
         out = []
         sta = dt.datetime.now()
         data=[]
         read = []
-        for i in range(0,accuracy):
-     
-            read = self.bus.read_i2c_block_data32(address,sensor,coun)
-            print read
-	    read.sort(reverse=True)
-#	    print "{0} - {1}".format(read[0:5],mean(read[0:5]))
-            data.append(max(read))
-#        sto = dt.datetime.now()
- #       print sto -sta
-#	print read
-        print data
-        print "min= {0}, max= {1}".format(min(read),max(read) )
-    #    print min(data) 
-#	print mean(data)
-        return data
+        read = self.bus.read_i2c_block_data32(address,sensor,accuracy)
+        
+        
+        return read
 
     @classmethod
     def toAmper(self,data):
@@ -111,10 +98,11 @@ class pcfxxxxi2(object):
             STDfilter = True
             ChauvenetC = 1
             avgToCut     =  0.2
-            accuracy = 50
+            accuracy = 40
             STDdirection ="all"
-            vcc= 1.68
+            vcc= 3.27
             vccAdjust = vcc/1.96225
+            reference    = 127.0
             toAmper = False
             toAmperToWat = True
         elif kind == "A" and address == 0x48:
@@ -125,6 +113,7 @@ class pcfxxxxi2(object):
             accuracy     = 60
             STDdirection ="all"
             vcc          = 1.68
+            reference    = 0
             vccAdjust    = vcc/1.96225
             toAmper = True
             toAmperToWat = False  
@@ -137,6 +126,7 @@ class pcfxxxxi2(object):
             STDdirection = "all"
             vcc          = 2.2
             vccAdjust    = 0
+            reference    = 0
             toAmper = False
             toAmperToWat = False       
         elif kind == "V" and sensor == 3 and address == 0x4c:
@@ -148,35 +138,32 @@ class pcfxxxxi2(object):
             STDdirection="all"
             vcc          = 3.3
             vccAdjust    = 0
+            reference    = 0
             toAmper = False
             toAmperToWat = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut, reference
         
 
     @classmethod
     def getdata(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
-        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-        data_bin_temp = []
-  #      print ("---DEBUG: Data Readed from i2c \t\t| sampels {0}".format(len(data_bin_readed)*32))
-#        print data_bin_readed
-#        data_bin_temp=self.filter_gtavg(dr,avgToCut)
-        #convert section
- #       print ("---DEBUG: Data filtered > avg \t\t| sampels {0}".format(len(data_bin_temp)))
-        
-#        data = self.toVolts(data_bin_readed,vMultip,vcc,vccAdjust)
-	data = data_bin_readed
-        # filter section 
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , reference = self.getSensorConf(sensor,address,kind)
+        data = self.readFromI2C(sensor, address, accuracy)
+
+        data = self.toVolts(data, vMultip,vcc, vccAdjust, reference)
+        self.filter_gtavg(data,0.5)
+        #print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
         if STDfilter:
             data = self.filter_stdCh(data,ChauvenetC,STDdirection)
-#            print ("---DEBUG: Data filtered STD DIV \t| sampels {0}".format(len(data)))
-	print mean(data)
+        #print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
+	
         if toAmper or toAmperToWat :
             data = self.toAmper(data)
+        
         if toAmperToWat:
             data = self.toWat(data)
- #       print ("---DEBUG: Data before send to max \t| sampels {0}".format(len(data)))
+ #      
+        print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
 
         return  max(data)
 
