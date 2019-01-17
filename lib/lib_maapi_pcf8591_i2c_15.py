@@ -104,101 +104,94 @@ class class_get_values(object):
         return out
     
     @classmethod
-    def getSensorConf(self,sensor,address,kind):
+    def getSensorConf(self,sensor,address,kind): 
+	Vmultip = 1
+        STDfilter = False
+        ChauvenetC = 1
+        avgToCut = 0.5
+        accuracy = 30
+        STDdirection ="no"
+        vcc = 1.68
+        vccAdjust = 0
+        toAmper = False
+        toAmperToWat    = False
+	sinf=True
+
         if kind == "W" and address == 0x48:
-            Vmultip         = 1
+
             STDfilter       = True
-            ChauvenetC      = 1
-            avgToCut        =  0.5
-            accuracy        = 60
+            accuracy        = 50
             STDdirection    ="all"
-            vcc             = 1.68
             vccAdjust       = vcc/2.02
-            toAmper         = False
             toAmperToWat    = True
+	    
         elif kind == "V" and address == 0x48:
+            Vmultip      = 12
+            STDfilter    = True
+            avgToCut     =  0.5
+            accuracy     = 10
+            vccAdjust    = vcc/2
+            STDdirection = "all"
+
+        elif kind == "A" and address == 0x48:
+            toAmper = True
+
+        elif kind == "V" and address == 0x4c and sensor != 0 :
             Vmultip      = 255
             STDfilter    = True
-            ChauvenetC   = 1
-            avgToCut     =  0.2
             accuracy     = 30
             STDdirection = "all"
-            vcc          = 1.68
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False  
-        elif kind == "A" and address == 0x48:
+
+        elif kind == "V" and sensor == 0 and address == 0x4c:
             Vmultip      = 1
             STDfilter    = True
-            ChauvenetC    = 1
-            avgToCut     =  0.2
-            accuracy     = 30
-            STDdirection ="all" 
-            vcc          = 1.68
-            vccAdjust    = vcc/1.96225
-            toAmper = True
-            toAmperToWat = False  
-        elif kind == "V" and address == 0x4c  :
-            Vmultip      = 255
-            STDfilter    = True
             ChauvenetC   = 1
-            avgToCut     =  0.2
-            accuracy     = 30
-            STDdirection = "all"
-            vcc          = 1.68
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False  
-       
-        elif kind == "V" and sensor == 0 and address == 0x4c:
-            Vmultip      = 1.08
-            STDfilter    = True
-            ChauvenetC    = 1
-            avgToCut     =  0.2
-            accuracy     = 10
+            avgToCut     =  0.3
+            accuracy     = 20
             STDdirection="all"
-            vcc          = 3.3
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False
+            vccAdjust    = vcc/2.02
+	    sinf 	 = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut, sinf
 
 
     @classmethod
     def sinFilter(self, data):
         value = np.array(data)
 	out = []
-#        time  = np.array(range(0,(len(data))))
-#	freq = 0.5/(time[1:]-time[:-1]) 
-#       freqTimes = (time[1:]+time[:-1])/2. 
         b, a = signal.butter(1, 0.03)
         out = signal.filtfilt(b, a, value)
+
         return out
 
 
     @classmethod
     def getValue(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , sinf= self.getSensorConf(sensor,address,kind)
 
-        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
-  
-#        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut)) 
+        data = self.readFromI2C(sensor, address, accuracy)
 
-
-#        if STDfilter:
-#            out = self.filter_stdCh(data_bin_temp,ChauvenetC,STDdirection)
+        if STDfilter:
+           data = self.filter_stdCh(data,ChauvenetC,STDdirection) 
             
-        data=(self.toVolts(data_bin_readed,vMultip,vcc,vccAdjust))
 
- 	self.sinFilter(data)
+        data=(self.toVolts(data,vMultip,vcc,vccAdjust))
+
+	if sinf:
+           data = self.sinFilter(data)
+        
+        data =(self.filter_gtavg(data,avgToCut))	
+	
+#        if STDfilter:
+#           data = self.filter_stdCh(data,ChauvenetC,STDdirection)
+
 
         if toAmper or toAmperToWat :
            data = self.toAmper(data)
         if toAmperToWat:
            data = self.toWat(data)
 #	out  = np.trapz(out)/len(out)
-        return  mean(data)
+        return  max(data)
 
 
     #read data from sensor
