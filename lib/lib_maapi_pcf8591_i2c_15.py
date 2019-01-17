@@ -32,15 +32,13 @@ class class_get_values(object):
                 return True 
         return False
 
-
     @classmethod
-    def toVolts(self, data, Vmultip,vcc, vccAdjust):
+    def toVolts(self, data, Vmultip,vcc, reference):
         factor = vcc / 256.0
         out = []
         for di in data:
-           if di < 254:
-              volts = (((di * factor) - (vccAdjust)) * Vmultip)
-              out.append(abs(volts))
+              volts = (((abs(di-reference) * factor) ) * Vmultip)
+              out.append(volts)
         return out
 
     @classmethod
@@ -51,39 +49,37 @@ class class_get_values(object):
         for data_ in data:
             if data_ >= data_avg and data_ != 0:
                 data_out.append(data_)
-
         return data_out
     
     @classmethod
     def filter_stdCh(self,data,ChauvenetC,STDdirection):
         out=[]
-  
-        if len(data)>2:
-            avg = mean(data)
-            std_ = stdev(data)
-            std = std_ * ChauvenetC
-            if std != 0:
-                for do in data:
-                    if STDdirection == "all":
-                        if do < (avg + std) and do > (avg - std):
-                            out.append(do)
-                    elif STDdirection == "up" :
-                        if do < (avg + std):
-                            out.append(do)
-                    elif STDdirection == "down" :
-                        if do > (avg - std):
-                            out.append(do)
-            else:
-                out = data
+        avg = mean(data)
+        std_ = stdev(data)
+        std = std_ * ChauvenetC
+        if std != 0:
+            for do in data:
+                if STDdirection == "all":
+                    if do < (avg + std) and do > (avg - std):
+                        out.append(do)
+                elif STDdirection == "up" :
+                    if do < (avg + std):
+                        out.append(do)
+                elif STDdirection == "down" :
+                    if do > (avg - std):
+                        out.append(do)
         else:
-            out = [0,0]
+            out = data
+    
         return out
 
 
     @classmethod
-    def readFromI2C(self,sensor, address, accuracy):
+    def readFromI2C(self,sensor, address, accuracy,loops):
         self.bus.write_byte(address,int(sensor))
-        data = self.bus.read_i2c_block_data32(address,int(sensor),accuracy)
+        data = []
+        for i in range(0,loops):
+            data.append(self.bus.read_i2c_block_data32(address,int(sensor),accuracy))
         return data
 
     @classmethod
@@ -91,10 +87,10 @@ class class_get_values(object):
         out=[]
         div = 1/30.0
         for i in data:
-            if i > 0:
+            if i > 0.0:
                 out.append(i/div)
             else:
-                out.append(i)
+                out.append(0)
         return out
     @classmethod
     def toWat(self,data):
@@ -115,15 +111,17 @@ class class_get_values(object):
         vccAdjust = 0
         toAmper = False
         toAmperToWat    = False
-	sinf=True
-
+        reference = 0
+        sinf=True
+        loops=1
         if kind == "W" and address == 0x48:
-
             STDfilter       = True
-            accuracy        = 50
+            accuracy        = 20
             STDdirection    ="all"
-            vccAdjust       = vcc/2.02
+            reference       = 127.0
             toAmperToWat    = True
+            sinf            = True
+            loops           = 4
 	    
         elif kind == "V" and address == 0x48:
             Vmultip      = 12
@@ -150,16 +148,16 @@ class class_get_values(object):
             accuracy     = 20
             STDdirection="all"
             vccAdjust    = vcc/2.02
-	    sinf 	 = False
+            sinf 	 = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut, sinf
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops
 
 
     @classmethod
     def sinFilter(self, data):
         value = np.array(data)
-	out = []
-        b, a = signal.butter(1, 0.03)
+        out = []
+        b, a = signal.butter(1, 0.05)
         out = signal.filtfilt(b, a, value)
 
         return out
@@ -167,31 +165,25 @@ class class_get_values(object):
 
     @classmethod
     def getValue(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , sinf= self.getSensorConf(sensor,address,kind)
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops= self.getSensorConf(sensor,address,kind)
+        out = []
+        data_tmp =[]
+        data = self.readFromI2C(sensor, address, accuracy,loops)
+        for i in data:
+            data_tmp=(self.toVolts(i,vMultip,vcc, reference))
 
-        data = self.readFromI2C(sensor, address, accuracy)
-
-        if STDfilter:
-           data = self.filter_stdCh(data,ChauvenetC,STDdirection) 
+            if STDfilter:
+                data_tmp = self.filter_stdCh(data_tmp,ChauvenetC,STDdirection) 
             
+            if sinf:
+                data_tmp = self.sinFilter(data_tmp)
 
-        data=(self.toVolts(data,vMultip,vcc,vccAdjust))
-
-	if sinf:
-           data = self.sinFilter(data)
-        
-        data =(self.filter_gtavg(data,avgToCut))	
-	
-#        if STDfilter:
-#           data = self.filter_stdCh(data,ChauvenetC,STDdirection)
-
-
-        if toAmper or toAmperToWat :
-           data = self.toAmper(data)
-        if toAmperToWat:
-           data = self.toWat(data)
-#	out  = np.trapz(out)/len(out)
-        return  max(data)
+            if toAmper or toAmperToWat :
+                data_tmp = self.toAmper(data_tmp)
+            if toAmperToWat:
+                data_tmp = self.toWat(data_tmp)
+            out.append(max(data_tmp))
+        return  min(out)
 
 
     #read data from sensor

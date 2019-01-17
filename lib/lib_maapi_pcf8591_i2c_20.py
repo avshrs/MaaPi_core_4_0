@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import sys
+import numpy as np
+from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
@@ -53,9 +55,9 @@ class class_get_values(object):
         return data_out
     
     @classmethod
-
     def filter_stdCh(self,data,ChauvenetC,STDdirection):
         out=[]
+  
         if len(data)>2:
             avg = mean(data)
             std_ = stdev(data)
@@ -102,93 +104,101 @@ class class_get_values(object):
         return out
     
     @classmethod
-    def getSensorConf(self,sensor,address,kind):
+    def getSensorConf(self,sensor,address,kind): 
+	Vmultip = 1
+        STDfilter = False
+        ChauvenetC = 1
+        avgToCut = 0.5
+        accuracy = 30
+        STDdirection ="no"
+        vcc = 1.68
+        vccAdjust = 0
+        toAmper = False
+        toAmperToWat    = False
+	sinf=True
+
         if kind == "W" and address == 0x48:
-            Vmultip         = 1
+
             STDfilter       = True
-            ChauvenetC      = 1
-            avgToCut        =  0.2
-            accuracy        = 60
+            accuracy        = 50
             STDdirection    ="all"
-            vcc             = 1.68
-            vccAdjust       = vcc/2
-            toAmper         = False
+            vccAdjust       = vcc/2.02
             toAmperToWat    = True
+	    
         elif kind == "V" and address == 0x48:
+            Vmultip      = 12
+            STDfilter    = True
+            avgToCut     =  0.5
+            accuracy     = 10
+            vccAdjust    = vcc/2
+            STDdirection = "all"
+
+        elif kind == "A" and address == 0x48:
+            toAmper = True
+
+        elif kind == "V" and address == 0x4c and sensor != 0 :
             Vmultip      = 255
             STDfilter    = True
-            ChauvenetC   = 1
-            avgToCut     =  0.2
             accuracy     = 30
             STDdirection = "all"
-            vcc          = 1.68
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False  
-        elif kind == "A" and address == 0x48:
+
+        elif kind == "V" and sensor == 0 and address == 0x4c:
             Vmultip      = 1
             STDfilter    = True
-            ChauvenetC    = 1
-            avgToCut     =  0.2
-            accuracy     = 30
-            STDdirection ="all" 
-            vcc          = 1.68
-            vccAdjust    = vcc/1.96225
-            toAmper = True
-            toAmperToWat = False  
-        elif kind == "V" and address == 0x4c  :
-            Vmultip      = 255
-            STDfilter    = True
             ChauvenetC   = 1
-            avgToCut     =  0.2
-            accuracy     = 30
-            STDdirection = "all"
-            vcc          = 1.68
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False  
-       
-        elif kind == "V" and sensor == 0 and address == 0x4c:
-            Vmultip      = 1.08
-            STDfilter    = True
-            ChauvenetC    = 1
-            avgToCut     =  0.2
-            accuracy     = 10
+            avgToCut     =  0.3
+            accuracy     = 20
             STDdirection="all"
-            vcc          = 3.3
-            vccAdjust    = 0
-            toAmper = False
-            toAmperToWat = False
+            vccAdjust    = vcc/2.02
+	    sinf 	 = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
-        
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut, sinf
+
+
+    @classmethod
+    def sinFilter(self, data):
+        value = np.array(data)
+	out = []
+        b, a = signal.butter(1, 0.03)
+        out = signal.filtfilt(b, a, value)
+
+        return out
+
 
     @classmethod
     def getValue(self,sensor,address,kind):
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , sinf= self.getSensorConf(sensor,address,kind)
 
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
+        data = self.readFromI2C(sensor, address, accuracy)
 
-        data_bin_readed = self.readFromI2C(sensor, address, accuracy)
         if STDfilter:
-            out = self.filter_stdCh(data_bin_readed,ChauvenetC,STDdirection)
+           data = self.filter_stdCh(data,ChauvenetC,STDdirection) 
             
-        data_bin_temp =(self.filter_gtavg(out,avgToCut))
 
-        data=(self.toVolts(data_bin_temp,vMultip,vcc,vccAdjust))
+        data=(self.toVolts(data,vMultip,vcc,vccAdjust))
+
+	if sinf:
+           data = self.sinFilter(data)
+        
+        data =(self.filter_gtavg(data,avgToCut))	
+	
+#        if STDfilter:
+#           data = self.filter_stdCh(data,ChauvenetC,STDdirection)
+
 
         if toAmper or toAmperToWat :
            data = self.toAmper(data)
         if toAmperToWat:
            data = self.toWat(data)
-
-        return  mean(data)
+#	out  = np.trapz(out)/len(out)
+        return  max(data)
 
 
     #read data from sensor
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+ #           try:
                 start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -197,9 +207,9 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-                print stop - start
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+#                print stop - start
+#            except Exception as e:
+#                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
+#                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+#                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
 
