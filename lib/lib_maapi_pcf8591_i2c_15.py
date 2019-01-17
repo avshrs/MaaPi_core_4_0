@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import sys
+import numpy as np
+from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
@@ -107,11 +109,11 @@ class class_get_values(object):
             Vmultip         = 1
             STDfilter       = True
             ChauvenetC      = 1
-            avgToCut        =  0.2
+            avgToCut        =  0.5
             accuracy        = 60
             STDdirection    ="all"
             vcc             = 1.68
-            vccAdjust       = vcc/2
+            vccAdjust       = vcc/2.02
             toAmper         = False
             toAmperToWat    = True
         elif kind == "V" and address == 0x48:
@@ -161,28 +163,40 @@ class class_get_values(object):
             toAmperToWat = False
 
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc, vccAdjust, toAmper, toAmperToWat, avgToCut
-        
+
+
+    @classmethod
+    def sinFilter(self, data):
+        value = np.array(data)
+        time  = np.array(range(0,(len(data))))
+	freq = 0.5/(time[1:]-time[:-1]) 
+        freqTimes = (time[1:]+time[:-1])/2. 
+        b, a = signal.butter(1, 0.03)
+        out = signal.filtfilt(b, a, xn)
+        return out
+
 
     @classmethod
     def getValue(self,sensor,address,kind):
-
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut = self.getSensorConf(sensor,address,kind)
 
         data_bin_readed = self.readFromI2C(sensor, address, accuracy)
   
-        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut)) 
+#        data_bin_temp =(self.filter_gtavg(data_bin_readed,avgToCut)) 
 
 
-        if STDfilter:
-            out = self.filter_stdCh(data_bin_temp,ChauvenetC,STDdirection)
+#        if STDfilter:
+#            out = self.filter_stdCh(data_bin_temp,ChauvenetC,STDdirection)
             
-       # data=(self.toVolts(out,vMultip,vcc,vccAdjust))
+        data=(self.toVolts(data_bin_readed,vMultip,vcc,vccAdjust))
 
-#        if toAmper or toAmperToWat :
- #          data = self.toAmper(data)
-  #      if toAmperToWat:
-   #        data = self.toWat(data)
+ 	self.sinFilter(data)
 
+        if toAmper or toAmperToWat :
+           data = self.toAmper(data)
+        if toAmperToWat:
+           data = self.toWat(data)
+#	out  = np.trapz(out)/len(out)
         return  mean(out)
 
 
@@ -190,7 +204,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
         for arg in args:
-            try:
+ #           try:
                 start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -200,8 +214,8 @@ class class_get_values(object):
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
                 print stop - start
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(arg))
-                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+#            except Exception as e:
+#                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
+#                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+#                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
 
