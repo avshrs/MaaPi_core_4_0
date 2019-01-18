@@ -131,10 +131,14 @@ class Selector(object):
                     self._debug(2, "runing method as thread ".format())
                     self._debug(1, "{1}\t\tsensors in queue {0} ".format(
                         devices_list, data_devices_list[types]["device_name"]))
-                    thread = threading.Thread(
-                        target=_temp.class_get_values, args=(devices_list))
+#		    lock_ = threading.Lock()
+#                   lock_.acquire()
+#		    try:
+                    thread = threading.Thread(target=_temp.class_get_values, args=(devices_list))
                     thread.daemon = True
                     thread.start()
+#                   finally:
+#                       lock_.release()
 
         time_of_exec = ((float(
             (datetime.now() - start).seconds) * 1000) + (float(
