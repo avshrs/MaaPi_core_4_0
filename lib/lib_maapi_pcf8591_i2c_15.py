@@ -24,7 +24,7 @@ class class_get_values(object):
         if self.debug >= level:
             logging.debug("lib_maapi_pcf8591_i2c_15 \t- {0}".format(msg))
 
-    with bus = SMBus(1)
+    bus = SMBus(1)
 
     @classmethod
     def listIsZero(self,data): 
@@ -40,7 +40,7 @@ class class_get_values(object):
         for di in data:
             if di < 240:
                 volts = (((abs(di-reference) * factor) ) * Vmultip)
-                out.append(volts)
+                out.append(volts) 
         return out
 
     @classmethod
@@ -197,27 +197,18 @@ class class_get_values(object):
     #read data from sensor
     @classmethod
     def __init__(self, *args):
-	print "----------------------------------------------------------------------------------------------------------"
 	for arg in args:
  #           try:
-		print "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
                 start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
                 mutex = Lock()
                 mutex.acquire()
-		time.sleep(0.05)
-		try:
-                   value = self.getValue(nr, addr, str(kind))
-                finally:
-                   mutex.release()
-             
-		print "================================================================================================================"
+                value = self.getValue(nr, addr, str(kind))             
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-        print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 #                print stop - start
 #            except Exception as e:
 #                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
