@@ -63,9 +63,10 @@ class pcfxxxxi2(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy):
-
-        self.bus.write_byte(address,sensor)
+	#while True:
+        print self.bus.write_byte(address,sensor)
         read = self.bus.read_i2c_block_data32(address,sensor,accuracy)
+        #  else:
         return read
 
     @classmethod
