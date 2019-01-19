@@ -6,7 +6,8 @@ from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
-from smbus2 import SMBus, i2c_msg
+from PythonSmbus2 import SMBus
+from lib.PythonSmbus2 import SMBus
 import time
 import logging
 
@@ -26,7 +27,7 @@ class class_get_values(object):
 
     bus = SMBus(1)
 
-    @classmethod
+    @classmethod 
     def listIsZero(self,data): 
         for i in data: 
             if i > 0: 
