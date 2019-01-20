@@ -34,13 +34,13 @@ class class_get_values(object):
         return False
 
     @classmethod
-    def toVolts(self, data, Vmultip,vcc, reference, maxV):
+    def toVolts(self, data, Vmultip,vcc, reference):
         factor = vcc / 256.0
         out = []
         for di in data:
-            volts = (((abs(di - reference) * factor) ) * Vmultip)
-            if volts < maxV:
+            if di < 240:
 
+                volts = (((abs(di-reference) * factor) ) * Vmultip)
                 out.append(volts) 
         return out
 
@@ -119,18 +119,17 @@ class class_get_values(object):
         toAmperToWat    = False
         reference = 0
         sinf=True
-        loops=1
-        maxV = 3
+        loops=2
         if kind == "W" and address == 0x48:
             STDfilter       = True
-            accuracy        = 25
+            accuracy        = 40
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
             sinf            = True
-            loops           = 2
+            loops           = 1
             vcc             = 3.27
-            maxV            = 1.1
+	    
         elif kind == "V" and address == 0x48:
             Vmultip      = 12
             STDfilter    = True
@@ -159,7 +158,7 @@ class class_get_values(object):
            # reference       = 1
             sinf 	     = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops
 
 
     @classmethod
@@ -174,15 +173,17 @@ class class_get_values(object):
 
     @classmethod
     def getValue(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV= self.getSensorConf(sensor,address,kind)
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops= self.getSensorConf(sensor,address,kind)
         out = []
         data_tmp =[]
-        data = self.readFromI2C(sensor, address, accuracy, loops)
+        data = self.readFromI2C(sensor, address, accuracy,loops)
+        print data
+        data=(self.toVolts(data, vMultip, vcc, reference))
+        print data
         for i in data:
-            data_tmp=(self.toVolts(i, vMultip, vcc, reference, maxV))
-            print data_tmp
+            print i
             if STDfilter:
-                data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
+                data_tmp = self.filter_stdCh(i, ChauvenetC, STDdirection) 
             
             if sinf:
                 data_tmp = self.sinFilter(data_tmp)
@@ -192,8 +193,9 @@ class class_get_values(object):
 
             if toAmperToWat:
                 data_tmp = self.toWat(data_tmp)
-            out.append(max(data_tmp))   
-        return  max(out)
+            out.append(max(data_tmp))    
+
+        return  mean(out)
 
 
     #read data from sensor
@@ -201,7 +203,7 @@ class class_get_values(object):
     def __init__(self, *args):
 	for arg in args:
  #           try:
-                start = dt.now() 
+                start = dt.now()  
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
