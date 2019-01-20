@@ -127,8 +127,8 @@ class class_get_values(object):
         loops=1
         maxV = 240
         if kind == "W" and address == 0x48:
-            Vmultip         = 0.7
-            STDfilter       = False
+            Vmultip         = 0.65
+            STDfilter       = False 
             accuracy        = 25
             STDdirection    ="all"
             reference       = 126.9
@@ -137,28 +137,26 @@ class class_get_values(object):
             loops           = 2
             vcc             = 3.27
             maxV            = 1
-        elif kind == "V" and address == 0x48:
-            Vmultip      = 12
+
+        elif kind == "V" and address == 0x48: # 5v 
+            Vmultip      = 2
             STDfilter    = True
-            avgToCut     =  0.5
             accuracy     = 10
-            vccAdjust    = vcc/2
+            vcc          = 3.27 
             STDdirection = "all"
 
-        elif kind == "A" and address == 0x48:
-            toAmper = True
-
-        elif kind == "V" and address == 0x4c and sensor != 0 :
-            Vmultip      = 255
+        elif kind == "V" and address == 0x4c and sensor == 3 :  # 3.3v 
+            Vmultip      = 1
             STDfilter    = False
-            accuracy     = 10
+            accuracy     = 15
+            vcc          = 3.27 
             STDdirection = "all"
+            
 
-        elif kind == "V" and sensor == 0 and address == 0x4c:
+        elif kind == "V" and sensor == 0 and address == 0x4c: #230v
             Vmultip      = 195
             STDfilter    = True
             ChauvenetC   = 1 
-            avgToCut     =  0.3
             accuracy     = 15
             STDdirection="all"
             vcc          = 3.27
@@ -211,7 +209,7 @@ class class_get_values(object):
     @classmethod
     def __init__(self, *args):
 	for arg in args:
- #           try:
+            try:
                 start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
@@ -222,9 +220,9 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-#                print stop - start
-#            except Exception as e:
-#                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
-#                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
-#                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
+                print stop - start
+            except Exception as e:
+                self._debug(1, "\tERROR reading values from dev: {0}".format(e))
+                self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
+                maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
 

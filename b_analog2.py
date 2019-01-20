@@ -163,13 +163,13 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        for i in range(0,3):
+        for i in range(0,4):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(i,0x48,"W") 
+            wat   = self.getdata(i,0x4c,"V") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(i,volt,amper,wat))
-
+ 
             stop1 = dt.datetime.now()
             print stop1-start1
 

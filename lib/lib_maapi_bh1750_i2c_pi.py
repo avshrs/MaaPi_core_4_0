@@ -23,7 +23,7 @@ class class_get_values(object):
     def __init__(self, *args):
         DEVICE = 0x23  # Default device I2C address
         POWER_DOWN = 0x00  # No active state
-        POWER_ON = 0x01  # Power on
+        POWER_ON = 0x01  # Power on 
         RESET = 0x07  # Reset data register value
 
         # Start measurement at 4lx resolution. Time typically 16ms.
