@@ -1,14 +1,16 @@
 #i2c imports
 import os
 import sys
+import time
 from fcntl import ioctl
 from ctypes import c_uint32, c_uint8, c_uint16, c_char, POINTER, Structure, Array, Union, create_string_buffer
 #---
-from threading import Lock
+from threading import Lock, Thread
 from datetime import datetime as dt
 #import MaaPi_DB_connection as maapidb
 import logging
 lock = Lock()
+
 # Commands from uapi/linux/i2c-dev.h
 I2C_SLAVE = 0x0703  # Use this slave address
 I2C_SLAVE_FORCE = 0x0706  # Use this slave address, even if it is already in use by a driver!
@@ -280,6 +282,16 @@ class I2C_MaaPi(object):
         )
         ioctl(self.fd, I2C_SMBUS, msg)
         return msg.data.contents.byte
+    def ioctl_def(self,fd, I2C_SMBUS,msg)
+        while True:
+            if not lock.acquire(False):
+                time.sleep(0.001)
+            else:
+                try:
+                    ioctl(self.fd, I2C_SMBUS, msg)                    
+                finally:
+                    lock.release()          
+                    break                    
 
     def write_byte(self, i2c_addr, value):
         # type: (int, int) -> None
@@ -304,17 +316,33 @@ class I2C_MaaPi(object):
                     read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
                 )
                 msg.data.contents.byte = 32
-                ioctl(self.fd, I2C_SMBUS, msg)
+                
                 d+= msg.data.contents.block[8:33]
         return d
+    
+
+d= I2C_MaaPi(1)
+
+def dupa(add, sens, lens):
+    
+    for i in range(0,4):
+        d.write_byte(add,i)
+        s = d.read_i2c_block_data32(add,i,lens)
+        print sens, min(s),max(s)
+    
 
 
 def run():
     print "running"
-    d= I2C_MaaPi(1)
-    d.write_byte(0x48,0)
-    print d.read_i2c_block_data32(0x48,0,1)
+    thread = Thread(target=dupa, args=(0x48,0,100))
+   # thread.daemon = True
+    thread.start()
+    
+    
 
+    thread2 = Thread(target=dupa, args=(0x48,1,100))
+    ##thread2.daemon = True
+    thread2.start()
 
 if __name__ == "__main__":
     run()
