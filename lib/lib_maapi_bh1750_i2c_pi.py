@@ -4,7 +4,6 @@ import sys
 from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 
-#import smbus
 from lib.lib_maapi_i2c_pi import I2C_MaaPi
 import smbus
 import time

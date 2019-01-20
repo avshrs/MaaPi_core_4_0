@@ -6,7 +6,11 @@ from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
+
+
 from lib.lib_maapi_i2c_pi import I2C_MaaPi
+
+
 import time
 import logging
 
@@ -17,7 +21,7 @@ logging.basicConfig(
     datefmt='%m/%d/%Y %H:%M:%S')
 
 class class_get_values(object):
-    debug = 0
+    debug = 1
     
     @classmethod
     def _debug(self, level, msg):
@@ -34,14 +38,15 @@ class class_get_values(object):
         return False
 
     @classmethod
-    def toVolts(self, data, Vmultip,vcc, reference):
+    def toVolts(self, data, Vmultip,vcc, reference, maxV):
         factor = vcc / 256.0
         out = []
         for di in data:
-            if di < 240:
+            if di < 250:
+                m_volts = abs(di - reference) * factor
+                if m_volts < maxV:
+                    out.append(((m_volts) * Vmultip)) 
 
-                volts = (((abs(di-reference) * factor) ) * Vmultip)
-                out.append(volts) 
         return out
 
     @classmethod
@@ -119,17 +124,18 @@ class class_get_values(object):
         toAmperToWat    = False
         reference = 0
         sinf=True
-        loops=2
+        loops=1
+        maxV = 240
         if kind == "W" and address == 0x48:
-            STDfilter       = True
-            accuracy        = 40
+            STDfilter       = False
+            accuracy        = 25
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
-            sinf            = True
-            loops           = 1
+            sinf            = False
+            loops           = 2
             vcc             = 3.27
-	    
+            maxV            = 1
         elif kind == "V" and address == 0x48:
             Vmultip      = 12
             STDfilter    = True
@@ -148,8 +154,8 @@ class class_get_values(object):
             STDdirection = "all"
 
         elif kind == "V" and sensor == 0 and address == 0x4c:
-            Vmultip      = 130
-            STDfilter    = True
+            Vmultip      = 131
+            STDfilter    = False
             ChauvenetC   = 1 
             avgToCut     =  0.3
             accuracy     = 10
@@ -158,7 +164,7 @@ class class_get_values(object):
            # reference       = 1
             sinf 	     = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV
 
 
     @classmethod
@@ -173,29 +179,31 @@ class class_get_values(object):
 
     @classmethod
     def getValue(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops= self.getSensorConf(sensor,address,kind)
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV= self.getSensorConf(sensor,address,kind)
         out = []
         data_tmp =[]
-        data = self.readFromI2C(sensor, address, accuracy,loops)
-        print data
-        data=(self.toVolts(data, vMultip, vcc, reference))
-        print data
-        for i in data:
-            print i
-            if STDfilter:
-                data_tmp = self.filter_stdCh(i, ChauvenetC, STDdirection) 
+        data = self.readFromI2C(sensor, address, accuracy, loops)
+        try:
+            for i in data:
+                data_tmp=(self.toVolts(i, vMultip, vcc, reference, maxV))
+                
+                if STDfilter:
+                    data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
+                
+                if sinf:
+                    data_tmp = self.sinFilter(data_tmp)
+
+                if toAmper or toAmperToWat :
+                    data_tmp = self.toAmper(data_tmp)
+
+                if toAmperToWat:
+                    data_tmp = self.toWat(data_tmp)
+                out.append(max(data_tmp))   
             
-            if sinf:
-                data_tmp = self.sinFilter(data_tmp)
-
-            if toAmper or toAmperToWat :
-                data_tmp = self.toAmper(data_tmp)
-
-            if toAmperToWat:
-                data_tmp = self.toWat(data_tmp)
-            out.append(max(data_tmp))    
-
-        return  mean(out)
+                out_ = max(out)
+        except:
+            _out=0
+        return  out_
 
 
     #read data from sensor
@@ -203,7 +211,7 @@ class class_get_values(object):
     def __init__(self, *args):
 	for arg in args:
  #           try:
-                start = dt.now()  
+                start = dt.now() 
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]

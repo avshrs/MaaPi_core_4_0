@@ -18,8 +18,6 @@ class pcfxxxxi2(object):
 		return True
 	return False   
 
-
-
     @classmethod
     def toVolts(self, data, Vmultip,vcc, vccAdjust,reference):
         factor = vcc / 256.0
@@ -62,6 +60,7 @@ class pcfxxxxi2(object):
 
 
     @classmethod
+
     def readFromI2C(self,sensor, address, accuracy):
 	#while True:
         print self.bus.write_byte(address,sensor)
@@ -90,10 +89,10 @@ class pcfxxxxi2(object):
     def getSensorConf(self,sensor,address,kind):
         if kind == "W" and address == 0x48:
             Vmultip = 1
-            STDfilter = True
+            STDfilter = False
             ChauvenetC = 1
             avgToCut     =  0.2
-            accuracy = 40
+            accuracy = 20
             STDdirection ="all"
             vcc= 3.27
             vccAdjust = vcc/1.96225
@@ -149,11 +148,10 @@ class pcfxxxxi2(object):
 
         data = self.toVolts(data, Vmultip, vcc, vccAdjust, reference)
         self.filter_gtavg(data,0.5)
-        #print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
+            
         if STDfilter:
             data = self.filter_stdCh(data,ChauvenetC,STDdirection)
-        #print "min= {0}, \tmax= {1}, \tavg={2}".format(min(data),max(data) ,mean(data))        
-	
+       
         if toAmper or toAmperToWat :
             data = self.toAmper(data)
         
