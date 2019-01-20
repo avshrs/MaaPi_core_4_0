@@ -5,7 +5,8 @@ from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 
 #import smbus
-import lib.PythonSmbus2 as smbus
+from lib.lib_maapi_i2c_pi import I2C_MaaPi
+
 import time
 
 
@@ -43,7 +44,7 @@ class class_get_values(object):
         ONE_TIME_LOW_RES_MODE = 0x23
 
         #bus = smbus.SMBus(0) # Rev 1 Pi uses 0
-        bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
+        bus = I2C_MaaPi(1)  # Rev 2 Pi uses 1
 
         def convertToNumber(data):
             # Simple function to convert 2 bytes of data
@@ -51,7 +52,8 @@ class class_get_values(object):
             return ((data[1] + (256 * data[0])) / 1.2)
 
         def readLight(addr=DEVICE):
-            data = bus.read_i2c_block_data32(addr, ONE_TIME_HIGH_RES_MODE_2,1)
+            data = bus.read_i2c_block_data(addr, ONE_TIME_HIGH_RES_MODE_2,32)
+            print data
             return convertToNumber(data)
  
         for arg in args:

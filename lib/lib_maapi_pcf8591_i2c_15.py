@@ -6,7 +6,7 @@ from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
-from lib.PythonSmbus2 import SMBus
+from lib.lib_maapi_i2c_pi import I2C_MaaPi
 import time
 import logging
 
@@ -24,7 +24,7 @@ class class_get_values(object):
         if self.debug >= level:
             logging.debug("lib_maapi_pcf8591_i2c_15 \t- {0}".format(msg))
 
-    bus = SMBus(1)
+    bus = I2C_MaaPi(1)
 
     @classmethod 
     def listIsZero(self,data): 
@@ -78,10 +78,10 @@ class class_get_values(object):
 
     @classmethod
     def readFromI2C(self,sensor, address, accuracy, loops):
-        self.bus.write_byte(address,int(sensor))
+        #self.bus.write_byte(address,int(sensor))
         data = []
         for i in range(0,loops):
-            data.append(self.bus.read_i2c_block_data32(address,int(sensor),accuracy))
+            data.append(self.bus.write_read_i2c_block_data32(address,int(sensor),int(sensor),accuracy))
         return data
 
     @classmethod

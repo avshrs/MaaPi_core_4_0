@@ -282,13 +282,26 @@ class I2C_MaaPi(object):
         )
         ioctl(self.fd, I2C_SMBUS, msg)
         return msg.data.contents.byte
-    def ioctl_def(self,fd, I2C_SMBUS,msg)
+
+    def ioctl_def(self,fd, I2C_SMBUS,msg):
         while True:
             if not lock.acquire(False):
                 time.sleep(0.001)
             else:
                 try:
                     ioctl(self.fd, I2C_SMBUS, msg)                    
+                finally:
+                    lock.release()          
+                    break    
+    
+    def ioctl_def_wr(self,fd, I2C_SMBUS,w_msg, r_msg):
+        while True:
+            if not lock.acquire(False):
+                time.sleep(0.001)
+            else:
+                try:
+                    ioctl(self.fd, I2C_SMBUS, w_msg)                    
+                    ioctl(self.fd, I2C_SMBUS, r_msg)                    
                 finally:
                     lock.release()          
                     break                    
@@ -304,33 +317,62 @@ class I2C_MaaPi(object):
         msg = i2c_smbus_ioctl_data.create(
             read_write=I2C_SMBUS_WRITE, command=value, size=I2C_SMBUS_BYTE
         )
-        lock.acquire()
-        ioctl(self.fd, I2C_SMBUS, msg)
-        lock.release()
+ 
+        self.ioctl_def(self.fd, I2C_SMBUS, msg)
+
+    def write_read_i2c_block_data32(self, i2c_addr, w_register, r_register, length):
+        d=[]        
+        self._set_address(i2c_addr)
+
+        for i in range(0,length):
+                w_msg = i2c_smbus_ioctl_data.create(
+                   read_write=I2C_SMBUS_WRITE, command=w_register, size=I2C_SMBUS_BYTE
+                )
+                r_msg = i2c_smbus_ioctl_data.create(
+                    read_write=I2C_SMBUS_READ, command=r_register, size=I2C_SMBUS_I2C_BLOCK_DATA
+                )
+
+                r_msg.data.contents.byte = 32
+                self.ioctl_def_wr(self.fd, I2C_SMBUS,w_msg, r_msg)
+                d+= r_msg.data.contents.block[8:33]
+        return d
+
 
     def read_i2c_block_data32(self, i2c_addr, register, length):
         d=[]        
         self._set_address(i2c_addr)
         for i in range(0,length):
-                msg = i2c_smbus_ioctl_data.create(
-                    read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
+            msg = i2c_smbus_ioctl_data.create(
+                read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
                 )
-                msg.data.contents.byte = 32
-                
-                d+= msg.data.contents.block[8:33]
+            msg.data.contents.byte = 32
+            self.ioctl_def(self.fd, I2C_SMBUS,msg)
+            d+= msg.data.contents.block[8:33]
         return d
     
-
+    
+    def read_i2c_block_data(self, i2c_addr, register, length):
+         if length > I2C_SMBUS_BLOCK_MAX:
+            raise ValueError("Desired block length over %d bytes" % I2C_SMBUS_BLOCK_MAX)      
+        self._set_address(i2c_addr)
+        msg = i2c_smbus_ioctl_data.create(
+                read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
+                )
+        msg.data.contents.byte = length
+        
+        self.ioctl_def(self.fd, I2C_SMBUS,msg)
+        
+        return msg.data.contents.block[1:length + 1]
+    
+"""
 d= I2C_MaaPi(1)
 
 def dupa(add, sens, lens):
     
     for i in range(0,4):
-        d.write_byte(add,i)
-        s = d.read_i2c_block_data32(add,i,lens)
-        print sens, min(s),max(s)
+        s = d.write_read_i2c_block_data32(add,i,i,lens)
+        print sens, i,min(s),max(s)
     
-
 
 def run():
     print "running"
@@ -340,9 +382,10 @@ def run():
     
     
 
-    thread2 = Thread(target=dupa, args=(0x48,1,100))
+    thread2 = Thread(target=dupa, args=(0x4c,1,100))
     ##thread2.daemon = True
     thread2.start()
 
 if __name__ == "__main__":
     run()
+""" 
