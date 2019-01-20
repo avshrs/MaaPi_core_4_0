@@ -127,6 +127,7 @@ class class_get_values(object):
         loops=1
         maxV = 240
         if kind == "W" and address == 0x48:
+            Vmultip         = 0.7
             STDfilter       = False
             accuracy        = 25
             STDdirection    ="all"
@@ -149,16 +150,16 @@ class class_get_values(object):
 
         elif kind == "V" and address == 0x4c and sensor != 0 :
             Vmultip      = 255
-            STDfilter    = True
+            STDfilter    = False
             accuracy     = 10
             STDdirection = "all"
 
         elif kind == "V" and sensor == 0 and address == 0x4c:
-            Vmultip      = 131
-            STDfilter    = False
+            Vmultip      = 195
+            STDfilter    = True
             ChauvenetC   = 1 
             avgToCut     =  0.3
-            accuracy     = 10
+            accuracy     = 15
             STDdirection="all"
             vcc          = 3.27
            # reference       = 1
