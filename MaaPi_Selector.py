@@ -2,6 +2,8 @@
 from lib.MaaPi_DB_connection import MaaPiDBConnection
 from datetime import datetime
 from conf.MaaPi_Settings import *
+from threading import Lock
+lock = Lock()
 import threading
 import sched
 import time

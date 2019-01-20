@@ -6,12 +6,11 @@ from scipy import signal
 from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
-from PythonSmbus2 import SMBus
 from lib.PythonSmbus2 import SMBus
 import time
 import logging
 
-logging.basicConfig(
+logging.basicConfig( 
     filename='/home/pi/MaaPi110/bin/logs/Maapi_Selector.log',
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -122,7 +121,7 @@ class class_get_values(object):
         loops=1
         if kind == "W" and address == 0x48:
             STDfilter       = True
-            accuracy        = 50
+            accuracy        = 20
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
@@ -144,7 +143,7 @@ class class_get_values(object):
         elif kind == "V" and address == 0x4c and sensor != 0 :
             Vmultip      = 255
             STDfilter    = True
-            accuracy     = 30
+            accuracy     = 10
             STDdirection = "all"
 
         elif kind == "V" and sensor == 0 and address == 0x4c:
@@ -152,7 +151,7 @@ class class_get_values(object):
             STDfilter    = True
             ChauvenetC   = 1 
             avgToCut     =  0.3
-            accuracy     = 25
+            accuracy     = 10
             STDdirection="all"
             vcc          = 3.27
            # reference       = 1

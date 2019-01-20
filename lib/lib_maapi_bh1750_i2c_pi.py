@@ -4,7 +4,8 @@ import sys
 from datetime import datetime
 import lib.MaaPi_DB_connection as maapidb
 
-import smbus
+#import smbus
+import lib.PythonSmbus2 as smbus
 import time
 
 
@@ -50,14 +51,14 @@ class class_get_values(object):
             return ((data[1] + (256 * data[0])) / 1.2)
 
         def readLight(addr=DEVICE):
-            data = bus.read_i2c_block_data(addr, ONE_TIME_HIGH_RES_MODE_2)
+            data = bus.read_i2c_block_data32(addr, ONE_TIME_HIGH_RES_MODE_2,1)
             return convertToNumber(data)
-
+ 
         for arg in args:
-            try:
+        #   try:
                 maapidb.MaaPiDBConnection.insert_data(arg[0], readLight(),
                                                       arg[2], True)
-            except:
-                self._debug(1, "\tERROR reading values from dev: {0}".format(
-                    arg[1]))
-                maapidb.MaaPiDBConnection.insert_data(arg[0], 0, arg[2], False)
+         #   except:
+         #       self._debug(1, "\tERROR reading values from dev: {0}".format(
+         #           arg[1]))
+         #       maapidb.MaaPiDBConnection.insert_data(arg[0], 0, arg[2], False)

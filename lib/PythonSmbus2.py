@@ -307,7 +307,7 @@ class SMBus(object):
         self._set_address(i2c_addr)
         msg = i2c_smbus_ioctl_data.create(
             read_write=I2C_SMBUS_WRITE, command=value, size=I2C_SMBUS_BYTE
-        )
+        ) 
         lock.acquire()
         ioctl(self.fd, I2C_SMBUS, msg)
         lock.release()
@@ -392,6 +392,7 @@ class SMBus(object):
         )
         msg.data.contents.byte = length
         ioctl(self.fd, I2C_SMBUS, msg)
+        
         return msg.data.contents.block[1:length+1]
 
 
@@ -410,10 +411,18 @@ class SMBus(object):
             msg = i2c_smbus_ioctl_data.create(
                 read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
             )
+  
             msg.data.contents.byte = 32
+            #while lock.acquire(False):
             lock.acquire()
-            ioctl(self.fd, I2C_SMBUS, msg)
-            lock.release()
+            try:
+                ioctl(self.fd, I2C_SMBUS, msg)
+            except:
+                print "err i2c"
+            finally:
+                lock.release()
+                
+            
             d+= msg.data.contents.block[8:33]
 	
 	return d
