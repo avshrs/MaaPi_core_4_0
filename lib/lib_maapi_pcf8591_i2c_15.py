@@ -121,7 +121,7 @@ class class_get_values(object):
         loops=1
         if kind == "W" and address == 0x48:
             STDfilter       = True
-            accuracy        = 20
+            accuracy        = 40
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
@@ -176,22 +176,22 @@ class class_get_values(object):
         out = []
         data_tmp =[]
         data = self.readFromI2C(sensor, address, accuracy,loops)
-        for i in data:
-            data_tmp=(self.toVolts(i, vMultip, vcc, reference))
+        
+        data_tmp=(self.toVolts(data, vMultip, vcc, reference))
 
-            if STDfilter:
-                data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
+        if STDfilter:
+            data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
+        
+        if sinf:
+            data_tmp = self.sinFilter(data_tmp)
+
+        if toAmper or toAmperToWat :
+            data_tmp = self.toAmper(data_tmp)
+
+        if toAmperToWat:
+            data_tmp = self.toWat(data_tmp)
             
-            if sinf:
-                data_tmp = self.sinFilter(data_tmp)
-
-            if toAmper or toAmperToWat :
-                data_tmp = self.toAmper(data_tmp)
-
-            if toAmperToWat:
-                data_tmp = self.toWat(data_tmp)
-            out.append(max(data_tmp))
-        return  mean(out)
+        return  max(data_tmp)
 
 
     #read data from sensor

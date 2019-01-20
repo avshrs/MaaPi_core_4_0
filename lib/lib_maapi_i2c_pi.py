@@ -347,21 +347,19 @@ class I2C_MaaPi(object):
                 )
             msg.data.contents.byte = 32
             self.ioctl_def(self.fd, I2C_SMBUS,msg)
-            d+= msg.data.contents.block[8:33]
+            d+= msg.data.contents.block[1:32+1]
         return d
     
     
     def read_i2c_block_data(self, i2c_addr, register, length):
-         if length > I2C_SMBUS_BLOCK_MAX:
+        if length > I2C_SMBUS_BLOCK_MAX:
             raise ValueError("Desired block length over %d bytes" % I2C_SMBUS_BLOCK_MAX)      
         self._set_address(i2c_addr)
         msg = i2c_smbus_ioctl_data.create(
-                read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
-                )
+            read_write=I2C_SMBUS_READ, command=register, size=I2C_SMBUS_I2C_BLOCK_DATA
+            )
         msg.data.contents.byte = length
-        
-        self.ioctl_def(self.fd, I2C_SMBUS,msg)
-        
+        self.ioctl_def(self.fd, I2C_SMBUS, msg)
         return msg.data.contents.block[1:length + 1]
     
 """

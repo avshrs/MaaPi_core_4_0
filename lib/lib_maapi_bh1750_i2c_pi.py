@@ -6,7 +6,7 @@ import lib.MaaPi_DB_connection as maapidb
 
 #import smbus
 from lib.lib_maapi_i2c_pi import I2C_MaaPi
-
+import smbus
 import time
 
 
@@ -43,7 +43,7 @@ class class_get_values(object):
         # Device is automatically set to Power Down after measurement.
         ONE_TIME_LOW_RES_MODE = 0x23
 
-        #bus = smbus.SMBus(0) # Rev 1 Pi uses 0
+        #bus = smbus.SMBus(1) # Rev 1 Pi uses 0
         bus = I2C_MaaPi(1)  # Rev 2 Pi uses 1
 
         def convertToNumber(data):
@@ -52,8 +52,9 @@ class class_get_values(object):
             return ((data[1] + (256 * data[0])) / 1.2)
 
         def readLight(addr=DEVICE):
-            data = bus.read_i2c_block_data(addr, ONE_TIME_HIGH_RES_MODE_2,32)
-            print data
+
+            data = bus.read_i2c_block_data(0x23, CONTINUOUS_HIGH_RES_MODE_1,32)
+            
             return convertToNumber(data)
  
         for arg in args:
