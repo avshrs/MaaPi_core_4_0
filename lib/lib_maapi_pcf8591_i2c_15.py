@@ -131,7 +131,7 @@ class class_get_values(object):
 	    calibration	    = 0.01
             Vmultip         = 0.65
             STDfilter       = True
-            accuracy        = 15
+            accuracy        = 20
 	    ChauvenetC 	    = 1.5
             STDdirection    ="all"
             reference       = 126.9
