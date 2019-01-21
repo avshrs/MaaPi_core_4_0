@@ -7,9 +7,7 @@ from statistics import median, stdev, mean
 from datetime import datetime as dt
 import lib.MaaPi_DB_connection as maapidb
 
-
 from lib.lib_maapi_i2c_pi import I2C_MaaPi
-
 
 import time
 import logging
@@ -131,13 +129,13 @@ class class_get_values(object):
 	    calibration	    = 0.01
             Vmultip         = 0.65
             STDfilter       = True
-            accuracy        = 20
+            accuracy        = 10
 	    ChauvenetC 	    = 1.5
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
             sinf            = False
-            loops           = 3
+            loops           = 5
             vcc             = 3.27
             maxV            = 1
 
