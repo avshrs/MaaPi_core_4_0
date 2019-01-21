@@ -129,13 +129,13 @@ class class_get_values(object):
 	    calibration	    = 0.01
             Vmultip         = 0.65
             STDfilter       = True
-            accuracy        = 10
-	    ChauvenetC 	    = 1.5
+            accuracy        = 15
+            ChauvenetC 	    = 1
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
             sinf            = False
-            loops           = 5
+            loops           = 4
             vcc             = 3.27
             maxV            = 1
 
