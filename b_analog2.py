@@ -63,9 +63,10 @@ class pcfxxxxi2(object):
 
     def readFromI2C(self,sensor, address, accuracy):
 	#while True:
-        print self.bus.write_byte(address,sensor)
+        self.bus.write_byte(address,sensor)
         read = self.bus.read_i2c_block_data32(address,sensor,accuracy)
-        #  else:
+	print read        
+#  else:
         return read
 
     @classmethod
@@ -92,7 +93,7 @@ class pcfxxxxi2(object):
             STDfilter = False
             ChauvenetC = 1
             avgToCut     =  0.2
-            accuracy = 20
+            accuracy = 10
             STDdirection ="all"
             vcc= 3.27
             vccAdjust = vcc/1.96225
@@ -145,12 +146,15 @@ class pcfxxxxi2(object):
         Vmultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc, vccAdjust, toAmper, toAmperToWat, avgToCut , reference = self.getSensorConf(sensor,address,kind)
         
         data = self.readFromI2C(sensor, address, accuracy)
+  #      if STDfilter:
+        data = self.filter_stdCh(data,ChauvenetC,STDdirection)    
+
 
         data = self.toVolts(data, Vmultip, vcc, vccAdjust, reference)
         self.filter_gtavg(data,0.5)
             
-        if STDfilter:
-            data = self.filter_stdCh(data,ChauvenetC,STDdirection)
+#        if STDfilter:
+ #           data = self.filter_stdCh(data,ChauvenetC,STDdirection)
        
         if toAmper or toAmperToWat :
             data = self.toAmper(data)
@@ -163,11 +167,11 @@ class pcfxxxxi2(object):
         return  max(data)
 
     def __init__(self,args):
-        for i in range(0,4):
+        for i in range(0,1):
             start1 = dt.datetime.now()
             volt  = 0
             amper = 0 
-            wat   = self.getdata(i,0x4c,"V") 
+            wat   = self.getdata(i,0x48,"W") 
             print ("{0}\t volts= {1:.1f} \tampers= {2:.1f} \twats= {3:.3f} ".format(i,volt,amper,wat))
  
             stop1 = dt.datetime.now()

@@ -38,14 +38,14 @@ class class_get_values(object):
         return False
 
     @classmethod
-    def toVolts(self, data, Vmultip,vcc, reference, maxV):
+    def toVolts(self, data, Vmultip,vcc, reference, maxV, calibration):
         factor = vcc / 256.0
         out = []
         for di in data:
             if di < 250:
                 m_volts = abs(di - reference) * factor
                 if m_volts < maxV:
-                    out.append(((m_volts) * Vmultip)) 
+                    out.append(((m_volts) * Vmultip)-calibration) 
 
         return out
 
@@ -126,15 +126,17 @@ class class_get_values(object):
         sinf=True
         loops=1
         maxV = 240
+        calibration = 0
         if kind == "W" and address == 0x48:
+	    calibration	    = 0.01
             Vmultip         = 0.65
-            STDfilter       = False 
-            accuracy        = 25
+            STDfilter       = True
+            accuracy        = 15
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
             sinf            = False
-            loops           = 2
+            loops           = 3
             vcc             = 3.27
             maxV            = 1
 
@@ -154,16 +156,17 @@ class class_get_values(object):
             
 
         elif kind == "V" and sensor == 0 and address == 0x4c: #230v
-            Vmultip      = 195
-            STDfilter    = True
+            Vmultip      = 143.6
+            STDfilter    = False
             ChauvenetC   = 1 
-            accuracy     = 15
+            loops        = 2
+            accuracy     = 10
             STDdirection="all"
             vcc          = 3.27
            # reference       = 1
             sinf 	     = False
 
-        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV
+        return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV, calibration
 
 
     @classmethod
@@ -178,13 +181,16 @@ class class_get_values(object):
 
     @classmethod
     def getValue(self,sensor,address,kind):
-        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV= self.getSensorConf(sensor,address,kind)
+        vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV, calibration = self.getSensorConf(sensor,address,kind)
         out = []
         data_tmp =[]
         data = self.readFromI2C(sensor, address, accuracy, loops)
         try:
-            for i in data:
-                data_tmp=(self.toVolts(i, vMultip, vcc, reference, maxV))
+            for i in data: 
+                if STDfilter:
+                    data_tmp = self.filter_stdCh(i_tmp, ChauvenetC, STDdirection)
+
+                data_tmp=(self.toVolts(data_tmp, vMultip, vcc, reference, maxV,calibration ))
                 
                 if STDfilter:
                     data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
@@ -199,9 +205,11 @@ class class_get_values(object):
                     data_tmp = self.toWat(data_tmp)
                 out.append(max(data_tmp))   
             
-                out_ = max(out)
+            out_ = min(out)
+	
         except:
-            _out=0
+            _out = 0
+		
         return  out_
 
 
@@ -222,6 +230,7 @@ class class_get_values(object):
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
                 print stop - start
             except Exception as e:
+		print e
                 self._debug(1, "\tERROR reading values from dev: {0}".format(e))
                 self._debug(1, "\tERROR ------------------------------------------------------- {0}".format(arg)) 
                 maapidb.MaaPiDBConnection.insert_data(arg[0],0, " " , False)
