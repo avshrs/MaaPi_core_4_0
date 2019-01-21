@@ -132,6 +132,7 @@ class class_get_values(object):
             Vmultip         = 0.65
             STDfilter       = True
             accuracy        = 15
+	    ChauvenetC 	    = 1.5
             STDdirection    ="all"
             reference       = 126.9
             toAmperToWat    = True
@@ -157,13 +158,9 @@ class class_get_values(object):
 
         elif kind == "V" and sensor == 0 and address == 0x4c: #230v
             Vmultip      = 143.6
-            STDfilter    = False
-            ChauvenetC   = 1 
             loops        = 2
             accuracy     = 10
-            STDdirection="all"
             vcc          = 3.27
-           # reference       = 1
             sinf 	     = False
 
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV, calibration
@@ -183,17 +180,15 @@ class class_get_values(object):
     def getValue(self,sensor,address,kind):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV, calibration = self.getSensorConf(sensor,address,kind)
         out = []
-        data_tmp =[]
-        data = self.readFromI2C(sensor, address, accuracy, loops)
+#        data_tmp =[]
+        data_ = self.readFromI2C(sensor, address, accuracy, loops)
         try:
-            for i in data: 
+            for data_tmp in data_: 
                 if STDfilter:
-                    data_tmp = self.filter_stdCh(i_tmp, ChauvenetC, STDdirection)
+                    data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection)
 
                 data_tmp=(self.toVolts(data_tmp, vMultip, vcc, reference, maxV,calibration ))
                 
-                if STDfilter:
-                    data_tmp = self.filter_stdCh(data_tmp, ChauvenetC, STDdirection) 
                 
                 if sinf:
                     data_tmp = self.sinFilter(data_tmp)
@@ -207,12 +202,11 @@ class class_get_values(object):
             
             out_ = min(out)
 	
-        except:
-            _out = 0
+        except Exception as e:
+            print e
+            out_ = 0
 		
         return  out_
-
-
     #read data from sensor
     @classmethod
     def __init__(self, *args):
