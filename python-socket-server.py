@@ -6,7 +6,7 @@ import selectors
 import types
 #https://realpython.com/python-sockets/
 
-class MaapiListener(object):
+class MaapiSocketServer(object):
     sel = selectors.DefaultSelector()
     host = "192.168.1.169"
     port = 12345
@@ -62,4 +62,4 @@ class MaapiListener(object):
             self.sel.close()
 
 if __name__ == "__main__":
-    MaapiListener.run()
+    MaapiSocketServer.run()
