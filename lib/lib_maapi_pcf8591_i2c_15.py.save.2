@@ -164,21 +164,10 @@ class class_get_values(object):
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV, calibration
 
 
-   # @classmethod
-    #def sinFilter(self, data):
-   #     value = np.array(data)
-  #      out = []
-#        b, a = signal.butter(1, 0.05)
- #       out = signal.filtfilt(b, a, value)
-
-    #    return out
-
-
     @classmethod
     def getValue(self,sensor,address,kind):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV, calibration = self.getSensorConf(sensor,address,kind)
         out = []
-#        data_tmp =[]
         data_ = self.readFromI2C(sensor, address, accuracy, loops)
         try:
             for data_tmp in data_: 
@@ -187,10 +176,6 @@ class class_get_values(object):
 
                 data_tmp=(self.toVolts(data_tmp, vMultip, vcc, reference, maxV,calibration ))
                 
-                
-      #          if sinf:
-     #               data_tmp = self.sinFilter(data_tmp)
-
                 if toAmper or toAmperToWat :
                     data_tmp = self.toAmper(data_tmp)
 
