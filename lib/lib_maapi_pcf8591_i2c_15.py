@@ -129,7 +129,7 @@ class class_get_values(object):
             calibration	    = 0.01
             Vmultip         = 0.73
             STDfilter       = True
-            accuracy        = 10
+            accuracy        = 8
             ChauvenetC 	    = 1
             STDdirection    = "up"
             reference       = 126.9
@@ -142,10 +142,10 @@ class class_get_values(object):
         elif kind == "V" and address == 0x48: # 5v 
             Vmultip      = 2
             STDfilter    = True
-            accuracy     = 10
+            accuracy     = 5
             vcc          = 3.27  
-            STDdirection = "all"
-
+            ChauvenetC 	    = 1
+            STDdirection    = "up"
         elif kind == "V" and address == 0x4c and sensor == 3 :  # 3.3v 
             Vmultip      = 1
             STDfilter    = False
@@ -157,9 +157,10 @@ class class_get_values(object):
         elif kind == "V" and sensor == 0 and address == 0x4c: #230v
             Vmultip      = 143.6
             loops        = 2
-            accuracy     = 10
+            accuracy     = 5
             vcc          = 3.27
-            sinf 	     = False
+            ChauvenetC 	    = 1
+            STDdirection    = "up"
 
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV, calibration
 
@@ -185,7 +186,7 @@ class class_get_values(object):
                     data_tmp = self.toWat(data_tmp)
                 out.append(max(data_tmp))   
             
-            out_ = mean(out)
+            out_ = max(out)
 	
         except Exception as e:
             print e
