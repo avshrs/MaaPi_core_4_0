@@ -126,12 +126,12 @@ class class_get_values(object):
         maxV = 240
         calibration = 0
         if kind == "W" and address == 0x48:
-	    calibration	    = 0.01
-            Vmultip         = 0.65
+            calibration	    = 0.01
+            Vmultip         = 0.73
             STDfilter       = True
-            accuracy        = 15
+            accuracy        = 10
             ChauvenetC 	    = 1
-            STDdirection    ="all"
+            STDdirection    = "up"
             reference       = 126.9
             toAmperToWat    = True
             sinf            = False
@@ -143,7 +143,7 @@ class class_get_values(object):
             Vmultip      = 2
             STDfilter    = True
             accuracy     = 10
-            vcc          = 3.27 
+            vcc          = 3.27  
             STDdirection = "all"
 
         elif kind == "V" and address == 0x4c and sensor == 3 :  # 3.3v 
@@ -164,16 +164,6 @@ class class_get_values(object):
         return  Vmultip, STDfilter,STDdirection, ChauvenetC, accuracy,  vcc,  toAmper, toAmperToWat, avgToCut, sinf, reference, loops, maxV, calibration
 
 
-   # @classmethod
-    #def sinFilter(self, data):
-   #     value = np.array(data)
-  #      out = []
-#        b, a = signal.butter(1, 0.05)
- #       out = signal.filtfilt(b, a, value)
-
-    #    return out
-
-
     @classmethod
     def getValue(self,sensor,address,kind):
         vMultip, STDfilter, STDdirection, ChauvenetC, accuracy, vcc,  toAmper, toAmperToWat, avgToCut , sinf , reference, loops, maxV, calibration = self.getSensorConf(sensor,address,kind)
@@ -187,9 +177,6 @@ class class_get_values(object):
 
                 data_tmp=(self.toVolts(data_tmp, vMultip, vcc, reference, maxV,calibration ))
                 
-                
-      #          if sinf:
-     #               data_tmp = self.sinFilter(data_tmp)
 
                 if toAmper or toAmperToWat :
                     data_tmp = self.toAmper(data_tmp)
@@ -198,7 +185,7 @@ class class_get_values(object):
                     data_tmp = self.toWat(data_tmp)
                 out.append(max(data_tmp))   
             
-            out_ = min(out)
+            out_ = mean(out)
 	
         except Exception as e:
             print e
