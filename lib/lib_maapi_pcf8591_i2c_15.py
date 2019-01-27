@@ -43,7 +43,7 @@ class class_get_values(object):
             if di < 250:
                 m_volts = abs(di - reference) * factor
                 if m_volts < maxV:
-                    out.append(((m_volts) * Vmultip)-calibration) 
+                    out.append(abs(((m_volts) * Vmultip)-calibration)) 
 
         return out
 
@@ -126,10 +126,10 @@ class class_get_values(object):
         maxV = 240
         calibration = 0
         if kind == "W" and address == 0x48:
-            calibration	    = 0.01
+            calibration	    = 0.027
             Vmultip         = 0.73
             STDfilter       = True
-            accuracy        = 8
+            accuracy        = 10
             ChauvenetC 	    = 1
             STDdirection    = "up"
             reference       = 126.9
@@ -202,13 +202,11 @@ class class_get_values(object):
                 nr = int(arg[1][-2],10)
                 addr = int(arg[1][-7:-3],16)
                 kind = arg[1][-1]
-                mutex = Lock()
-                mutex.acquire()
                 value = self.getValue(nr, addr, str(kind))             
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-                print stop - start
+                print stop,  nr, addr, str(kind), float((((stop.second*1000000.0)+(stop.microsecond))/1000000.0 - ((start.second*1000000.0)+(start.microsecond))/1000000.0))
             except Exception as e:
 		print e
                 self._debug(1, "\tERROR reading values from dev: {0}".format(e))
