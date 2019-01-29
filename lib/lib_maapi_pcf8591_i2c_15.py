@@ -126,8 +126,8 @@ class class_get_values(object):
         maxV = 240
         calibration = 0
         if kind == "W" and address == 0x48:
-            calibration	    = 0.027
-            Vmultip         = 0.73
+            calibration	    = 0.03
+            Vmultip         = 0.75
             STDfilter       = True
             accuracy        = 10
             ChauvenetC 	    = 1
