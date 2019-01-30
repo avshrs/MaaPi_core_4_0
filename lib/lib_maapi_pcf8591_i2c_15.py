@@ -43,7 +43,7 @@ class class_get_values(object):
             if di < 250:
                 m_volts = abs(di - reference) * factor
                 if m_volts < maxV:
-                    out.append(abs(((m_volts) * Vmultip)-calibration)) 
+                    out.append(((m_volts) * Vmultip)-calibration)
 
         return out
 
@@ -126,13 +126,13 @@ class class_get_values(object):
         maxV = 240
         calibration = 0
         if kind == "W" and address == 0x48:
-            calibration	    = 0.03
+            calibration	    = 0.01
             Vmultip         = 0.75
             STDfilter       = True
             accuracy        = 10
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 126.9
+            reference       = 127
             toAmperToWat    = True
             sinf            = False
             loops           = 4
