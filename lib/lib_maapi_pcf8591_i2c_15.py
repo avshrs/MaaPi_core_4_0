@@ -41,7 +41,7 @@ class class_get_values(object):
         out = []
         for di in data:
             if di < 250:
-                m_volts = abs(di - reference) * factor
+                m_volts = (di - reference) * factor
                 if m_volts < maxV:
                     out.append(((m_volts) * Vmultip)-calibration)
 
@@ -132,7 +132,7 @@ class class_get_values(object):
             accuracy        = 10
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 127
+            reference       = 126.5
             toAmperToWat    = True
             sinf            = False
             loops           = 4
