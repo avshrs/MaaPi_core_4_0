@@ -132,7 +132,7 @@ class class_get_values(object):
             accuracy        = 10
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 126.5
+            reference       = 128
             toAmperToWat    = True
             sinf            = False
             loops           = 4
