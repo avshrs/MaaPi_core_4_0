@@ -39,13 +39,17 @@ class class_get_values(object):
     def toVolts(self, data, Vmultip,vcc, reference, maxV, calibration):
         factor = vcc / 256.0
         out = []
+        print "max:{0} \tmin{1} \tmean{2} \tmax - min{3}".format(max(data), min(data), mean(data), max(data) - min(data))
+
         for di in data:
+
             if di < 250:
                 m_volts = (di - reference) * factor
                 if m_volts < maxV:
                     out.append(((m_volts) * Vmultip)-calibration)
-
-        return out
+#        print "max:{0} \tmin{1} \tmean{2} \tmax - min{3}".format(max(out), min(out), mean(out), max(out) + min(out))
+        
+        return out  
 
     @classmethod
     def filter_gtavg(self,data,percent):
@@ -126,16 +130,17 @@ class class_get_values(object):
         maxV = 240
         calibration = 0
         if kind == "W" and address == 0x48:
-            calibration	    = 0.01
+            calibration	    = 0.0
             Vmultip         = 0.75
             STDfilter       = True
-            accuracy        = 10
+            accuracy        = 100
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 128
+            reference       = 126.4
+
             toAmperToWat    = True
             sinf            = False
-            loops           = 4
+            loops           = 1
             vcc             = 3.27
             maxV            = 1
 

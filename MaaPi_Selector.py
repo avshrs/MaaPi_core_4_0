@@ -24,7 +24,7 @@ logging.basicConfig(
 
 
 class Selector(object):
-    debug = 1
+    debug = 2
     start = datetime.now()
 
     # debug method
