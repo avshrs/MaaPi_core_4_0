@@ -39,15 +39,15 @@ class class_get_values(object):
     def toVolts(self, data, Vmultip,vcc, reference, maxV, calibration):
         factor = vcc / 256.0
         out = []
-        print "max:{0} \tmin{1} \tmean{2} \tmax - min{3}".format(max(data), min(data), mean(data), max(data) - min(data))
-
+#        print data
         for di in data:
 
-            if di < 250:
-                m_volts = (di - reference) * factor
+            if di < 250 and di >= reference:
+
+                m_volts = abs(di - reference) * factor
                 if m_volts < maxV:
                     out.append(((m_volts) * Vmultip)-calibration)
-#        print "max:{0} \tmin{1} \tmean{2} \tmax - min{3}".format(max(out), min(out), mean(out), max(out) + min(out))
+        print "max:{0} \tmin{1} \tmean{2} \tmax - min{3}".format(max(out), min(out), mean(out), max(out) + min(out))
         
         return out  
 
@@ -67,7 +67,7 @@ class class_get_values(object):
         avg = mean(data)
         std_ = stdev(data)
         std = std_ * ChauvenetC
-        if std != 0:
+        if std != 0 and avg != 0:
             for do in data:
                 if STDdirection == "all":
                     if do < (avg + std) and do > (avg - std):
@@ -136,7 +136,7 @@ class class_get_values(object):
             accuracy        = 100
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 126.4
+            reference       = 128
 
             toAmperToWat    = True
             sinf            = False
@@ -195,7 +195,7 @@ class class_get_values(object):
 	
         except Exception as e:
             print e
-            out_ = 0
+            out_ = 0.0001
 		
         return  out_
     #read data from sensor
@@ -211,7 +211,7 @@ class class_get_values(object):
                 maapidb.MaaPiDBConnection.insert_data(arg[0],value ," " , True)
                 stop = dt.now()
                 self._debug(1, "\tReading values from Analog device : {0} - time of exec {1}".format(arg[1],stop-start))
-                print stop,  nr, addr, str(kind), float((((stop.second*1000000.0)+(stop.microsecond))/1000000.0 - ((start.second*1000000.0)+(start.microsecond))/1000000.0))
+#                print stop,  nr, addr, str(kind), float((((stop.second*1000000.0)+(stop.microsecond))/1000000.0 - ((start.second*1000000.0)+(start.microsecond))/1000000.0))
             except Exception as e:
 		print e
                 self._debug(1, "\tERROR reading values from dev: {0}".format(e))
