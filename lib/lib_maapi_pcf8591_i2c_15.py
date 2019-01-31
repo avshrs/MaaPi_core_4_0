@@ -131,13 +131,12 @@ class class_get_values(object):
         calibration = 0
         if kind == "W" and address == 0x48:
             calibration	    = 0.0
-            Vmultip         = 0.75
+            Vmultip         = 1.1
             STDfilter       = True
             accuracy        = 100
             ChauvenetC 	    = 1
             STDdirection    = "up"
             reference       = 127.5
-
             toAmperToWat    = True
             sinf            = False
             loops           = 1
