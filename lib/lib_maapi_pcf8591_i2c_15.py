@@ -136,7 +136,7 @@ class class_get_values(object):
             accuracy        = 100
             ChauvenetC 	    = 1
             STDdirection    = "up"
-            reference       = 128
+            reference       = 127.5
 
             toAmperToWat    = True
             sinf            = False
